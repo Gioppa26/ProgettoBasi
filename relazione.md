@@ -22,9 +22,9 @@ Si progetti uno schema entità/relazioni per la gestione di un registro automobi
 ## Strutturazione dei requisiti
 ## Operazioni richeste
 - **Op1**: Aggiunta nuovo veicolo prodotto [15 al giorno]
- -**Op2**: Calcolare tutti i dati relativi alla fabbrica soprattutto il numero dei veicoli prodotti [2 al giorno]
+- **Op2**: Calcolare tutti i dati relativi alla fabbrica soprattutto il numero dei veicoli prodotti [2 al giorno]
 ## Modello ER
-![SchemaER](imSchemaER.drawio.png)
+<img src="img/SchemaER.drawio.png">
 ## Regole di Gestione
 ### Vincoli d'integrità
 ### Regole di derivazione
