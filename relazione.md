@@ -24,7 +24,7 @@ Si progetti uno schema entità/relazioni per la gestione di un registro automobi
 - **Op1**: Aggiunta nuovo veicolo prodotto [15 al giorno]
  -**Op2**: Calcolare tutti i dati relativi alla fabbrica soprattutto il numero dei veicoli prodotti [2 al giorno]
 ## Modello ER
-![SchemaER](img/ModelloER.drawio.png)
+![SchemaER](imSchemaER.drawio.png)
 ## Regole di Gestione
 ### Vincoli d'integrità
 ### Regole di derivazione
