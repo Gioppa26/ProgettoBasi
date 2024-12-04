@@ -1,3 +1,0 @@
-# Relazione Basi di Dati
-
-
