@@ -44,21 +44,7 @@ Si progetti uno schema entità/relazioni per la gestione di un registro automobi
 
 ## Progettazione Logica
 ### Tabella volumi
-| Concetto               | Tipo  | Volume   |
-|---                     | ---   | ---      |
-| Veicolo                | E     | 90000    |
-| Proprietario           | E     | 125000   |
-| Combustibile           | E     | 5        |
-| Modello                | E     | 200      |
-| Fabbrica               | E     | 10       |
-| ProprietarioCorrente   | R     | 90000    |
-| ProprietariPassati     | R     | 225000   |
-| Appartiene             | R     | 90000    |
-| Prodotto               | R     | 200      |
-| Utilizza               | R     | 90000    |
-
-*In media una persona possiede 0.75 veicoli*
-*In media un veicolo ha avuto 2.5 proprietari nel passato*
+Aggingere tabella volumi
 
 ### Analisi delle ridondanze
 Si prende in considerazione la prima operazione. In un giorno vengono registrati 15 veicoli.
@@ -67,7 +53,6 @@ Mentre la seconda operazione ovvero, la visualizzazione dei dati della fabbrica 
 
 #### Presenza di ridondanza
 - Aggiundere (fare) mini schema ER
-<img src="img/SchemaRidondanza2.drawio.png"/>
 
 Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calcolo di ogni micro processo:
 
@@ -77,29 +62,10 @@ Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calc
   + cerco il modello e per risalire alla fabbrica
   + cerca la fabbrica di interesse
   + incremento di uno i veicoli prodotti
-
-|Concetto     |Costrutto|Accessi|Tipo|
-|--------     |---------|-------|----|
-|Veicolo      | E       |1      |S   |
-|Appartiene   |R        |1      |S   |
-|Modello      |E        |0      |    |
-|Prodotto     |R        |1      |L   |
-|Fabbrica     |E        |1      |L   |
-|Fabbrica     |E        |1      |S   |
-
-```math
-(15*3)*2 + (15*2) = 120
-```
+[Inserire tabella con i valori e il calcolo]
 + Operazione 2:
   + Leggere gli attributi della fabbrica
-
-|Concetto     |Costrutto|Accessi|Tipo|
-|--------     |---------|-------|----|
-|Fabbrica     |E        |1      |L   |
-
-```math
-2*1 = 2
-```
+[Inserire tabella con i valori e il calcolo]
 
 #### Assenza di ridondanza
 - Aggiundere (fare) mini schema ER
@@ -107,68 +73,24 @@ Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calc
 - Operazioen 1:
   - Memorizzo il nuovo veicolo
   - Memorizzo la coppia veicolo modello
-
-|Concetto     |Costrutto|Accessi|Tipo|
-|--------     |---------|-------|----|
-|Veicolo      |E        |1      |S   |
-|Appartiene   |R        |1      |S   |
-|Modello      |E        |0      |    |
-|Prodotto     |R        |0      |    |
-|Fabbrica     |E        |0      |    |
-
-
-$(15 * 2) * 2 = 60$
+[Inserire tabella con i valori e il calcolo]
 
 - Operazione 2: Per calcolare il numero di veicoli prodotti da una fabbrica dobbiamo accedere alla relazione "prodotto" un n di volte pare al numero medio di veicoli prodotti da una certa fabbrica (dalla fabbrica): nrModelli/nrFabbriche (200/10) **e per ogni di questi modelli** bisogna accedere un nr di volte pari al numero medio di veicoli appertenenti ad un modello : nrVeicoli /nrModelli (90000/200)
-
-|Concetto     |Costrutto|Accessi|Tipo|
-|--------     |---------|-------|----|
-|Fabbrica     |E        |1      |L   | 
-|Prodotto     |E        |20     |L   |
-|Appartiene   |E        |9000 (20*450)   |L   | 
-
-$1+20+9000 = 9021$
+[Inserire tabella con i valori e il calcolo]
+  
 
 ### Costi operazione
-Presenza di ridondanza &Longrightarrow; $120+2=122$
-
-Assenza di ridondanza &Longrightarrow; $60 + 9021 = 9081$
-
-Quindi ci conviene tenere il dato ridondante. 
-
-#### Eliminazione delle generalizzazioni
+### Eliminazione delle generalizzazioni
 In questa fase del progetto sono state gestite le generalizzazioni presenti eliminando le gerarchie, in particolare sono state trasformate le seguenti parti:
 **Veicolo**
-<img src="/img/SchemaER_modificato_veicolo.drawio(1).png"/>
-
 **Proprietario**
-<img src="/img/Proprietario.drawio.png"/>
 
-#### Partizionamento o accorpamento
-Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indirizzo dell'entita *propritario*. Noi abbiamo gia partizionato le nostre entita e relazioni durante la progettazione dello schema ER **(chiedere al prof)** 
+Automobile: Tipologia (Velocita' max)
+Ciclomotore: Bauletto -> si/no
+Camion: numeroAssi
+Rimorchio: Tipologia, carico.
 ### Selezione degli identificatori
-
-| Entita`     |  Chiavi          | 
-|-------------|-------------------|
-| Veicolo     | Targa             | 
-| Combustibile| codiceCombustibile | 
-| Proprietario| CodiceFiscale      | 
-| Modello     | idModello         | 
-| Fabbrica    | idFabbrica       | 
-
 ### Traduzione modello logico
-+ Fabbrica(_idFabbrica_,nome,numeroVeicoloProdotti)
-+ Modello(_idModello_,nomeModello,numeroVersioni,**_FabbricaDiProduzione_**)
-+ Combustibile(_codiceCombustibile_,tipoCombustibile)
-+ Proprietario(_CodiceFiscale_,nome,cognome,**indirizzo(??)**)
-+ Privato(_**CodiceFiscale**_,dataNascita)
-+ Societa(_**CodiceFiscale**_,partitaIva)
-+ Veicolo(_Targa_,cavalli,velocita,numeroPosti,dataImmatricolazione, cilindrata, _**Modello**_,_**CodiceCombustibile**_,_**Proprietario**_)
-+ ProprietariPassati(**_Targa,CodiceFiscale_**,dataVendita,dataAcquisto)
-+ Automobile(_**Targa**_,tipologia)
-+ Ciclomotore(_**Targa**_,bauletto)
-+ Camion(_**Targa**_,numeroAssi)
-+ Rimorchio(_**Targa**_,tipologia,carico)
 ## Progettazione Fisica
 ### Definizione database in SQL
 #### Definizione dati
