@@ -80,15 +80,16 @@ Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calc
   
 
 ### Costi operazione
-### Eliminazione delle generalizzazioni
+#### Eliminazione delle generalizzazioni
 In questa fase del progetto sono state gestite le generalizzazioni presenti eliminando le gerarchie, in particolare sono state trasformate le seguenti parti:
 **Veicolo**
-**Proprietario**
+<img src="/img/SchemaER_modificato_veicolo.drawio(1).png"/>
 
-Automobile: Tipologia (Velocita' max)
-Ciclomotore: Bauletto -> si/no
-Camion: numeroAssi
-Rimorchio: Tipologia, carico.
+**Proprietario**
+<img src="/img/Proprietario.drawio.png"/>
+
+#### Partizionamento o accorpamento
+Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indirizzo dell'entita *propritario*. Noi abbiamo gia partizionato le nostre entita e relazioni durante la progettazione dello schema ER **(chiedere al prof)** 
 ### Selezione degli identificatori
 ### Traduzione modello logico
 ## Progettazione Fisica
