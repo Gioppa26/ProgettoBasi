@@ -80,9 +80,15 @@ Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calc
   
 
 ### Costi operazione
-#### Presenza di ridondanza
-#### Assenza ridondanza
 ### Eliminazione delle generalizzazioni
+In questa fase del progetto sono state gestite le generalizzazioni presenti eliminando le gerarchie, in particolare sono state trasformate le seguenti parti:
+**Veicolo**
+**Proprietario**
+
+Automobile: Tipologia (Velocita' max)
+Ciclomotore: Bauletto -> si/no
+Camion: numeroAssi
+Rimorchio: Tipologia, carico.
 ### Selezione degli identificatori
 ### Traduzione modello logico
 ## Progettazione Fisica
