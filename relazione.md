@@ -67,7 +67,7 @@ Mentre la seconda operazione ovvero, la visualizzazione dei dati della fabbrica 
 
 #### Presenza di ridondanza
 - Aggiundere (fare) mini schema ER
-<img src="img/SchemaRidondanza.drawio.png"/>
+<img src="img/SchemaRidondanza2.drawio.png"/>
 
 Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calcolo di ogni micro processo:
 
@@ -103,7 +103,7 @@ Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calc
 
 #### Assenza di ridondanza
 - Aggiundere (fare) mini schema ER
-
+<img src="img/SchemaRidondanza.drawio.png"/>
 - Operazioen 1:
   - Memorizzo il nuovo veicolo
   - Memorizzo la coppia veicolo modello
