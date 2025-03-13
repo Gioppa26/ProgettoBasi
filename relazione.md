@@ -160,7 +160,7 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
 + Fabbrica(_idFabbrica_,nome,numeroVeicoloProdotti)
 + Modello(_idModello_,nomeModello,numeroVersioni,**_FabbricaDiProduzione_**)
 + Combustibile(_codiceCombustibile_,tipoCombustibile)
-+ Proprietario(_CodiceFiscale_,nome,cognome,indirizzo)
++ Proprietario(_codiceFiscale_,nome,cognome,indirizzo)
 + Privato(_**CodiceFiscale**_,dataNascita)
 + Societa(_**CodiceFiscale**_,partitaIva)
 + Veicolo(_Targa_,cavalli,velocita,numeroPosti,dataImmatricolazione, cilindrata, _**Modello**_,_**CodiceCombustibile**_,_**Proprietario**_)
@@ -169,6 +169,13 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
 + Ciclomotore(_**Targa**_,bauletto)
 + Camion(_**Targa**_,numeroAssi)
 + Rimorchio(_**Targa**_,tipologia,carico)
+  
+*FK: FabbricaDiProduzione &rarr; Fabbrica(idFabbrica)*
+*FK: CodiceFiscale &rarr; Proprietario(codiceFiscale)*
+*FK: Modello &rarr; Fabbrica(idFabbrica)*
+*FK: CodiceCombustibile &rarr; Fabbrica(idFabbrica)*
+*FK: Proprietario &rarr; Fabbrica(idFabbrica)*
+*FK: Targa &rarr; Fabbrica(idFabbrica)*
 
 ## Progettazione Fisica
 ### Definizione database in SQL
