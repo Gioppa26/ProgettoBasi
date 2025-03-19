@@ -11,14 +11,14 @@
 Lo schema entità/relazioni dovrà essere completato con attributi "ragionevoli" per ciascuna entità, identificando le possibili chiavi e le relazioni necessarie per la gestione del sistema in esame.
 A partire dallo schema entità/relazioni, si costruisca il corrispondente schema relazionale.<br>
 
-## GLOSSARIO Termini
+# GLOSSARIO Termini
 - **Registro Automobilistico**: Dominio
 - **Veicolo**: informazione da registrare nel registro
 - **Modello**: tipo di modello che il veicolo può avere 
 - **combusibile**: quale carburante utilizza il veicolo
 - **proprietari**: "vita" del veicolo
 
-## Documento di Specifiche
+# Documento di Specifiche
 Si progetti uno schema entità/relazioni per la gestione di un registro automobilistico, facente parte del sistema informativo di un ufficio di motorizzazione, contenente le seguenti informazioni:
 + di ciascun veicolo interessa registrare la targa, la cilindrata, i cavalli fiscali, la velocità, il numero di posti e la data di immatricolazione;
 + i veicoli sono classificati in categorie (automobili, ciclomotori, camion, rimorchi, ecc.);
@@ -26,9 +26,105 @@ Si progetti uno schema entità/relazioni per la gestione di un registro automobi
 + tra i dati relativi ai veicoli, vi è la codifica del tipo di combustibile utilizzato;
 + di ciascun modello di veicolo è registrata la fabbrica di produzione e il numero delle versioni prodotte;
 + ciascun veicolo può avere uno o più proprietari, che si succedono nel corso della “vita” del veicolo; di ciascun proprietario interessa registrare cognome, nome e indirizzo di residenza.
-## Strutturazione dei requisiti
+# Strutturazione dei requisiti
 
-## Operazioni richeste
+## Entità principali e vincoli
+
+Veicolo:
+
+* Targa (PK): non può essere NULL, univoco   
+* Cilindrata: può essere NULL solo nel caso di un rimorchio  
+* Cavalli fiscali: può essere NULL solo nel caso di un rimorchio  
+* Numero posti: può essere NULL solo nel caso di un rimorchio  
+* Data immatricolazione: non può essere NULL
+
+Modello:
+
+* IdModello (PK): non può essere NULL, univoco  
+* Nome modello  
+* Numero versioni: se presente maggiore di 0
+
+Fabbrica: 
+
+* IdFabbrica (PK): non può essere NULL, univoco  
+* Nome
+
+Combustibile:
+
+* Codice Combustibile (PK):  non può essere NULL, univoco  
+* Tipo
+
+Proprietario:
+
+* IdProprietario: non può essere NULL, univoco   
+* Indirizzo: Va inserito l’intero indirizzo in una stringa
+
+## Generalizzazioni: 
+
+Veicolo (Entità genitore):
+
+* Automobile (Entità figlia)  
+  * tipologia  
+* Camion (Entità figlia)  
+  * numero assi  
+* Ciclomotore (Entità figlia)  
+  * bauletto  
+* Rimorchio (Entità figlia)  
+  * tipologia  
+  * carico  
+    
+
+Proprietario (Entità genitore):
+
+* Privato  (Entità figlia)  
+  * CF: not NULL  
+  * nome  
+  * cognome  
+  * data di nascita  
+* Societa (Entità figlia)  
+  * partita iva  
+  * nome
+
+## Relazioni principali e vincoli:
+
+Appartiene \-\> Tra Veicolo (1:1) e Modello (1:N)
+
+* Un veicolo può appartenere solo ad un modello.  
+* Più veicoli possono essere dello stesso modello.  
+* Per ogni modello deve esserci almeno un veicolo che appartiene a quel modello per essere presente nel database
+
+Prodotto \-\> Tra Modello (1:1) e Fabbrica (1:N)
+
+* Un modello deve essere prodotto da una sola fabbrica.  
+* Una fabbrica può produrre più modelli.
+
+
+Utilizza \-\> Tra Veicolo (1:1) e Combustibile (1:N)
+
+* Un veicolo può utilizzare solo ad un tipo di combustione.  
+* Più veicoli possono utilizzare lo stesso tipo di combustione.  
+* Un tipo di combustione deve essere utilizzato da almeno un veicolo per poter essere presente nel database
+
+Possiede \-\> Tra Veicolo (1:1) e Proprietario (0:N)
+
+* Attributi:  
+  * data di acquisto  
+* Un veicolo può essere posseduto da un solo Proprietario.  
+* Un proprietario può non possedere o possedere uno o più veicoli.
+
+## Relazioni critiche e vincoli:
+
+Possedeva \-\> Tra Veicolo (0:N) e Proprietario (0:N)
+
+* Attributi:  
+  * data acquisto  
+  * data vendita  
+* Un veicolo può non avere o avere uno o più proprietari passati  
+* Un proprietario può non avere avuto o avere avuto uno o più veicolo nel passato   
+* Se un proprietario compra e vende la stessa macchina due volte allora si registrano solo le date dell’ultima occorrenza.
+
+
+# Operazioni richeste
 - **Op1**: Aggiunta nuovo veicolo prodotto [15 al giorno]
 - **Op2**: Calcolare tutti i dati relativi alla fabbrica soprattutto il numero dei veicoli prodotti [2 al giorno]
 ## Modello ER
@@ -178,3 +274,5 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
 ### Query
 ## Analisi con R
 ## Conclusioni
+
+
