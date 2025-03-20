@@ -283,10 +283,26 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
   ### Query nostre
   1. Trovare tutti i veicoli che hanno uno o più proprietari.
   2. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
+  3. 
   ### Query obbligatorie
   1. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
+  ```sql
+  SELECT
+  FROM
+  WHERE
+  ```
   2. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
+  ```sql
+  SELECT
+  FROM
+  WHERE
+  ```
   3. La fabbrica con il massimo numero di veicoli elettrici.
+  ```sql
+  SELECT
+  FROM
+  WHERE
+  ```
 ## Analisi con R
 ## Conclusioni
 
