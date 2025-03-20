@@ -283,7 +283,7 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
   ### Query nostre
   1. Trovare tutti i veicoli che hanno uno o più proprietari.
   2. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
-  3. 
+  3. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
   ### Query obbligatorie
   1. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
   ```sql
@@ -299,9 +299,19 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
   ```
   3. La fabbrica con il massimo numero di veicoli elettrici.
   ```sql
-  SELECT
-  FROM
-  WHERE
+  CREATE VIEW maxElet(targa,codiceCombustibile,nVeicoli) AS (  
+    SELECT v1.targa,v1.codiceCombustibile,count(*)
+    FROM veicolo AS V1
+    GROUP BY V1.codiceCombustibile
+    )
+  
+  SELECT targa
+  FROM maxElet AS ME
+  WHERE ME.codiceCombustibile = "Elettrico" AND
+  ME.nVeicoli >= ALL(
+    SELECT ME1.nVeicoli
+    FROM maxElet
+    )
   ```
 ## Analisi con R
 ## Conclusioni
