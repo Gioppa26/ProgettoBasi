@@ -320,15 +320,64 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
   ### Query obbligatorie
   1. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
   ```sql
-  SELECT 
-  FROM
-  WHERE
+  SELECT V.Targa
+  FROM Veicolo V
+  WHERE V.Modello = M.idModello
+  AND M.FabbricaDiProduzione = F.idFabbrica
+  AND F.idFabbrica IN (
+      SELECT F2.idFabbrica
+      FROM Fabbrica F2
+      JOIN Modello M2 ON F2.idFabbrica = M2.FabbricaDiProduzione
+      GROUP BY F2.idFabbrica
+      HAVING COUNT(DISTINCT M2.idModello) = 3
+  );
   ```
+  ``` sql
+  SELECT V.Targa
+  FROM Veicolo V
+  JOIN Modello M ON V.Modello = M.idModello
+  JOIN Fabbrica F ON M.FabbricaDiProduzione = F.idFabbrica
+  WHERE F.idFabbrica IN (
+      SELECT F2.idFabbrica
+      FROM Fabbrica F2
+      WHERE EXISTS (
+          SELECT 1
+          FROM Modello M2
+          WHERE M2.FabbricaDiProduzione = F2.idFabbrica
+          AND EXISTS (
+              SELECT 1
+              FROM Modello M3
+              WHERE M3.FabbricaDiProduzione = F2.idFabbrica
+              AND M3.idModello <> M2.idModello
+              AND EXISTS (
+                  SELECT 1
+                  FROM Modello M4
+                  WHERE M4.FabbricaDiProduzione = F2.idFabbrica
+                  AND M4.idModello <> M2.idModello
+                  AND M4.idModello <> M3.idModello
+                  AND NOT EXISTS (
+                      SELECT 1
+                      FROM Modello M5
+                      WHERE M5.FabbricaDiProduzione = F2.idFabbrica
+                      AND M5.idModello <> M2.idModello
+                      AND M5.idModello <> M3.idModello
+                      AND M5.idModello <> M4.idModello
+                  )
+              )
+          )
+      )
+  );
+  ```
+
   2. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
   ```sql
-  SELECT
-  FROM
-  WHERE
+  SELECT v.targa
+  FROM veicolo as v
+  WHERE NOT EXISTS(
+    SELECT *
+    FROM proprietariPassati as p1
+    WHERE v.proprietario <> p1.codiceFiscale and
+    v.targa = p1.targa)
   ```
   3. La fabbrica con il massimo numero di veicoli elettrici.
   ```sql
