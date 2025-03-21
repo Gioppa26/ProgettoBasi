@@ -320,7 +320,7 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
   ### Query obbligatorie
   1. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
   ```sql
-  SELECT
+  SELECT 
   FROM
   WHERE
   ```
