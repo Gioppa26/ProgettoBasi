@@ -130,25 +130,25 @@ Proprietario (Entità genitore):
 
 ## Relazioni principali e vincoli:
 
-Appartiene \-\> Tra Veicolo (1:1) e Modello (1:N)
+Appartiene &rarr; Tra Veicolo (1:1) e Modello (1:N)
 
 * Un veicolo può appartenere solo ad un modello.  
 * Più veicoli possono essere dello stesso modello.  
 * Per ogni modello deve esserci almeno un veicolo che appartiene a quel modello per essere presente nel database
 
-Prodotto \-\> Tra Modello (1:1) e Fabbrica (1:N)
+Prodotto &rarr; Tra Modello (1:1) e Fabbrica (1:N)
 
 * Un modello deve essere prodotto da una sola fabbrica.  
 * Una fabbrica può produrre più modelli.
 
 
-Utilizza \-\> Tra Veicolo (1:1) e Combustibile (1:N)
+Utilizza &rarr; Tra Veicolo (1:1) e Combustibile (1:N)
 
 * Un veicolo può utilizzare solo ad un tipo di combustione.  
 * Più veicoli possono utilizzare lo stesso tipo di combustione.  
 * Un tipo di combustione deve essere utilizzato da almeno un veicolo per poter essere presente nel database
 
-Possiede \-\> Tra Veicolo (1:1) e Proprietario (0:N)
+Possiede &rarr; Tra Veicolo (1:1) e Proprietario (0:N)
 
 * Attributi:  
   * data di acquisto  
