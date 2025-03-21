@@ -1,6 +1,19 @@
+# UNIVERSITÀ DEGLI STUDI DI UDINE
+## Dipartimento di Scienze Matematiche, Informatiche e Fisiche
+<img src="img/Uniud.png"/>
+
 # Relazione Progetto Basi di Dati
-## Consegna
-- Si progetti uno schema entità/relazioni per la gestione di un registro automobilistico, facente parte del sistema informativo di un ufficio di motorizzazione, contenente le seguenti informazioni:
+## Indice degli argomenti
+1. [Progettazione Concettuale](#progettazione-concettuale)
+2. [Progettazione Logica](#progettazione-logica)
+3. [Progettazione Fisica](#progettazione-fisica)
+4. [Implementazione](#implementazione)
+5. [Analisi con R](#analisi-con-r)
+6. [Conclusioni](#conclusioni)
+# Progettazione Concettuale
+
+## Progetto "Registro Automobilistico"
+ Si progetti uno schema entità/relazioni per la gestione di un registro automobilistico, facente parte del sistema informativo di un ufficio di motorizzazione, contenente le seguenti informazioni:
 - di ciascun veicolo interessa registrare la targa, la cilindrata, i cavalli fiscali, la velocità, il numero di posti e la data di immatricolazione;
 - i veicoli sono classificati in categorie (automobili, ciclomotori, camion, rimorchi, ecc.);
 - ciascun veicolo appartiene ad uno specifico modello;
@@ -11,21 +24,51 @@
 Lo schema entità/relazioni dovrà essere completato con attributi "ragionevoli" per ciascuna entità, identificando le possibili chiavi e le relazioni necessarie per la gestione del sistema in esame.
 A partire dallo schema entità/relazioni, si costruisca il corrispondente schema relazionale.<br>
 
-# GLOSSARIO Termini
-- **Registro Automobilistico**: Dominio
-- **Veicolo**: informazione da registrare nel registro
-- **Modello**: tipo di modello che il veicolo può avere 
-- **combusibile**: quale carburante utilizza il veicolo
-- **proprietari**: "vita" del veicolo
+### GLOSSARIO Termini
+| Termine | Descrione | Sinonimi | Link |
+| --- | --- | --- | --- |
+| Veicolo| informazioni generali su un veicolo| | Modello, Proprietario, Combustibile|
+| Modello| Tipo di modello di veicolo| | Veicolo, Fabbrica|
+| Fabbrica| Azienda che procude un modello di veicolo| | Modello|
+| Proprietario| Chi ha posseduto e possiede un veicolo| | Veicolo|
+| Combustibile| Quale combustibile utilizza un veicolo| | Veicolo|
+### Frasi
+  **Frasi generiche** :
+> Si progetti uno schema entità/relazioni per la gestione di un registro automobilistico, facente parte del sistema informativo di un ufficio di motorizzazione, contenente le seguenti informazioni
 
-# Documento di Specifiche
-Si progetti uno schema entità/relazioni per la gestione di un registro automobilistico, facente parte del sistema informativo di un ufficio di motorizzazione, contenente le seguenti informazioni:
-+ di ciascun veicolo interessa registrare la targa, la cilindrata, i cavalli fiscali, la velocità, il numero di posti e la data di immatricolazione;
-+ i veicoli sono classificati in categorie (automobili, ciclomotori, camion, rimorchi, ecc.);
-+ ciascun veicolo appartiene ad uno specifico modello;
-+ tra i dati relativi ai veicoli, vi è la codifica del tipo di combustibile utilizzato;
-+ di ciascun modello di veicolo è registrata la fabbrica di produzione e il numero delle versioni prodotte;
-+ ciascun veicolo può avere uno o più proprietari, che si succedono nel corso della “vita” del veicolo; di ciascun proprietario interessa registrare cognome, nome e indirizzo di residenza.
+**Frasi relative al veicolo**:
+> di ciascun veicolo interessa registrare la targa, la cilindrata, i cavalli fiscali, la velocità, il numero di posti e la data di immatricolazione
+
+**Frasi relative al modello**:
+> ciascun veicolo appartiene ad uno specifico modello
+
+**Frasi relative alla fabbrica**:
+> di ciascun modello di veicolo è registrata la fabbrica di produzione e il numero delle versioni prodotte
+
+**Frasi relative al proprietario**:
+> ciascun veicolo possono avere uno o piú proprietari, che si succedono nel corso della “vita” del veicolo; di ciascun proprietario interessa registrare cognome, nome e indirizzo di residenza
+
+**Frasi relative al combustibile**:
+> di ciascun veicolo interessa registrare il tipo di combustibile utilizzato
+
+## Modello ER
+La strategia che abbiamo utilizzato per costruire il modello ER è la strategia Mista (Mixed Strategy). Abbiamo optato per questa tecnica perché ci sembrava comodo avere uno scheletro iniziale che ci permettesse di avere una visione di base dello schema. Inizialmente abbiamo usato la strategia bottom-up per assemblare insieme tutte le entità. In seguito, abbiamo usato la tecnica top-down, in questo modo, tramite perfezionamenti, abbiamo sviluppato lo schema finale.
+
+La prima entità che abbiamo esaminato è **Veicolo**. Gli attributi che abbiamo aggiunto a questa entità sono targa, cilindrata, cavalli fiscali, velocità, numero di posti e data immatricolazione. Questa entità viene identificata univocamente dall’attributo targa.
+
+<img src="img/Veicolo.PNG"/>
+
+In seguito per quanto riguarda Veicolo abbiamo deciso di fare una **generalizzazione** **Totale** e **Disgunta**. In questo modo un veicolo puo` essere distinto tra Automobili, Ciclomotori, Camion e Rimorchio. La generalizzazione e' totale perche' veicolo puo' ricoprire solo una delle quattro categorie. La generalizzazione e' disunta perche' veicolo puo' ricoprire solo una delle quattro categorie.
+
+<img src="img/Veicolo_generalizzazione.PNG"/>
+
+L'entita' successiva che abbiamo analizzato e' **Modello**. Gli attributi che abbiamo aggiunto a questa entita' sono idModello, nome modello e numero versioni. Questa entita' viene identificata univocamente dall'attributo idModello.
+
+<img src="img/Modello.PNG"/>
+
+<img src="img/SchemaER.drawio.png"/>
+
+
 # Strutturazione dei requisiti
 
 ## Entità principali e vincoli
@@ -122,22 +165,12 @@ Possedeva \-\> Tra Veicolo (0:N) e Proprietario (0:N)
 * Un veicolo può non avere o avere uno o più proprietari passati  
 * Un proprietario può non avere avuto o avere avuto uno o più veicolo nel passato   
 * Se un proprietario compra e vende la stessa macchina due volte allora si registrano solo le date dell’ultima occorrenza.
-
+## Regole di Gestione
+- Gli attributi data_acquisto e data_vendita nella relazione PROPRIETARI PASSATI non devono combaciare, non devono intersecarsi tra intervalli di proprietari diversi e data_acquisto non deve essere NULL
 
 # Operazioni richeste
 - **Op1**: Aggiunta nuovo veicolo prodotto [15 al giorno]
 - **Op2**: Calcolare tutti i dati relativi alla fabbrica soprattutto il numero dei veicoli prodotti [2 al giorno]
-## Modello ER
-
-<img src="img/SchemaER.drawio.png"/>
-
-## Regole di Gestione
-- Gli attributi data_acquisto e data_vendita nella relazione PROPRIETARI PASSATI non devono combaciare, non devono intersecarsi tra intervalli di proprietari diversi e data_acquisto non deve essere NULL
-
-### Vincoli d'integrità
-
-### Regole di derivazione
-
 ## Progettazione Logica
 ### Tabella volumi
 | Concetto               | Tipo  | Volume   |
