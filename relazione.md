@@ -148,7 +148,7 @@ Utilizza &rarr; Tra Veicolo (1:1) e Combustibile (1:N)
 * Più veicoli possono utilizzare lo stesso tipo di combustione.  
 * Un tipo di combustione deve essere utilizzato da almeno un veicolo per poter essere presente nel database
 
-Possiede &rarr; Tra Veicolo (1:1) e Proprietario (0:N)
+ProprietaroCorrente &rarr; Tra Veicolo (1:1) e Proprietario (0:N)
 
 * Attributi:  
   * data di acquisto  
@@ -157,7 +157,7 @@ Possiede &rarr; Tra Veicolo (1:1) e Proprietario (0:N)
 
 ## Relazioni critiche e vincoli:
 
-Possedeva \-\> Tra Veicolo (0:N) e Proprietario (0:N)
+ProprietariPassati \-\> Tra Veicolo (0:N) e Proprietario (0:N)
 
 * Attributi:  
   * data acquisto  
@@ -168,10 +168,11 @@ Possedeva \-\> Tra Veicolo (0:N) e Proprietario (0:N)
 ## Regole di Gestione
 - Gli attributi data_acquisto e data_vendita nella relazione PROPRIETARI PASSATI non devono combaciare, non devono intersecarsi tra intervalli di proprietari diversi e data_acquisto non deve essere NULL
 
-# Operazioni richeste
+## Operazioni richeste
 - **Op1**: Aggiunta nuovo veicolo prodotto [15 al giorno]
 - **Op2**: Calcolare tutti i dati relativi alla fabbrica soprattutto il numero dei veicoli prodotti [2 al giorno]
-## Progettazione Logica
+
+# Progettazione Logica
 ### Tabella volumi
 | Concetto               | Tipo  | Volume   |
 |---                     | ---   | ---      |
@@ -186,21 +187,25 @@ Possedeva \-\> Tra Veicolo (0:N) e Proprietario (0:N)
 | Prodotto               | R     | 200      |
 | Utilizza               | R     | 90000    |
 
-*In media una persona possiede 0.75 veicoli*
-*In media un veicolo ha avuto 2.5 proprietari nel passato*
+Questa tabella ci fornisce una visione chiara della dimensione del sistema che stiamo progettando. Notiamo che:
+
+
+* Il rapporto tra veicoli e proprietari è di circa 0.75, indicando che in media una persona possiede meno di un veicolo.  
+* Ogni veicolo ha avuto in media 2.5 proprietari nel passato, suggerendo un'alta frequenza di cambi di proprietà.
+
 
 ### Analisi delle ridondanze
-Si prende in considerazione la prima operazione. In un giorno vengono registrati 15 veicoli.
-
-Mentre la seconda operazione ovvero, la visualizzazione dei dati della fabbrica viene eseguita due volte al giorno sia all'apertura che alla chiusura del portale.
+**Caso studio: Numero di veicoli prodotti per Fabbrica**
 
 #### Presenza di ridondanza
-- Aggiundere (fare) mini schema ER
+
+Consideriamo l'attributo "numeroVeicoliProdotti" nell'entità Fabbrica. Questo è un dato derivabile ma potrebbe essere utile mantenerlo come ridondanza per migliorare le prestazioni.
+
 <img src="img/SchemaRidondanza2.drawio.png"/>
 
 Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calcolo di ogni micro processo:
 
-+ Operazione 1: 
++ OP1: Aggiunta nuovo veicolo (15 volte al giorno):
   + Memorizzo il nuovo veicolo 
   + memorizzo la coppia veicolo-modello 
   + cerco il modello e per risalire alla fabbrica
@@ -216,24 +221,34 @@ Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calc
 |Fabbrica     |E        |1      |L   |
 |Fabbrica     |E        |1      |S   |
 
-```math
-(15*3)*2 + (15*2) = 120
-```
-+ Operazione 2:
+
+ $(15*3)*2 + (15*2) = 120$
+
+ Totale: 3 scritture \+ 2 letture \= 8 accessi/operazione  
+  Costo giornaliero: 8 \* 15 \= 120 accessi
+
+
+
++ OP2: Visualizzazione dati Fabbrica (2 volte al giorno):
   + Leggere gli attributi della fabbrica
 
 |Concetto     |Costrutto|Accessi|Tipo|
 |--------     |---------|-------|----|
 |Fabbrica     |E        |1      |L   |
 
-```math
-2*1 = 2
-```
+ $2*1 = 2$
 
-#### Assenza di ridondanza
-- Aggiundere (fare) mini schema ER
+ Costo giornaliero: 1 \* 2 \= 2 accessi
+
+
+**Costo totale giornaliero con ridondanza: 122 accessi**
+
+
+### Assenza di ridondanza
+
 <img src="img/SchemaRidondanza.drawio.png"/>
-- Operazioen 1:
+
+- OP1: Aggiunta nuovo veicolo (15 volte al giorno):
   - Memorizzo il nuovo veicolo
   - Memorizzo la coppia veicolo modello
 
@@ -245,10 +260,14 @@ Per eseguire il calcolo delle operazione in presenza di ridondanze si fa il calc
 |Prodotto     |R        |0      |    |
 |Fabbrica     |E        |0      |    |
 
+ $(15 * 2) * 2 = 60$
 
-$(15 * 2) * 2 = 60$
+Totale: 2 scritture \= 4 accessi/operazione  
+  Costo giornaliero: 4 \* 15 \= 60 accessi
 
-- Operazione 2: Per calcolare il numero di veicoli prodotti da una fabbrica dobbiamo accedere alla relazione "prodotto" un n di volte pare al numero medio di veicoli prodotti da una certa fabbrica (dalla fabbrica): nrModelli/nrFabbriche (200/10) **e per ogni di questi modelli** bisogna accedere un nr di volte pari al numero medio di veicoli appertenenti ad un modello : nrVeicoli /nrModelli (90000/200)
+
+- OP2: Visualizzazione dati Fabbrica (2 volte al giorno): 
+  - Per calcolare il numero di veicoli prodotti da una fabbrica dobbiamo accedere alla relazione "prodotto" un n di volte pare al numero medio di veicoli prodotti da una certa fabbrica (dalla fabbrica): nrModelli/nrFabbriche (200/10) **e per ogni di questi modelli** bisogna accedere un nr di volte pari al numero medio di veicoli appertenenti ad un modello : nrVeicoli /nrModelli (90000/200)
 
 |Concetto     |Costrutto|Accessi|Tipo|
 |--------     |---------|-------|----|
@@ -256,55 +275,84 @@ $(15 * 2) * 2 = 60$
 |Prodotto     |E        |20     |L   |
 |Appartiene   |E        |9000 (20*450)   |L   | 
 
-$1+20+9000 = 9021$
+ $(1+20+9000)*2 = 18042$
+
+ Costo per operazione: 1 \+ 20 \+ 9000 \= 9021 letture  
+ Costo giornaliero: 9021 \* 2 \= 18042 accessi
+
+ **Costo totale giornaliero senza ridondanza: 60 \+ 18042 \= 18102 accessi**
 
 ### Costi operazione
 Presenza di ridondanza &Longrightarrow; $120+2=122$
 
-Assenza di ridondanza &Longrightarrow; $60 + 9021 = 9081$
+Assenza di ridondanza &Longrightarrow; $60 + 18042 = 18102$
 
-Quindi ci conviene tenere il dato ridondante. 
+### **Conclusione dell'analisi**
 
-#### Eliminazione delle generalizzazioni
-In questa fase del progetto sono state gestite le generalizzazioni presenti eliminando le gerarchie, in particolare sono state trasformate le seguenti parti:
+Mantenere la ridondanza comporta un costo giornaliero di 122 accessi, mentre eliminarla porta a 18102 accessi.  
+La differenza è significativa: mantenere la ridondanza riduce il carico di lavoro di circa il 99.3%. Pertanto, è altamente consigliabile mantenere l'attributo ridondante "numeroVeicoliProdotti" nell'entità Fabbrica.
+
+
+### **Eliminazione delle generalizzazioni**
+In questa fase del progetto sono state gestite le generalizzazioni presenti eliminando le gerarchie. In particolare sono state trasformate le seguenti parti:
+
 **Veicolo**
+
 <img src="/img/SchemaER_modificato_veicolo.drawio(1).png"/>
 
+Abbiamo optato per una strategia di accorpamento nel genitore. Questa scelta è motivata dal fatto che la maggior parte delle operazioni coinvolgerà attributi comuni a tutti i tipi di veicolo. 
+
 **Proprietario**
+
 <img src="/img/Proprietario.drawio.png"/>
 
-#### Partizionamento o accorpamento
-Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indirizzo dell'entita *propritario*. Noi abbiamo gia partizionato le nostre entita e relazioni durante la progettazione dello schema ER **(chiedere al prof)** 
-### Selezione degli identificatori
+Anche per proprietario abbiamo scelto la stessa strategia.
+
+### **Partizionamento o accorpamento**
+
+Per quanto riguarda l'entità Proprietario, abbiamo optato per mantenere l'attributo 'indirizzo' come un campo di testo unico, invece di partizionarlo verticalmente in componenti separate (come via, numero civico, CAP, città). Questa decisione è stata presa considerando che l'indirizzo viene generalmente utilizzato come un'unica unità informativa nelle operazioni più frequenti, e la sua scomposizione non offrirebbe vantaggi significativi in termini di prestazioni o funzionalità per il nostro specifico caso d'uso.
+
+### **Selezione degli identificatori**
 
 | Entita`     |  Chiavi          | 
 |-------------|-------------------|
 | Veicolo     | Targa             | 
 | Combustibile| codiceCombustibile | 
-| Proprietario| CodiceFiscale      | 
+| Proprietario| IdProprietario      | 
 | Modello     | idModello         | 
 | Fabbrica    | idFabbrica       | 
 
+La scelta degli identificatori è stata fatta considerando l'unicità, l'immutabilità e la semplicità di gestione.
+
 ### Traduzione modello logico
-+ Fabbrica(_idFabbrica_,nome,numeroVeicoloProdotti)
-+ Modello(_idModello_,nomeModello,numeroVersioni,**_FabbricaDiProduzione_**)
-+ Combustibile(_codiceCombustibile_,tipoCombustibile)
-+ Proprietario(_codiceFiscale_,nome,cognome,indirizzo)
-+ Privato(_**CodiceFiscale**_,dataNascita)
-+ Societa(_**CodiceFiscale**_,partitaIva)
-+ Veicolo(_Targa_,cavalli,velocita,numeroPosti,dataImmatricolazione, cilindrata, _**Modello**_,_**CodiceCombustibile**_,_**Proprietario**_)
-+ ProprietariPassati(**_Targa,CodiceFiscale_**,dataVendita,dataAcquisto)
-+ Automobile(_**Targa**_,tipologia)
-+ Ciclomotore(_**Targa**_,bauletto)
-+ Camion(_**Targa**_,numeroAssi)
-+ Rimorchio(_**Targa**_,tipologia,carico)
-  
-*FK: FabbricaDiProduzione &rarr; Fabbrica(idFabbrica)*
-*FK: CodiceFiscale &rarr; Proprietario(codiceFiscale)*
-*FK: Modello &rarr; Fabbrica(idFabbrica)*
-*FK: CodiceCombustibile &rarr; Fabbrica(idFabbrica)*
-*FK: Proprietario &rarr; Fabbrica(idFabbrica)*
-*FK: Targa &rarr; Fabbrica(idFabbrica)*
+
+
++ Fabbrica  {**_idFabbrica_** (PK), nome, numeroVeicoloProdotti}
+
++ Modello {**_idModello_** (PK), nomeModello, numeroVersioni, **_FabbricaDiProduzione_** (FK → Fabbrica._idFabbrica_)}
+
++ Combustibile {**_codiceCombustibile_** (PK), tipoCombustibile}
+
++ Proprietario {**_IdProprietario_** (PK), indirizzo}
+
++ Privato {**_IdProprietario_** (PK, FK → Proprietario._IdProprietario_), CF, nome, cognome, dataNascita}
+
++ Società {**_IdProprietario_** (PK, FK → Proprietario._IdProprietario_), partitaIva}
+
++ Veicolo {**_Targa_** (PK), cavalli, velocità, numeroPosti, dataImmatricolazione, cilindrata, **_Modello_** (FK → Modello), **_CodiceCombustibile_** (FK → Combustibile._codiceCombustibile_), **_Proprietario_** (FK → Proprietario._IdProprietario_)}
+
++ ProprietariPassati {**_Targa_** (PK, FK → Veicolo._Targa_), **_IdProprietario_** (PK, FK → Proprietario._IdProprietario_), dataVendita, dataAcquisto}
+
++ Automobile {**_Targa_** (PK, FK → Veicolo._Targa_), tipologia}
+
++ Ciclomotore {**_Targa_** (PK, FK → Veicolo._Targa_), bauletto}
+
++ Camion {**_Targa_** (PK, FK → Veicolo._Targa_), numeroAssi}
+
++ Rimorchio {**_Targa_** (PK, FK → Veicolo._Targa_), tipologia, carico}
+
+***IMPOETANTE:** Le chiavi promarie (PK) e le chiavi esterne (FK) non possono essere NULL
+
 
 ## Progettazione Fisica
 ### Definizione database in SQL
