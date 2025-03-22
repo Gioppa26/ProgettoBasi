@@ -315,8 +315,17 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
 ### Query
   ### Query nostre
   1. Trovare tutti i veicoli che hanno uno o più proprietari.
+  ```sql
+  
+  ```
   2. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
+  ```sql
+  
+  ```
   3. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
+  ```sql
+  
+  ```
   ### Query obbligatorie
   1. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
   ```sql
@@ -369,7 +378,7 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
   );
   ```
 
-  2. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
+  1. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
   ```sql
   SELECT v.targa
   FROM veicolo as v
@@ -379,7 +388,7 @@ Sono stati eliminati gli attributi non atomici, nel nostro caso l'attributo indi
     WHERE v.proprietario <> p1.codiceFiscale and
     v.targa = p1.targa)
   ```
-  3. La fabbrica con il massimo numero di veicoli elettrici.
+  1. La fabbrica con il massimo numero di veicoli elettrici.
   ```sql
   CREATE VIEW maxElet(targa,codiceCombustibile,nVeicoli) AS (  
     SELECT v1.targa,v1.codiceCombustibile,count(*)
