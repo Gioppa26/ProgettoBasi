@@ -362,17 +362,32 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 ### Popolazione base di dati
 ### Query
   ### Query nostre
-  1. Trovare tutti i veicoli che hanno uno o più proprietari.
+  1. I veicoli con almeno 1 proprietario
   ```sql
-  SELECT
-  FROM
-  WHERE
+  SELECT v.targa
+  FROM veicolo as v
+  WHERE not exists(
+    SELECT *
+    FROM veicolo as v1
+    WHERE v1.targa <> v.targa and
+    v1.proprietario = v.proprietario
+    )
   ```
-  2. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
+  1. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
   ```sql
+  create view maxCavalli(targa,nCavalli) as
+    select v.targa,count(*)
+    from veicolo as v
+    group by v.cavalli
+
+    select mc.targa
+    from veicolo as v1, maxCavalli as mc
+    where v1.propritario proprietario mc.nCavalli >= ALL (
+      select mc1.nCavalli
+      from maxCavalli AS mc1
+      where mc1.nCavalli <> mc.nCavalli
   ```
-  3. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
-  ```sql
+  1. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
   ```
   ### Query obbligatorie
   1. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
