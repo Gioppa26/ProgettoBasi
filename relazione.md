@@ -340,7 +340,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 + Società {**_IdProprietario_** (PK, FK → Proprietario._IdProprietario_), partitaIva}
 
-+ Veicolo {**_Targa_** (PK), cavalli, velocità, numeroPosti, dataImmatricolazione, cilindrata, **_Modello_** (FK → Modello), **_CodiceCombustibile_** (FK → Combustibile._codiceCombustibile_), **_Proprietario_** (FK → Proprietario._IdProprietario_)}
++ Veicolo {**_Targa_** (PK), cavalli, velocità, numeroPosti, dataImmatricolazione, cilindrata, dataAquisto, **_Modello_** (FK → Modello), **_CodiceCombustibile_** (FK → Combustibile._codiceCombustibile_), **_Proprietario_** (FK → Proprietario._IdProprietario_)}
 
 + ProprietariPassati {**_Targa_** (PK, FK → Veicolo._Targa_), **_IdProprietario_** (PK, FK → Proprietario._IdProprietario_), dataVendita, dataAcquisto}
 
@@ -379,6 +379,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 (Questi dati sono importanti e devono essere presenti)
 - Veicolo.dataImmatricolazione NOT NULL
+- Veicolo.dataAquisto NOT NULL
 - Veicolo.Cilindrata: NOT NULL  
 - Veicolo.Cavalli: NOT NULL  
 - Veicolo.Velocita': NOT NULL  
@@ -389,6 +390,8 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 - Privato.nome NOT NULL
 - Privato.cognome NOT NULL
 - Società.partitaIva NOT NULL
+- ProprietariPassati.dataAcquisto NOT NULL
+- ProprietariPassati.dataVendita NOT NULL
 
 
 ### Vincoli di Dominio
