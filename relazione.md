@@ -76,16 +76,17 @@ L'entita' successiva che abbiamo analizzato e' **Modello**. Gli attributi che ab
 Veicolo:
 
 * Targa (PK): non può essere NULL, univoco   
-* Cilindrata: può essere NULL solo nel caso di un rimorchio  
-* Cavalli fiscali: può essere NULL solo nel caso di un rimorchio  
-* Numero posti: può essere NULL solo nel caso di un rimorchio  
+* Cilindrata: sarà 0 nel caso di un rimorchio  
+* Cavalli fiscali: sarà 0 nel caso di un rimorchio  
+* Velocita': sarà 0 nel caso di un rimorchio  
+* Numero posti: sarà 0 nel caso di un rimorchio 
 * Data immatricolazione: non può essere NULL
 
 Modello:
 
 * IdModello (PK): non può essere NULL, univoco  
 * Nome modello  
-* Numero versioni: se presente maggiore di 0
+* Numero versioni: non può essere NULL, maggiore di 0
 
 Fabbrica: 
 
@@ -100,7 +101,7 @@ Combustibile:
 Proprietario:
 
 * IdProprietario: non può essere NULL, univoco   
-* Indirizzo: Va inserito l’intero indirizzo in una stringa
+* Indirizzo:  non può essere NULL, Va inserito l’intero indirizzo in una stringa
 
 ## Generalizzazioni: 
 
@@ -121,8 +122,8 @@ Proprietario (Entità genitore):
 
 * Privato  (Entità figlia)  
   * CF: not NULL  
-  * nome  
-  * cognome  
+  * nome  not NULL
+  * cognome  not NULL
   * data di nascita  
 * Societa (Entità figlia)  
   * partita iva  
@@ -351,7 +352,86 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 + Rimorchio {**_Targa_** (PK, FK → Veicolo._Targa_), tipologia, carico}
 
-***IMPORTANTE:** Le chiavi promarie (PK) e le chiavi esterne (FK) non possono essere NULL
+***IMPOETANTE:** Le chiavi primarie (PK) e le chiavi esterne (FK) non possono essere NULL
+
+
+## Riepilogo Vincoli di integrita
+
+### Vincoli di Chiave
+
+**Chiavi Primarie (PK): Devono essere not null e univoche
+- Veicolo.Targa
+- Modello.idModello
+- Fabbrica.idFabbrica
+- Combustibile.codiceCombustibile
+- Proprietario.IdProprietario
+
+**Chiavi Esterne (FK): 
+- Veicolo.Modello → Modello.idModello
+- Veicolo.CodiceCombustibile → Combustibile.codiceCombustibile
+- Veicolo.Proprietario → Proprietario.IdProprietario
+- Modello.FabbricaDiProduzione → Fabbrica.idFabbrica
+- ProprietariPassati.Targa → Veicolo.Targa
+- ProprietariPassati.IdProprietario → Proprietario.IdProprietario
+
+
+### Vincoli di Entità
+
+(Questi dati sono importanti e devono essere presenti)
+- Veicolo.dataImmatricolazione NOT NULL
+- Veicolo.Cilindrata: NOT NULL  
+- Veicolo.Cavalli: NOT NULL  
+- Veicolo.Velocita': NOT NULL  
+- Veicolo.NumeroPosti: NOT NULL
+- Modello.numeroVersioni: NOT NULL
+- Proprietario.indirizzo: NOT NULL
+- Privato.CF NOT NULL
+- Privato.nome NOT NULL
+- Privato.cognome NOT NULL
+- Società.partitaIva NOT NULL
+
+
+### Vincoli di Dominio
+
+- Modello.numeroVersioni > 0
+- Veicolo.cilindrata > 0 (se Rimorchio allora 0)
+- Veicolo.cavalli > 0 (se Rimorchio allora 0)
+- Veicolo.numeroPosti > 0 (se Rimorchio allora 0)
+- Veicolo.velocita' > 0 (se Rimorchio allora 0)
+
+
+### Vincoli di partecipazione 
+
++ Affinche' una fabbrica sia presente nel database deve comparire almeno in uno dei modelli presenti
++ Affinche' un modello sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Affinche un tipo di combustione sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Un veicolo deve per forza avere un proprietario corrente (uno solo)
++ Un proprietario puo non avere un veicolo al momento
+
+
+### Vincoli di Generalizzazione
+ Totalità e disgiunzione
+- Ogni proprietario deve essere solo Privato o Società
+- Ogni veicolo deve comparire in esattamente una tabella figlia: (Automobile, Camion, Ciclomotore, Rimorchio)
+
+
+### Vincoli di Integrità Referenziale
+
+- Non posso cancellare nessun oggetto(record) se viene puntato da una chiave esterna
+  - esempio: non posso cancellare un proprietario se lui possiede una veicolo che si trova nel database
+  - altro esempio: non posso cancellare una fabbrica se esiste un modello che e' stato prodotto da quella fabbrica
+
+
+### Vincoli di Tupla
+
+- ProprietariPassati: CHECK (dataVendita > dataAcquisto)
+- ProprietariPassati: UNIQUE (Targa, IdProprietario)
+  - se un proprietario compra e vende piu' di una volta lo stesso veicolo si registra salva solo l'ultima occorrenza 
+
+### Vincoli Inter-tabella ( Ridondanza Controllata) 
+
+- Trigger per aggiornare Fabbrica.numeroVeicoliProdotti quando viene inserito un nuovo veicolo
+
 
 
 ## Progettazione Fisica
