@@ -351,7 +351,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 + Rimorchio {**_Targa_** (PK, FK → Veicolo._Targa_), tipologia, carico}
 
-***IMPOETANTE:** Le chiavi promarie (PK) e le chiavi esterne (FK) non possono essere NULL
+***IMPORTANTE:** Le chiavi promarie (PK) e le chiavi esterne (FK) non possono essere NULL
 
 
 ## Progettazione Fisica
@@ -373,7 +373,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
     v1.proprietario = v.proprietario
     )
   ```
-  1. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
+  2. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
   ```sql
   create view maxCavalli(targa,nCavalli) as
     select v.targa,count(*)
@@ -387,7 +387,8 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
       from maxCavalli AS mc1
       where mc1.nCavalli <> mc.nCavalli
   ```
-  1. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
+  3. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
+  ```sql
   ```
   ### Query obbligatorie
   1. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
@@ -441,7 +442,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
   );
   ```
 
-  1. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
+  2. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
   ```sql
   SELECT v.targa
   FROM veicolo as v
@@ -451,7 +452,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
     WHERE v.proprietario <> p1.codiceFiscale and
     v.targa = p1.targa)
   ```
-  1. La fabbrica con il massimo numero di veicoli elettrici.
+  3. La fabbrica con il massimo numero di veicoli elettrici.
   ```sql
   CREATE VIEW maxElet(targa,codiceCombustibile,nVeicoli) AS (  
     SELECT v1.targa,v1.codiceCombustibile,count(*)
