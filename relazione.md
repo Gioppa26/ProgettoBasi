@@ -56,124 +56,203 @@ La strategia che abbiamo utilizzato per costruire il modello ER è la strategia 
 
 La prima entità che abbiamo esaminato è **Veicolo**. Gli attributi che abbiamo aggiunto a questa entità sono targa, cilindrata, cavalli fiscali, velocità, numero di posti e data immatricolazione. Questa entità viene identificata univocamente dall’attributo targa.
 
-<img src="img/Veicolo.PNG"/>
+<img src="img/Veicolo.png" width=300px/>
 
-In seguito per quanto riguarda Veicolo abbiamo deciso di fare una **generalizzazione** **Totale** e **Disgunta**. In questo modo un veicolo puo` essere distinto tra Automobili, Ciclomotori, Camion e Rimorchio. La generalizzazione e' totale perche' veicolo puo' ricoprire solo una delle quattro categorie. La generalizzazione e' disunta perche' veicolo puo' ricoprire solo una delle quattro categorie.
+In seguito per quanto riguarda Veicolo abbiamo deciso di fare una **generalizzazione** **Totale** e **Disgunta**. In questo modo un veicolo puo` essere distinto tra Automobili, Ciclomotori, Camion e Rimorchio. La generalizzazione e' disgunta perche' veicolo puo' ricoprire solo una delle quattro categorie.
 
-<img src="img/Veicolo_generalizzazione.PNG"/>
+Questo è il modo come abbiamo fatto la generalizzazione insieme ai possibili attributi:
 
-L'entita' successiva che abbiamo analizzato e' **Modello**. Gli attributi che abbiamo aggiunto a questa entita' sono idModello, nome modello e numero versioni. Questa entita' viene identificata univocamente dall'attributo idModello.
-
-<img src="img/Modello.PNG"/>
-
-<img src="img/SchemaER.drawio.png"/>
-
-
-# Strutturazione dei requisiti
-
-## Entità principali e vincoli
-
-Veicolo:
-
-* Targa (PK): non può essere NULL, univoco   
-* Cilindrata: sarà 0 nel caso di un rimorchio  
-* Cavalli fiscali: sarà 0 nel caso di un rimorchio  
-* Velocita': sarà 0 nel caso di un rimorchio  
-* Numero posti: sarà 0 nel caso di un rimorchio 
-* Data immatricolazione: non può essere NULL
-
-Modello:
-
-* IdModello (PK): non può essere NULL, univoco  
-* Nome modello  
-* Numero versioni: non può essere NULL, maggiore di 0
-
-Fabbrica: 
-
-* IdFabbrica (PK): non può essere NULL, univoco  
-* Nome
-
-Combustibile:
-
-* Codice Combustibile (PK):  non può essere NULL, univoco  
-* Tipo
-
-Proprietario:
-
-* IdProprietario: non può essere NULL, univoco   
-* Indirizzo:  non può essere NULL, Va inserito l’intero indirizzo in una stringa
-
-## Generalizzazioni: 
-
-Veicolo (Entità genitore):
-
-* Automobile (Entità figlia)  
+**Veicolo** (Entità genitore):
+* **Automobile** (Entità figlia)  
   * tipologia  
-* Camion (Entità figlia)  
+* **Camion** (Entità figlia)  
   * numero assi  
-* Ciclomotore (Entità figlia)  
+* **Ciclomotore** (Entità figlia)  
   * bauletto  
-* Rimorchio (Entità figlia)  
+* **Rimorchio** (Entità figlia)  
   * tipologia  
-  * carico  
-    
+  * carico 
 
+<img src="img/Veicolo_generalizzazione.PNG" width=500px/>
+
+L'entità successiva che abbiamo analizzato è **Modello**. Gli attributi che abbiamo aggiunto a questa entità sono idModello, nome modello e numero versioni. Questa entità viene identificata univocamente dall'attributo idModello.
+
+<img src="img/Modello.PNG" width=300px/>
+
+La prossima entità che abbiamo visto è **Fabbrica**.
+A livello conettuale abbiamo gestito fabbrica come il marchio di un modello di veicolo, per esempio: Audi, BMW, Fiat, etc. Gli attributi che abbiamo aggiunto a questa entità sono idFabbrica, nome e numeroVeicoloProdotti. Questa entità viene identificata univocamente dall'attributo idFabbrica. Noi abbiamo scelto "numeroVeicoloProdotti" come l'attributo ridondante che in seguito verifecheremo se si puo' tenere o meno.
+
+<img src="img/Fabbrica.PNG" width=250px/>
+
+L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo codiceCombustibile. TipoCombustibile indica se un veicolo utilizza benzina, diesel, gpl, elettrico, metano, gasolio o l'etanol.
+
+<img src="img/Combustibile.PNG" width=200px/>
+
+Infine l'ultima entità è **Proprietario**. Gli attributi che abbiamo aggiunto a questa entità sono idProprietario, cognome, nome e indirizzo. Questa entità viene identificata univocamente dall'attributo idProprietario. Per comodità abbiamo gestito indirizzo come una unica stringa ma si poteva pensare di utilizzare un attributo composto che rappresentasse la via, il numero civico e la città.
+
+<img src="img/Proprietario.PNG" width=250px/>
+
+Come aggiunta abbiamo deciso di aggiungere una generalizzazione su proprietario che ci permetta di identificare se è **Privato**, quindi una persona fisica o se appartiene ad una **Società**, quindi un veicolo aziendale. La generalizzazione e' disgunta perche' proprietario puo' ricoprire solo una delle due categorie.
+
+In queste generalizzazione abbiamo pensato di ricavare gli attributi di Privato tramite Proprietario e aggiungere gli attributi di Societa partita iva e nome.
 Proprietario (Entità genitore):
-
-* Privato  (Entità figlia)  
+* **Privato**  (Entità figlia)  
   * CF: not NULL  
   * nome  not NULL
   * cognome  not NULL
   * data di nascita  
-* Societa (Entità figlia)  
+* **Societa** (Entità figlia)  
   * partita iva  
   * nome
 
-## Relazioni principali e vincoli:
 
-Appartiene &rarr; Tra Veicolo (1:1) e Modello (1:N)
+<img src="img/Proprietario_generalizzazione.PNG" width=250px/>
+
+Tra **Modello** e **Veicolo** è presente una relazione uno a molti "**Appartiene**" &rarr; Tra Veicolo (1:1) e Modello (1:N)
 
 * Un veicolo può appartenere solo ad un modello.  
 * Più veicoli possono essere dello stesso modello.  
 * Per ogni modello deve esserci almeno un veicolo che appartiene a quel modello per essere presente nel database
 
-Prodotto &rarr; Tra Modello (1:1) e Fabbrica (1:N)
+<img src="img/Relazione_ModelloVeicolo.PNG" width=500px/>
 
-* Un modello deve essere prodotto da una sola fabbrica.  
-* Una fabbrica può produrre più modelli.
+Tra **Modello** e **Fabbrica** è presente una relazione uno a molti "**Prodotto**" &rarr; Tra Fabbrica (1:1) e Modello (1:N)
+
+* Una fabbrica produce solo un modello.  
+* Più fabbriche possono produrre lo stesso modello.  
+* Per ogni modello deve esserci almeno una fabbrica che produce quel modello per essere presente nel database
 
 
-Utilizza &rarr; Tra Veicolo (1:1) e Combustibile (1:N)
+<img src="img/Relazione_ModelloFabbrica.png" width=200px/>
 
-* Un veicolo può utilizzare solo ad un tipo di combustione.  
-* Più veicoli possono utilizzare lo stesso tipo di combustione.  
-* Un tipo di combustione deve essere utilizzato da almeno un veicolo per poter essere presente nel database
+Tra **Veicolo** e **Combustibile** è presente una relazione uno a molti "**Utilizza**" &rarr; Tra Veicolo (1:1) e Combustibile (1:N) 
 
-ProprietaroCorrente &rarr; Tra Veicolo (1:1) e Proprietario (0:N)
+* Un veicolo utilizza solo un tipo di combustibile.  
+* Più veicoli possono utilizzare lo stesso tipo di combustibile.  
+* Un tipo di combustibile deve essere utilizzato da almeno un veicolo per poter essere presente nel database
 
-* Attributi:  
-  * data di acquisto  
-* Un veicolo può essere posseduto da un solo Proprietario.  
-* Un proprietario può non possedere o possedere uno o più veicoli.
+<img src="img/Relazione_VeicoloCombustibile.png" width=500px/>
 
-## Relazioni critiche e vincoli:
+Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
+  1) Uno a molti "**Proprietario Corrente**" &rarr; Tra Veicolo (1:1) e Proprietario (0:N) 
+ -  Un veicolo appartiene solo un proprietario corrente.  
+ - Un proprietario puo' non avere un veicolo al momento oppure avere piu' di uno
+ - Data è l'attributo che identifica la data dell'acquisto del veicolo al proprietario corrente
+ 1) Molti a molti "**Proprietario Passato**" &rarr; Tra Veicolo (0:N) e Proprietario (0:N)
+  - Un veicolo puo' avere o no piu' proprietari passati
+  - Un proprietario puo' avere o no piu' veicoli nel passato
+  - Data acquisto e data vendita sono attributi che identificano la data dell'acquisto e vendita del veicolo al proprietario corrente
+  - Se un proprietario compra e vende la stessa macchina due volte allora si registrano solo le date dell’ultima occorrenza. 
 
-ProprietariPassati \-\> Tra Veicolo (0:N) e Proprietario (0:N)
+"Proprietario Passato" ci risolve la questione della "vita" di un veicolo 
+  
+<img src="img/Relazione_VeicoloProprietario.png" width=500px/>
 
-* Attributi:  
-  * data acquisto  
-  * data vendita  
-* Un veicolo può non avere o avere uno o più proprietari passati  
-* Un proprietario può non avere avuto o avere avuto uno o più veicolo nel passato   
-* Se un proprietario compra e vende la stessa macchina due volte allora si registrano solo le date dell’ultima occorrenza.
+## Schema ER finale
+
+<img src="img/ShemaFinaleER.drawio.png" width=500px/>
+
+## Lista dei Vincoli
+
+### Vincoli di Chiave
+
+##### Chiavi Primarie (PK): Devono essere not null e univoche
+- Veicolo.Targa
+- Modello.idModello
+- Fabbrica.idFabbrica
+- Combustibile.codiceCombustibile
+- Proprietario.IdProprietario
+
+##### Chiavi Esterne (FK): 
+- Veicolo.Modello → Modello.idModello
+- Veicolo.CodiceCombustibile → Combustibile.codiceCombustibile
+- Veicolo.Proprietario → Proprietario.IdProprietario
+- Modello.FabbricaDiProduzione → Fabbrica.idFabbrica
+- ProprietariPassati.Targa → Veicolo.Targa
+- ProprietariPassati.IdProprietario → Proprietario.IdProprietario
+
+
+### Vincoli di Entità
+
+(Questi dati sono importanti e devono essere presenti)
+- Veicolo.dataImmatricolazione NOT NULL
+- Veicolo.dataAquisto NOT NULL
+- Veicolo.Cilindrata: NOT NULL  
+- Veicolo.Cavalli: NOT NULL  
+- Veicolo.Velocita': NOT NULL  
+- Veicolo.NumeroPosti: NOT NULL
+- Modello.numeroVersioni: NOT NULL
+- Proprietario.indirizzo: NOT NULL
+- Privato.CF NOT NULL
+- Privato.nome NOT NULL
+- Privato.cognome NOT NULL
+- Società.partitaIva NOT NULL
+- ProprietariPassati.dataAcquisto NOT NULL
+- ProprietariPassati.dataVendita NOT NULL
+
+
+### Vincoli di Dominio
+
+- Modello.numeroVersioni > 0
+- Veicolo.cilindrata > 0 (se Rimorchio allora 0)
+- Veicolo.cavalli > 0 (se Rimorchio allora 0)
+- Veicolo.numeroPosti > 0 (se Rimorchio allora 0)
+- Veicolo.velocita' > 0 (se Rimorchio allora 0)
+
+
+### Vincoli di partecipazione 
+
++ Affinche' una fabbrica sia presente nel database deve comparire almeno in uno dei modelli presenti
++ Affinche' un modello sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Affinche un tipo di combustione sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Un veicolo deve per forza avere un proprietario corrente (uno solo)
++ Un proprietario puo non avere un veicolo al momento
+
+
+### Vincoli di Generalizzazione
+ Totalità e disgiunzione
+- Ogni proprietario deve essere solo Privato o Società
+- Ogni veicolo deve comparire in esattamente una tabella figlia: (Automobile, Camion, Ciclomotore, Rimorchio)
+
+
+### Vincoli di Integrità Referenziale
+
+- Non posso cancellare nessun oggetto(record) se viene puntato da una chiave esterna
+  - esempio: non posso cancellare un proprietario se lui possiede una veicolo che si trova nel database
+  - altro esempio: non posso cancellare una fabbrica se esiste un modello che e' stato prodotto da quella fabbrica
+
+
+### Vincoli di Tupla
+
+- ProprietariPassati: CHECK (dataVendita > dataAcquisto)
+- ProprietariPassati: UNIQUE (Targa, IdProprietario)
+  - se un proprietario compra e vende piu' di una volta lo stesso veicolo si registra salva solo l'ultima occorrenza 
+
+### Vincoli Inter-tabella ( Ridondanza Controllata) 
+
+- Trigger per aggiornare Fabbrica.numeroVeicoliProdotti quando viene inserito un nuovo veicolo
+
+
+### Vincoli generali
+  1) La data di acquisto deve essere antecedente rispetto alla data di vendita.  
+  2) La data di acquisto deve essere successiva rispetto alla data di immatricolazione.  
+  3) La data di vendita deve essere antecedente rispetto alla data di acquisto del veicolo successivo.
+  4) La data di acquisto di un proprietario passato deve essere precedente alla data di acquisto del proprietario corrente.
+  5) Un proprietario non può vendere un veicolo che non possiede.
+  6) Un veicolo non può essere acquistato da un proprietario se è già stato acquistato da un altro proprietario nello stesso giorno.
+   
 ## Regole di Gestione
-- Gli attributi data_acquisto e data_vendita nella relazione PROPRIETARI PASSATI non devono combaciare, non devono intersecarsi tra intervalli di proprietari diversi e data_acquisto non deve essere NULL
+Di seguito sono elencate le regole di gestione usate nello schema ER.
+1) num_veicoli_prodotti: numero di veicoli prodotti dalla fabbrica
 
+Altre idee di regole di gestione che potrebbero essere utilizzate:
+1) L'età di un veicolo è la differenza tra la data odierna e la data di immatricolazione.
+2) Il numero di anni di proprietà di un veicolo è la differenza tra la data di acquisto e la data di vendita. 
+
+# Progettazione Logica
 ## Operazioni richeste
 - **Op1**: Aggiunta nuovo veicolo prodotto [15 al giorno]
 - **Op2**: Calcolare tutti i dati relativi alla fabbrica soprattutto il numero dei veicoli prodotti [2 al giorno]
-
-# Progettazione Logica
 ### Tabella volumi
 | Concetto               | Tipo  | Volume   |
 |---                     | ---   | ---      |
@@ -352,88 +431,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 + Rimorchio {**_Targa_** (PK, FK → Veicolo._Targa_), tipologia, carico}
 
-***IMPOETANTE:** Le chiavi primarie (PK) e le chiavi esterne (FK) non possono essere NULL
-
-
-## Riepilogo Vincoli di integrita
-
-### Vincoli di Chiave
-
-**Chiavi Primarie (PK): Devono essere not null e univoche
-- Veicolo.Targa
-- Modello.idModello
-- Fabbrica.idFabbrica
-- Combustibile.codiceCombustibile
-- Proprietario.IdProprietario
-
-**Chiavi Esterne (FK): 
-- Veicolo.Modello → Modello.idModello
-- Veicolo.CodiceCombustibile → Combustibile.codiceCombustibile
-- Veicolo.Proprietario → Proprietario.IdProprietario
-- Modello.FabbricaDiProduzione → Fabbrica.idFabbrica
-- ProprietariPassati.Targa → Veicolo.Targa
-- ProprietariPassati.IdProprietario → Proprietario.IdProprietario
-
-
-### Vincoli di Entità
-
-(Questi dati sono importanti e devono essere presenti)
-- Veicolo.dataImmatricolazione NOT NULL
-- Veicolo.dataAquisto NOT NULL
-- Veicolo.Cilindrata: NOT NULL  
-- Veicolo.Cavalli: NOT NULL  
-- Veicolo.Velocita': NOT NULL  
-- Veicolo.NumeroPosti: NOT NULL
-- Modello.numeroVersioni: NOT NULL
-- Proprietario.indirizzo: NOT NULL
-- Privato.CF NOT NULL
-- Privato.nome NOT NULL
-- Privato.cognome NOT NULL
-- Società.partitaIva NOT NULL
-- ProprietariPassati.dataAcquisto NOT NULL
-- ProprietariPassati.dataVendita NOT NULL
-
-
-### Vincoli di Dominio
-
-- Modello.numeroVersioni > 0
-- Veicolo.cilindrata > 0 (se Rimorchio allora 0)
-- Veicolo.cavalli > 0 (se Rimorchio allora 0)
-- Veicolo.numeroPosti > 0 (se Rimorchio allora 0)
-- Veicolo.velocita' > 0 (se Rimorchio allora 0)
-
-
-### Vincoli di partecipazione 
-
-+ Affinche' una fabbrica sia presente nel database deve comparire almeno in uno dei modelli presenti
-+ Affinche' un modello sia presente nel database deve comparire almeno in uno dei veicoli presenti
-+ Affinche un tipo di combustione sia presente nel database deve comparire almeno in uno dei veicoli presenti
-+ Un veicolo deve per forza avere un proprietario corrente (uno solo)
-+ Un proprietario puo non avere un veicolo al momento
-
-
-### Vincoli di Generalizzazione
- Totalità e disgiunzione
-- Ogni proprietario deve essere solo Privato o Società
-- Ogni veicolo deve comparire in esattamente una tabella figlia: (Automobile, Camion, Ciclomotore, Rimorchio)
-
-
-### Vincoli di Integrità Referenziale
-
-- Non posso cancellare nessun oggetto(record) se viene puntato da una chiave esterna
-  - esempio: non posso cancellare un proprietario se lui possiede una veicolo che si trova nel database
-  - altro esempio: non posso cancellare una fabbrica se esiste un modello che e' stato prodotto da quella fabbrica
-
-
-### Vincoli di Tupla
-
-- ProprietariPassati: CHECK (dataVendita > dataAcquisto)
-- ProprietariPassati: UNIQUE (Targa, IdProprietario)
-  - se un proprietario compra e vende piu' di una volta lo stesso veicolo si registra salva solo l'ultima occorrenza 
-
-### Vincoli Inter-tabella ( Ridondanza Controllata) 
-
-- Trigger per aggiornare Fabbrica.numeroVeicoliProdotti quando viene inserito un nuovo veicolo
+**IMPORTANTE:** Le chiavi primarie (PK) e le chiavi esterne (FK) non possono essere NULL
 
 
 
