@@ -73,7 +73,7 @@ Questo è il modo come abbiamo fatto la generalizzazione insieme ai possibili at
   * tipologia  
   * carico 
 
-<img src="img/Veicolo_generalizzazione.PNG" width=500px/>
+<img src="img/Veicolo_generalizzazione.PNG" width=400px/>
 
 L'entità successiva che abbiamo analizzato è **Modello**. Gli attributi che abbiamo aggiunto a questa entità sono idModello, nome modello e numero versioni. Questa entità viene identificata univocamente dall'attributo idModello.
 
@@ -84,13 +84,13 @@ A livello conettuale abbiamo gestito fabbrica come il marchio di un modello di v
 
 <img src="img/Fabbrica.PNG" width=250px/>
 
-L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo codiceCombustibile. TipoCombustibile indica se un veicolo utilizza benzina, diesel, gpl, elettrico, metano, gasolio o l'etanol.
+L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo codiceCombustibile. TipoCombustibile indica se un veicolo utilizza benzina, diesel, gpl, elettrico e metano.
 
 <img src="img/Combustibile.PNG" width=200px/>
 
-Infine l'ultima entità è **Proprietario**. Gli attributi che abbiamo aggiunto a questa entità sono idProprietario, cognome, nome e indirizzo. Questa entità viene identificata univocamente dall'attributo idProprietario. Per comodità abbiamo gestito indirizzo come una unica stringa ma si poteva pensare di utilizzare un attributo composto che rappresentasse la via, il numero civico e la città.
+Infine l'ultima entità è **Proprietario**. Gli attributi che abbiamo aggiunto a questa entità sono idProprietario e indirizzo. Questa entità viene identificata univocamente dall'attributo idProprietario. Per comodità abbiamo gestito indirizzo come una unica stringa ma si poteva pensare di utilizzare un attributo composto che rappresentasse la via, il numero civico e la città.
 
-<img src="img/Proprietario.PNG" width=250px/>
+<img src="img/Proprietario.png" width=250px/>
 
 Come aggiunta abbiamo deciso di aggiungere una generalizzazione su proprietario che ci permetta di identificare se è **Privato**, quindi una persona fisica o se appartiene ad una **Società**, quindi un veicolo aziendale. La generalizzazione e' disgunta perche' proprietario puo' ricoprire solo una delle due categorie.
 
@@ -102,11 +102,10 @@ Proprietario (Entità genitore):
   * cognome  not NULL
   * data di nascita  
 * **Societa** (Entità figlia)  
-  * partita iva  
-  * nome
+  * partita iva 
 
 
-<img src="img/Proprietario_generalizzazione.PNG" width=250px/>
+<img src="img/Proprietario_generalizzazione.PNG" width=400px/>
 
 Tra **Modello** e **Veicolo** è presente una relazione uno a molti "**Appartiene**" &rarr; Tra Veicolo (1:1) e Modello (1:N)
 
@@ -150,7 +149,7 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 
 ## Schema ER finale
 
-<img src="img/ShemaFinaleER.drawio.png" width=500px/>
+<img src="img/SchemaER.drawio.png"/>
 
 ## Lista dei Vincoli
 
@@ -378,15 +377,14 @@ In questa fase del progetto sono state gestite le generalizzazioni presenti elim
 
 **Veicolo**
 
-## DA MODIFICARE
-<img src="/img/SchemaER_modificato_veicolo.drawio(1).png"/>
+<img src="/img/veicolo_nuovo.png" width=500px />
 
 Abbiamo optato per una strategia di accorpamento nel genitore. Questa scelta è motivata dal fatto che la maggior parte delle operazioni coinvolgerà attributi comuni a tutti i tipi di veicolo. 
 
 **Proprietario**
 
-## DA MODIFICARE
-<img src="/img/Proprietario.drawio.png"/>
+
+<img src="/img/proprietario_nuovo.png" width=600px />
 
 Anche per proprietario abbiamo scelto la stessa strategia.
 
