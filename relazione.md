@@ -388,6 +388,10 @@ Abbiamo optato per una strategia di accorpamento nel genitore. Questa scelta è 
 
 Anche per proprietario abbiamo scelto la stessa strategia.
 
+### Schema ER Finale senza generalizzazioni
+
+<img src="/img/SchemaER_senza_generalizzazioni.png">
+
 ### **Partizionamento o accorpamento**
 
 Per quanto riguarda l'entità Proprietario, abbiamo optato per mantenere l'attributo 'indirizzo' come un campo di testo unico, invece di partizionarlo verticalmente in componenti separate (come via, numero civico, CAP, città). Questa decisione è stata presa considerando che l'indirizzo viene generalmente utilizzato come un'unica unità informativa nelle operazioni più frequenti, e la sua scomposizione non offrirebbe vantaggi significativi in termini di prestazioni o funzionalità per il nostro specifico caso d'uso.
