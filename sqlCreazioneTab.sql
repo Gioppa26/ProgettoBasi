@@ -33,7 +33,7 @@ CREATE TABLE privato (
 
 CREATE TABLE societa (
     id_proprietario INT PRIMARY KEY,
-    iva VARCHAR(16) NOT NULL UNIQUE,
+    partita_iva VARCHAR(16) NOT NULL UNIQUE,
     FOREIGN KEY (id_proprietario) REFERENCES proprietario(id_proprietario)
 );
 
