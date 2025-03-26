@@ -1,90 +1,90 @@
-CREATE TABLE Fabbrica (
-    idFabbrica INT PRIMARY KEY,
+CREATE TABLE fabbrica (
+    id_fabbrica INT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
-    numeroVeicoliProdotti INT DEFAULT 0
+    numero_veicoli_prodotti INT DEFAULT 0
 );
 
-CREATE TABLE Modello (
-    idModello INT PRIMARY KEY,
-    nomeModello VARCHAR(50),
-    numeroVersioni INT NOT NULL CHECK (numeroVersioni > 0),
-    FabbricaDiProduzione INT NOT NULL,
-    FOREIGN KEY (FabbricaDiProduzione) REFERENCES Fabbrica(idFabbrica)
+CREATE TABLE modello (
+    id_modello INT PRIMARY KEY,
+    nome_modello VARCHAR(50),
+    numero_versioni INT NOT NULL CHECK (numero_versioni > 0),
+    fabbrica_di_produzione INT NOT NULL,
+    FOREIGN KEY (fabbrica_di_produzione) REFERENCES fabbrica(id_fabbrica)
 );
 
-CREATE TABLE Combustibile (
-    codiceCombustibile INT PRIMARY KEY,
-    tipoCombustibile VARCHAR(20)
+CREATE TABLE combustibile (
+    codice_combustibile INT PRIMARY KEY,
+    tipo_combustibile VARCHAR(20)
 );
 
-CREATE TABLE Proprietario (
-    IdProprietario INT PRIMARY KEY,
+CREATE TABLE proprietario (
+    id_proprietario INT PRIMARY KEY,
     indirizzo VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Privato (
-    IdProprietario INT PRIMARY KEY,
-    CF VARCHAR(16) NOT NULL UNIQUE,
+CREATE TABLE privato (
+    id_proprietario INT PRIMARY KEY,
+    cf VARCHAR(16) NOT NULL UNIQUE,
     nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
-    dataNascita DATE,
-    FOREIGN KEY (IdProprietario) REFERENCES Proprietario(IdProprietario)
+    data_nascita DATE,
+    FOREIGN KEY (id_proprietario) REFERENCES proprietario(id_proprietario)
 );
 
-CREATE TABLE Veicolo (
-    Targa VARCHAR(10) PRIMARY KEY,
+CREATE TABLE veicolo (
+    targa VARCHAR(10) PRIMARY KEY,
     cilindrata INT NOT NULL,
     cavalli INT NOT NULL,
     velocita INT NOT NULL,
-    numeroPosti INT NOT NULL,
-    dataImmatricolazione DATE NOT NULL,
-    dataAcquisto DATE NOT NULL,
-    Modello INT NOT NULL,
-    CodiceCombustibile INT NOT NULL,
-    Proprietario INT NOT NULL,
+    numero_posti INT NOT NULL,
+    data_immatricolazione DATE NOT NULL,
+    data_acquisto DATE NOT NULL,
+    modello INT NOT NULL,
+    codice_combustibile INT NOT NULL,
+    proprietario INT NOT NULL,
     CHECK (
         (cilindrata >= 0) AND 
         (cavalli >= 0) AND 
         (velocita >= 0) AND 
-        (numeroPosti >= 0)
+        (numero_posti >= 0)
     ),
-    FOREIGN KEY (Modello) REFERENCES Modello(idModello),
-    FOREIGN KEY (CodiceCombustibile) REFERENCES Combustibile(codiceCombustibile),
-    FOREIGN KEY (Proprietario) REFERENCES Proprietario(IdProprietario)
+    FOREIGN KEY (modello) REFERENCES modello(id_modello),
+    FOREIGN KEY (codice_combustibile) REFERENCES combustibile(codice_combustibile),
+    FOREIGN KEY (proprietario) REFERENCES proprietario(id_proprietario)
 );
 
-CREATE TABLE Automobile (
-    Targa VARCHAR(10) PRIMARY KEY,
+CREATE TABLE automobile (
+    targa VARCHAR(10) PRIMARY KEY,
     tipologia VARCHAR(20),
-    FOREIGN KEY (Targa) REFERENCES Veicolo(Targa)
+    FOREIGN KEY (targa) REFERENCES veicolo(targa)
 );
 
-CREATE TABLE Ciclomotore (
-    Targa VARCHAR(10) PRIMARY KEY,
+CREATE TABLE ciclomotore (
+    targa VARCHAR(10) PRIMARY KEY,
     bauletto BOOLEAN,
-    FOREIGN KEY (Targa) REFERENCES Veicolo(Targa)
+    FOREIGN KEY (targa) REFERENCES veicolo(targa)
 );
 
-CREATE TABLE Camion (
-    Targa VARCHAR(10) PRIMARY KEY,
-    numeroAssi INT,
-    FOREIGN KEY (Targa) REFERENCES Veicolo(Targa)
+CREATE TABLE camion (
+    targa VARCHAR(10) PRIMARY KEY,
+    numero_assi INT,
+    FOREIGN KEY (targa) REFERENCES veicolo(targa)
 );
 
-CREATE TABLE Rimorchio (
-    Targa VARCHAR(10) PRIMARY KEY,
+CREATE TABLE rimorchio (
+    targa VARCHAR(10) PRIMARY KEY,
     tipologia VARCHAR(20),
     carico INT,
-    FOREIGN KEY (Targa) REFERENCES Veicolo(Targa)
+    FOREIGN KEY (targa) REFERENCES veicolo(targa)
 );
 
-CREATE TABLE ProprietariPassati (
-    Targa VARCHAR(10),
-    IdProprietario INT,
-    dataAcquisto DATE NOT NULL,
-    dataVendita DATE NOT NULL,
-    PRIMARY KEY (Targa, IdProprietario),
-    CHECK (dataVendita > dataAcquisto),
-    FOREIGN KEY (Targa) REFERENCES Veicolo(Targa),
-    FOREIGN KEY (IdProprietario) REFERENCES Proprietario(IdProprietario)
+CREATE TABLE proprietari_passati (
+    targa VARCHAR(10),
+    id_proprietario INT,
+    data_acquisto DATE NOT NULL,
+    data_vendita DATE NOT NULL,
+    PRIMARY KEY (targa, id_proprietario),
+    CHECK (data_vendita > data_acquisto),
+    FOREIGN KEY (targa) REFERENCES veicolo(targa),
+    FOREIGN KEY (id_proprietario) REFERENCES proprietario(id_proprietario)
 );

@@ -183,7 +183,7 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 - Veicolo.NumeroPosti: NOT NULL
 - Modello.numeroVersioni: NOT NULL
 - Proprietario.indirizzo: NOT NULL
-- Privato.CF NOT NULL
+- <p>Privato.CF: NOT NULL </p>
 - Privato.nome NOT NULL
 - Privato.cognome NOT NULL
 - Società.partitaIva NOT NULL
@@ -210,7 +210,7 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 
 
 ### Vincoli di Generalizzazione
- Totalità e disgiunzione
+ **Totalità e disgiunzione**
 - Ogni proprietario deve essere solo Privato o Società
 - Ogni veicolo deve comparire in esattamente una tabella figlia: (Automobile, Camion, Ciclomotore, Rimorchio)
 
@@ -226,9 +226,9 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 
 - ProprietariPassati: CHECK (dataVendita > dataAcquisto)
 - ProprietariPassati: UNIQUE (Targa, IdProprietario)
-  - se un proprietario compra e vende piu' di una volta lo stesso veicolo si registra salva solo l'ultima occorrenza 
+  - se un proprietario compra e vende piu' di una volta lo stesso veicolo si registra salva solo l'ultima occorrenza
 
-### Vincoli Inter-tabella ( Ridondanza Controllata) 
+### Vincoli Inter-tabella (Ridondanza Controllata) 
 
 - Trigger per aggiornare Fabbrica.numeroVeicoliProdotti quando viene inserito un nuovo veicolo
 
@@ -378,12 +378,14 @@ In questa fase del progetto sono state gestite le generalizzazioni presenti elim
 
 **Veicolo**
 
+## DA MODIFICARE
 <img src="/img/SchemaER_modificato_veicolo.drawio(1).png"/>
 
 Abbiamo optato per una strategia di accorpamento nel genitore. Questa scelta è motivata dal fatto che la maggior parte delle operazioni coinvolgerà attributi comuni a tutti i tipi di veicolo. 
 
 **Proprietario**
 
+## DA MODIFICARE
 <img src="/img/Proprietario.drawio.png"/>
 
 Anche per proprietario abbiamo scelto la stessa strategia.
@@ -495,22 +497,22 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
       SELECT F2.idFabbrica
       FROM Fabbrica F2
       WHERE EXISTS (
-          SELECT 1
+          SELECT *
           FROM Modello M2
           WHERE M2.FabbricaDiProduzione = F2.idFabbrica
           AND EXISTS (
-              SELECT 1
+              SELECT *
               FROM Modello M3
               WHERE M3.FabbricaDiProduzione = F2.idFabbrica
               AND M3.idModello <> M2.idModello
               AND EXISTS (
-                  SELECT 1
+                  SELECT *
                   FROM Modello M4
                   WHERE M4.FabbricaDiProduzione = F2.idFabbrica
                   AND M4.idModello <> M2.idModello
                   AND M4.idModello <> M3.idModello
                   AND NOT EXISTS (
-                      SELECT 1
+                      SELECT *
                       FROM Modello M5
                       WHERE M5.FabbricaDiProduzione = F2.idFabbrica
                       AND M5.idModello <> M2.idModello
