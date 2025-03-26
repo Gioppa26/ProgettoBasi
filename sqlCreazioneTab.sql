@@ -13,7 +13,7 @@ CREATE TABLE modello (
 );
 
 CREATE TABLE combustibile (
-    codice_combustibile INT PRIMARY KEY,
+    codice_combustibile VARCHAR(15) PRIMARY KEY,
     tipo_combustibile VARCHAR(20)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE veicolo (
     data_immatricolazione DATE NOT NULL,
     data_acquisto DATE NOT NULL,
     modello INT NOT NULL,
-    codice_combustibile INT NOT NULL,
+    codice_combustibile VARCHAR(15) NOT NULL,
     proprietario INT NOT NULL,
     CHECK (
         (cilindrata >= 0) AND 
@@ -88,3 +88,54 @@ CREATE TABLE proprietari_passati (
     FOREIGN KEY (targa) REFERENCES veicolo(targa),
     FOREIGN KEY (id_proprietario) REFERENCES proprietario(id_proprietario)
 );
+
+
+
+-- Trigger --
+--controllo nr_veicoli_prodotti--
+CREATE OR REPLACE FUNCTION aggiorna_conteggio_veicoli() 
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE fabbrica
+    SET numero_veicoli_prodotti = numero_veicoli_prodotti + 1
+    WHERE id_fabbrica = (
+        SELECT fabbrica_di_produzione 
+        FROM modello 
+        WHERE id_modello = NEW.modello
+    );
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_conteggio_veicoli
+AFTER INSERT ON veicolo
+FOR EACH ROW EXECUTE FUNCTION aggiorna_conteggio_veicoli();
+
+--controllo proprietari--
+CREATE OR REPLACE FUNCTION archivia_proprietario() 
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.proprietario IS NOT NULL AND NEW.proprietario <> OLD.proprietario THEN
+        INSERT INTO proprietari_passati(targa, id_proprietario, data_acquisto, data_vendita)
+        VALUES (OLD.targa, OLD.proprietario, OLD.data_acquisto, CURRENT_DATE);
+        
+        NEW.data_acquisto := CURRENT_DATE;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_archivia_proprietario
+BEFORE UPDATE OF proprietario ON veicolo
+FOR EACH ROW EXECUTE FUNCTION archivia_proprietario();
+
+
+--Inserimenti
+INSERT INTO fabbrica (id_fabbrica, nome, numero_veicoli_prodotti)
+VALUES 
+(1, 'mercedes', 0),
+(2, 'audi', 0),
+(3, 'bmw', 0),
+(4, 'volswagen', 0),
+(5, 'opel', 0);
+
