@@ -423,7 +423,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 + societa {**_id_proprietario_** (PK, FK → proprietario._id_proprietario_), partita_iva}
 
-+ veicolo {**_targa_** (PK), cavalli, velocita, numero_posti, data_immatricolazione, cilindrata, data_aquisto, **_modello_** (FK → modello), **_CodiceCombustibile_** (FK → combustibile._codiceCombustibile_), **_proprietario_** (FK → proprietario._id_proprietario_)}
++ veicolo {**_targa_** (PK), cavalli, velocita, numero_posti, data_immatricolazione, cilindrata, data, **_modello_** (FK → modello), **_codice_combustibile_** (FK → combustibile._codice_combustibile_), **_proprietario_** (FK → proprietario._id_proprietario_)}
 
 + proprietari_passati {**_targa_** (PK, FK → veicolo._targa_), **_id_proprietario_** (PK, FK → proprietario._id_proprietario_), data_vendita, data_acquisto}
 
