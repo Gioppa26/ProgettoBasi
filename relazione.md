@@ -409,29 +409,29 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 ### Traduzione modello logico
 
 
-+ Fabbrica  {**_idFabbrica_** (PK), nome, numeroVeicoloProdotti}
++ fabbrica  {**_id_fabbrica_** (PK), nome, numero_veicolo_prodotti}
 
-+ Modello {**_idModello_** (PK), nomeModello, numeroVersioni, **_FabbricaDiProduzione_** (FK → Fabbrica._idFabbrica_)}
++ modello {**_id_modello_** (PK), nomeModello, numero_versioni, **_fabbrica_di_produzione_** (FK → fabbrica._id_fabbrica_)}
 
-+ Combustibile {**_codiceCombustibile_** (PK), tipoCombustibile}
++ combustibile {**_codice_combustibile_** (PK), tipo_combustibile}
 
-+ Proprietario {**_IdProprietario_** (PK), indirizzo}
++ proprietario {**_id_proprietario_** (PK), indirizzo}
 
-+ Privato {**_IdProprietario_** (PK, FK → Proprietario._IdProprietario_), CF, nome, cognome, dataNascita}
++ privato {**_id_proprietario_** (PK, FK → proprietario._id_proprietario_), cf, nome, cognome, data_nascita}
 
-+ Società {**_IdProprietario_** (PK, FK → Proprietario._IdProprietario_), partitaIva}
++ societa {**_id_proprietario_** (PK, FK → proprietario._id_proprietario_), partita_iva}
 
-+ Veicolo {**_Targa_** (PK), cavalli, velocità, numeroPosti, dataImmatricolazione, cilindrata, dataAquisto, **_Modello_** (FK → Modello), **_CodiceCombustibile_** (FK → Combustibile._codiceCombustibile_), **_Proprietario_** (FK → Proprietario._IdProprietario_)}
++ veicolo {**_targa_** (PK), cavalli, velocita, numero_posti, data_immatricolazione, cilindrata, data_aquisto, **_modello_** (FK → modello), **_CodiceCombustibile_** (FK → combustibile._codiceCombustibile_), **_proprietario_** (FK → proprietario._id_proprietario_)}
 
-+ ProprietariPassati {**_Targa_** (PK, FK → Veicolo._Targa_), **_IdProprietario_** (PK, FK → Proprietario._IdProprietario_), dataVendita, dataAcquisto}
++ proprietari_passati {**_targa_** (PK, FK → veicolo._targa_), **_id_proprietario_** (PK, FK → proprietario._id_proprietario_), data_vendita, data_acquisto}
 
-+ Automobile {**_Targa_** (PK, FK → Veicolo._Targa_), tipologia}
++ automobile {**_targa_** (PK, FK → veicolo._targa_), tipologia}
 
-+ Ciclomotore {**_Targa_** (PK, FK → Veicolo._Targa_), bauletto}
++ ciclomotore {**_targa_** (PK, FK → veicolo._targa_), bauletto}
 
-+ Camion {**_Targa_** (PK, FK → Veicolo._Targa_), numeroAssi}
++ camion {**_targa_** (PK, FK → veicolo._targa_), numero_assi}
 
-+ Rimorchio {**_Targa_** (PK, FK → Veicolo._Targa_), tipologia, carico}
++ rimorchio {**_targa_** (PK, FK → veicolo._targa_), tipologia, carico}
 
 **IMPORTANTE:** Le chiavi primarie (PK) e le chiavi esterne (FK) non possono essere NULL
 
