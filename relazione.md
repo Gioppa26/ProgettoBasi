@@ -2,14 +2,20 @@
 ## Dipartimento di Scienze Matematiche, Informatiche e Fisiche
 <img src="img/Uniud.png"/>
 
+
+
 # Relazione Progetto Basi di Dati
+### A cura di
+- Roland GJOPALAJ	157277     						          
+- Giovanni PANTAROTTO	157707					     
+- Cristian TOMASS 147813
+
 ## Indice degli argomenti
 1. [Progettazione Concettuale](#progettazione-concettuale)
 2. [Progettazione Logica](#progettazione-logica)
 3. [Progettazione Fisica](#progettazione-fisica)
-4. [Implementazione](#implementazione)
-5. [Analisi con R](#analisi-con-r)
-6. [Conclusioni](#conclusioni)
+4. [Analisi con R](#analisi-con-r)
+5. [Conclusioni](#conclusioni)
 # Progettazione Concettuale
 
 ## Progetto "Registro Automobilistico"
@@ -84,7 +90,7 @@ A livello conettuale abbiamo gestito fabbrica come il marchio di un modello di v
 
 <img src="img/Fabbrica.PNG" width=250px/>
 
-L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo codiceCombustibile. TipoCombustibile indica se un veicolo utilizza benzina, diesel, gpl, elettrico e metano.
+L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo codiceCombustibile. TipoCombustibile indica se un veicolo utilizza benzina, diesel, gpl, elettrico e ibrido.
 
 <img src="img/Combustibile.PNG" width=200px/>
 
@@ -402,7 +408,7 @@ Per quanto riguarda l'entità Proprietario, abbiamo optato per mantenere l'attri
 |-------------|-------------------|
 | Veicolo     | Targa             | 
 | Combustibile| codiceCombustibile | 
-| Proprietario| IdProprietario      | 
+| Proprietario| idProprietario      | 
 | Modello     | idModello         | 
 | Fabbrica    | idFabbrica       | 
 
