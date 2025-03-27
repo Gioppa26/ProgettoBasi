@@ -604,113 +604,112 @@ FOR EACH ROW EXECUTE FUNCTION check_societa_mutua_esclusione();
 ```
 ### Popolazione base di dati
 ### Query
-  ### Query nostre
-  1. I veicoli con almeno 1 proprietario
-  ```sql
-  SELECT v.targa
-  FROM veicolo as v
-  WHERE not exists(
-    SELECT *
-    FROM veicolo as v1
-    WHERE v1.targa <> v.targa and
-    v1.proprietario = v.proprietario
-    )
-  ```
-  2. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
-  ```sql
-  create view maxCavalli(targa,nCavalli) as
-    select v.targa,count(*)
-    from veicolo as v
-    group by v.cavalli
+1. I veicoli con almeno 1 proprietario
+```sql
+SELECT v.targa
+FROM veicolo as v
+WHERE not exists(
+  SELECT *
+  FROM veicolo as v1
+  WHERE v1.targa <> v.targa and
+  v1.proprietario = v.proprietario
+  )
+```
+2. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
+```sql
+create view maxCavalli(targa,nCavalli) as
+  select v.targa,count(*)
+  from veicolo as v
+  group by v.cavalli
 
-    select mc.targa
-    from veicolo as v1, maxCavalli as mc
-    where v1.propritario proprietario mc.nCavalli >= ALL (
-      select mc1.nCavalli
-      from maxCavalli AS mc1
-      where mc1.nCavalli <> mc.nCavalli
-  ```
-  3. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
-  ```sql
-  ```
-  ### Query obbligatorie
-  1. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
-  ```sql
-  SELECT V.Targa
-  FROM Veicolo V
-  WHERE V.Modello = M.idModello
-  AND M.FabbricaDiProduzione = F.idFabbrica
-  AND F.idFabbrica IN (
-      SELECT F2.idFabbrica
-      FROM Fabbrica F2
-      JOIN Modello M2 ON F2.idFabbrica = M2.FabbricaDiProduzione
-      GROUP BY F2.idFabbrica
-      HAVING COUNT(DISTINCT M2.idModello) = 3
-  );
-  ```
-  ``` sql
-  SELECT V.Targa
-  FROM Veicolo V
-  JOIN Modello M ON V.Modello = M.idModello
-  JOIN Fabbrica F ON M.FabbricaDiProduzione = F.idFabbrica
-  WHERE F.idFabbrica IN (
-      SELECT F2.idFabbrica
-      FROM Fabbrica F2
-      WHERE EXISTS (
-          SELECT *
-          FROM Modello M2
-          WHERE M2.FabbricaDiProduzione = F2.idFabbrica
-          AND EXISTS (
-              SELECT *
-              FROM Modello M3
-              WHERE M3.FabbricaDiProduzione = F2.idFabbrica
-              AND M3.idModello <> M2.idModello
-              AND EXISTS (
-                  SELECT *
-                  FROM Modello M4
-                  WHERE M4.FabbricaDiProduzione = F2.idFabbrica
-                  AND M4.idModello <> M2.idModello
-                  AND M4.idModello <> M3.idModello
-                  AND NOT EXISTS (
-                      SELECT *
-                      FROM Modello M5
-                      WHERE M5.FabbricaDiProduzione = F2.idFabbrica
-                      AND M5.idModello <> M2.idModello
-                      AND M5.idModello <> M3.idModello
-                      AND M5.idModello <> M4.idModello
-                  )
-              )
-          )
-      )
-  );
-  ```
+  select mc.targa
+  from veicolo as v1, maxCavalli as mc
+  where v1.propritario proprietario mc.nCavalli >= ALL (
+    select mc1.nCavalli
+    from maxCavalli AS mc1
+    where mc1.nCavalli <> mc.nCavalli
+```
+3. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
+```sql
+```
 
-  2. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
-  ```sql
-  SELECT v.targa
-  FROM veicolo as v
-  WHERE NOT EXISTS(
-    SELECT *
-    FROM proprietariPassati as p1
-    WHERE v.proprietario <> p1.codiceFiscale and
-    v.targa = p1.targa)
-  ```
-  3. La fabbrica con il massimo numero di veicoli elettrici.
-  ```sql
-  CREATE VIEW maxElet(targa,codiceCombustibile,nVeicoli) AS (  
-    SELECT v1.targa,v1.codiceCombustibile,count(*)
-    FROM veicolo AS V1
-    GROUP BY V1.codiceCombustibile
+4. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
+```sql
+SELECT V.Targa
+FROM Veicolo V
+WHERE V.Modello = M.idModello
+AND M.FabbricaDiProduzione = F.idFabbrica
+AND F.idFabbrica IN (
+    SELECT F2.idFabbrica
+    FROM Fabbrica F2
+    JOIN Modello M2 ON F2.idFabbrica = M2.FabbricaDiProduzione
+    GROUP BY F2.idFabbrica
+    HAVING COUNT(DISTINCT M2.idModello) = 3
+);
+```
+``` sql
+SELECT V.Targa
+FROM Veicolo V
+JOIN Modello M ON V.Modello = M.idModello
+JOIN Fabbrica F ON M.FabbricaDiProduzione = F.idFabbrica
+WHERE F.idFabbrica IN (
+    SELECT F2.idFabbrica
+    FROM Fabbrica F2
+    WHERE EXISTS (
+        SELECT *
+        FROM Modello M2
+        WHERE M2.FabbricaDiProduzione = F2.idFabbrica
+        AND EXISTS (
+            SELECT *
+            FROM Modello M3
+            WHERE M3.FabbricaDiProduzione = F2.idFabbrica
+            AND M3.idModello <> M2.idModello
+            AND EXISTS (
+                SELECT *
+                FROM Modello M4
+                WHERE M4.FabbricaDiProduzione = F2.idFabbrica
+                AND M4.idModello <> M2.idModello
+                AND M4.idModello <> M3.idModello
+                AND NOT EXISTS (
+                    SELECT *
+                    FROM Modello M5
+                    WHERE M5.FabbricaDiProduzione = F2.idFabbrica
+                    AND M5.idModello <> M2.idModello
+                    AND M5.idModello <> M3.idModello
+                    AND M5.idModello <> M4.idModello
+                )
+            )
+        )
     )
-  
-  SELECT targa
-  FROM maxElet AS ME
-  WHERE ME.codiceCombustibile = "Elettrico" AND
-  ME.nVeicoli >= ALL(
-    SELECT ME1.nVeicoli
-    FROM maxElet
-    )
-  ```
+);
+```
+
+5. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
+```sql
+SELECT v.targa
+FROM veicolo as v
+WHERE NOT EXISTS(
+  SELECT *
+  FROM proprietariPassati as p1
+  WHERE v.proprietario <> p1.codiceFiscale and
+  v.targa = p1.targa)
+```
+6. La fabbrica con il massimo numero di veicoli elettrici.
+```sql
+CREATE VIEW maxElet(targa,codiceCombustibile,nVeicoli) AS (  
+  SELECT v1.targa,v1.codiceCombustibile,count(*)
+  FROM veicolo AS V1
+  GROUP BY V1.codiceCombustibile
+  )
+
+SELECT targa
+FROM maxElet AS ME
+WHERE ME.codiceCombustibile = "Elettrico" AND
+ME.nVeicoli >= ALL(
+  SELECT ME1.nVeicoli
+  FROM maxElet
+  )
+```
 ## Analisi con R
 ## Conclusioni
 
