@@ -419,7 +419,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 + fabbrica  {**_id_fabbrica_** (PK), nome, numero_veicolo_prodotti}
 
-+ modello {**_id_modello_** (PK), nomeModello, numero_versioni, **_fabbrica_di_produzione_** (FK → fabbrica._id_fabbrica_)}
++ modello {**_id_modello_** (PK), nome_modello, numero_versioni, **_fabbrica_di_produzione_** (FK → fabbrica._id_fabbrica_)}
 
 + combustibile {**_codice_combustibile_** (PK), tipo_combustibile}
 
