@@ -269,3 +269,48 @@ VALUES
 ('CD456EF', 1400, 95, 165, 4, '2022-11-30', '2022-12-15', 13, 'GPL', 28),
 ('EF789GH', 2000, 170, 220, 5, '2021-08-05', '2021-08-20', 14, 'BENZ', 29),
 ('GH012IJ', 1800, 145, 200, 5, '2023-01-10', '2023-01-25', 15, 'DIES', 30);
+
+
+-- Aggiunte di record per fare in modo che le query che dobbiamo fare abbiano dei risultati chiari 
+
+-- Per la query 1: Veicolo con max cavalli e un solo proprietario
+INSERT INTO veicolo (targa, cilindrata, cavalli, velocita, numero_posti, data_immatricolazione, data, modello, codice_combustibile, proprietario)
+VALUES ('MAXPWR', 3500, 300, 250, 2, '2024-01-01', '2024-01-01', 5, 'DIES', 1);
+
+-- Per la query 2: Società con esattamente 2 veicoli passati
+INSERT INTO proprietario (id_proprietario, indirizzo) VALUES 
+(31, 'Via Test Società 123, Roma'),
+(32, 'Via Test Società 456, Milano');
+
+INSERT INTO societa (id_proprietario, partita_iva) VALUES 
+(31, 'IT12345678901'),
+(32, 'IT09876543210');
+
+INSERT INTO proprietari_passati (targa, id_proprietario, data_acquisto, data_vendita) VALUES
+('AA000BB', 31, '2020-01-01', '2021-01-01'),
+('BB111CC', 31, '2020-02-01', '2021-02-01');
+
+-- Per la query 3: Veicoli da fabbriche con 3 modelli (Mercedes ID 1)
+INSERT INTO modello (id_modello, nome_modello, numero_versioni, fabbrica_di_produzione) VALUES 
+(16, 'Classe E', 3, 1); -- Mercedes ha ora 4 modelli (escludere)
+
+INSERT INTO veicolo (targa, cilindrata, cavalli, velocita, numero_posti, data_immatricolazione, data, modello, codice_combustibile, proprietario)
+VALUES 
+('FAB3_1', 2000, 150, 200, 5, '2024-02-01', '2024-02-01', 1, 'BENZ', 2),
+('FAB3_2', 2200, 170, 210, 5, '2024-03-01', '2024-03-01', 2, 'DIES', 3);
+
+-- Per la query 4: Proprietario corrente è anche passato
+INSERT INTO veicolo (targa, cilindrata, cavalli, velocita, numero_posti, data_immatricolazione, data, modello, codice_combustibile, proprietario)
+VALUES ('RECURR', 1800, 140, 190, 5, '2023-01-01', '2023-01-01', 4, 'BENZ', 5);
+
+INSERT INTO proprietari_passati (targa, id_proprietario, data_acquisto, data_vendita) VALUES
+('RECURR', 5, '2022-01-01', '2022-12-31');
+
+-- Per la query 5: Fabbrica con max veicoli elettrici (Audi ID 2)
+INSERT INTO modello (id_modello, nome_modello, numero_versioni, fabbrica_di_produzione) VALUES 
+(17, 'Q4 e-tron', 2, 2);
+
+INSERT INTO veicolo (targa, cilindrata, cavalli, velocita, numero_posti, data_immatricolazione, data, modello, codice_combustibile, proprietario)
+VALUES 
+('ELETT1', 0, 204, 180, 5, '2024-04-01', '2024-04-01', 6, 'ELET', 10),
+('ELETT2', 0, 225, 190, 5, '2024-05-01', '2024-05-01', 17, 'ELET', 11);
