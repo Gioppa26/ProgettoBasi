@@ -1,0 +1,201 @@
+id_modell,nome_modello,numero_versioni,fabbrica_di_produzione
+1,CX-7,5,3
+2,Hearse,3,6
+3,Fiero,5,4
+4,Allroad,4,2
+5,3000GT,1,10
+6,A6,3,10
+7,929,1,3
+8,Sunbird,1,4
+9,Blackwood,3,1
+10,ES,1,10
+11,NSX,2,9
+12,Mustang,1,10
+13,Yukon XL 2500,4,10
+14,Corvette,3,1
+15,MKS,5,10
+16,V8 Vantage S,2,8
+17,Escalade,4,6
+18,ES,5,3
+19,Grand Am,2,1
+20,Mark VIII,4,8
+21,RX-8,4,8
+22,Terrain,4,10
+23,Civic,2,1
+24,Pathfinder,5,8
+25,Mazda5,2,9
+26,Monte Carlo,2,4
+27,DTS,2,2
+28,Sierra 2500,2,4
+29,8 Series,3,3
+30,Ram Van 1500,5,3
+31,Endeavor,1,4
+32,240SX,1,4
+33,Outlander,1,1
+34,Reatta,5,2
+35,SSR,5,9
+36,Accent,5,8
+37,Sonata,1,10
+38,Cabriolet,2,3
+39,B-Series,4,6
+40,X6 M,2,5
+41,Mustang,4,7
+42,F150,3,4
+43,CLS-Class,2,3
+44,Trans Sport,2,3
+45,M5,3,6
+46,Ram Van 1500,2,9
+47,SVX,5,2
+48,MDX,2,1
+49,C-Class,2,5
+50,Mustang,1,1
+51,Mustang,3,4
+52,525,4,3
+53,Taurus,5,10
+54,Escort,2,3
+55,Villager,2,4
+56,Grand Prix,5,10
+57,Mustang,4,2
+58,900,4,7
+59,Montana,1,7
+60,Baja,3,6
+61,GLK-Class,3,2
+62,Sportage,4,10
+63,LX,2,9
+64,Virage,5,6
+65,Boxster,1,5
+66,Breeze,3,7
+67,Tracker,2,10
+68,Ram Van B150,1,6
+69,Reno,5,7
+70,Regal,2,10
+71,Edge,1,3
+72,Expo LRV,4,3
+73,Aura,2,2
+74,Grand Vitara,5,5
+75,Exige,3,9
+76,F250,2,5
+77,Optima,5,10
+78,Corsica,5,6
+79,Passat,1,1
+80,1500,1,3
+81,Cabriolet,4,7
+82,Reventón,4,9
+83,Lancer Evolution,5,10
+84,MX-5,4,5
+85,W126,4,3
+86,Elan,2,5
+87,XC70,1,3
+88,Mystique,2,2
+89,400SEL,5,7
+90,Patriot,2,2
+91,Range Rover,4,6
+92,Savana 2500,4,3
+93,GTO,4,2
+94,Prizm,1,4
+95,Stratus,2,5
+96,Focus,2,3
+97,Tempo,4,1
+98,1500,3,9
+99,Amigo,4,1
+100,STS,3,6
+101,Silverado 2500,5,9
+102,Montero Sport,2,5
+103,Caprice,1,3
+104,Transit Connect,2,3
+105,C-Class,1,7
+106,Caravan,5,7
+107,850,4,4
+108,Swift,4,6
+109,Mustang,5,2
+110,CR-X,2,9
+111,Elantra,1,10
+112,Continental,3,1
+113,Accent,2,10
+114,Protege,1,5
+115,Prius Plug-in,1,4
+116,Grand Am,2,8
+117,Sebring,1,8
+118,Galant,5,3
+119,SLK-Class,2,3
+120,Yukon,1,1
+121,Freestyle,2,6
+122,Xterra,5,3
+123,62,4,9
+124,Ram,3,6
+125,Express,1,4
+126,Tiburon,2,6
+127,Envoy XL,3,6
+128,LR2,5,3
+129,FX,3,7
+130,Armada,3,8
+131,Expedition,4,7
+132,Villager,5,1
+133,Nuova 500,3,6
+134,Q,3,1
+135,Caravan,2,9
+136,Space,4,4
+137,Raider,5,10
+138,Voyager,5,2
+139,Legend,5,7
+140,Impreza,4,7
+141,Forte,5,4
+142,V70,3,2
+143,D350,3,3
+144,Continental,1,8
+145,Galant,5,2
+146,MKT,3,2
+147,850,2,6
+148,MX-5,1,10
+149,458 Italia,4,10
+150,STS,1,4
+151,Celica,5,5
+152,MKS,4,4
+153,Savana 1500,5,5
+154,Titan,5,5
+155,LeMans,5,1
+156,Reno,2,1
+157,ES,5,3
+158,Country,2,8
+159,X3,4,4
+160,Firefly,1,7
+161,F250,4,5
+162,Pathfinder,4,3
+163,Miata MX-5,5,6
+164,Thunderbird,2,9
+165,Silverado 2500,1,1
+166,Prius c,1,10
+167,Sprinter,2,8
+168,Pajero,1,5
+169,Camry,1,6
+170,FX,1,2
+171,Mohave/Borrego,2,5
+172,Ram 3500,5,6
+173,RS 6,4,4
+174,XC90,5,10
+175,9-7X,5,2
+176,Astro,1,10
+177,Stratus,3,2
+178,Defender Ice Edition,3,2
+179,RDX,4,6
+180,Lynx,2,5
+181,57S,1,2
+182,Sienna,3,6
+183,Bonneville,5,1
+184,Avalon,4,3
+185,Camaro,5,9
+186,xD,4,4
+187,458 Italia,4,4
+188,Ram Wagon B350,1,1
+189,Jetta III,3,3
+190,Mustang,2,3
+191,XJ,4,6
+192,9000,3,3
+193,LHS,1,1
+194,E-Class,2,6
+195,GTI,1,1
+196,G,4,10
+197,Sierra 3500,4,5
+198,Impreza,1,8
+199,Town & Country,4,9
+200,Galant,3,10

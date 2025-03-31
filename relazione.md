@@ -205,15 +205,6 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 - Veicolo.velocita' > 0 (se Rimorchio allora 0)
 
 
-### Vincoli di partecipazione 
-
-+ Affinche' una fabbrica sia presente nel database deve comparire almeno in uno dei modelli presenti
-+ Affinche' un modello sia presente nel database deve comparire almeno in uno dei veicoli presenti
-+ Affinche un tipo di combustione sia presente nel database deve comparire almeno in uno dei veicoli presenti
-+ Un veicolo deve per forza avere un proprietario corrente (uno solo)
-+ Un proprietario puo non avere un veicolo al momento
-
-
 ### Vincoli di Generalizzazione
  **Totalità e disgiunzione**
 - Ogni proprietario deve essere solo Privato o Società
@@ -232,10 +223,6 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 - ProprietariPassati: CHECK (dataVendita > dataAcquisto)
 - ProprietariPassati: UNIQUE (Targa, IdProprietario)
   - se un proprietario compra e vende piu' di una volta lo stesso veicolo si registra salva solo l'ultima occorrenza
-
-### Vincoli Inter-tabella (Ridondanza Controllata) 
-
-- Trigger per aggiornare Fabbrica.numeroVeicoliProdotti quando viene inserito un nuovo veicolo
 
 
 ### Vincoli generali
@@ -443,7 +430,17 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 **IMPORTANTE:** Le chiavi primarie (PK) e le chiavi esterne (FK) non possono essere NULL
 
+### Vincoli di partecipazione 
 
++ Affinche' una fabbrica sia presente nel database deve comparire almeno in uno dei modelli presenti
++ Affinche' un modello sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Affinche un tipo di combustione sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Un veicolo deve per forza avere un proprietario corrente (uno solo)
++ Un proprietario puo non avere un veicolo al momento
+
+### Vincoli Inter-tabella (Ridondanza Controllata) 
+
+- Trigger per aggiornare Fabbrica.numeroVeicoliProdotti quando viene inserito un nuovo veicolo
 
 ## Progettazione Fisica
 ### Definizione database in SQL
