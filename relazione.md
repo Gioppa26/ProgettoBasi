@@ -610,47 +610,35 @@ FOR EACH ROW EXECUTE FUNCTION check_societa_mutua_esclusione();
 ```
 ### Popolazione base di dati
 ### Query
-1. I veicoli con almeno 1 proprietario
-```sql
-SELECT v.targa
-FROM veicolo as v
-WHERE not exists(
-  SELECT *
-  FROM veicolo as v1
-  WHERE v1.targa <> v.targa and
-  v1.proprietario = v.proprietario
-  )
-```
-2. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
-```sql
-create view maxCavalli(targa,nCavalli) as
-  select v.targa,count(*)
-  from veicolo as v
-  group by v.cavalli
 
-  select mc.targa
-  from veicolo as v1, maxCavalli as mc
-  where v1.propritario proprietario mc.nCavalli >= ALL (
-    select mc1.nCavalli
-    from maxCavalli AS mc1
-    where mc1.nCavalli <> mc.nCavalli
-```
-3. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
+1. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
 ```sql
+SELECT v.* 
+FROM veicolo v
+LEFT JOIN proprietari_passati pp ON v.targa = pp.targa
+WHERE pp.targa IS NULL
+ORDER BY v.cavalli DESC
+LIMIT 1;
+```
+2. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
+```sql
+SELECT s.partita_iva, COUNT(pp.targa) AS num_veicoli
+FROM societa s
+JOIN proprietari_passati pp ON s.id_proprietario = pp.id_proprietario
+GROUP BY s.partita_iva
+HAVING COUNT(pp.targa) = 2;
 ```
 
-4. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
+3. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
 ```sql
-SELECT V.Targa
-FROM Veicolo V
-WHERE V.Modello = M.idModello
-AND M.FabbricaDiProduzione = F.idFabbrica
-AND F.idFabbrica IN (
-    SELECT F2.idFabbrica
-    FROM Fabbrica F2
-    JOIN Modello M2 ON F2.idFabbrica = M2.FabbricaDiProduzione
-    GROUP BY F2.idFabbrica
-    HAVING COUNT(DISTINCT M2.idModello) = 3
+SELECT v.* 
+FROM veicolo v
+JOIN modello m ON v.modello = m.id_modello
+WHERE m.fabbrica_di_produzione IN (
+    SELECT fabbrica_di_produzione 
+    FROM modello 
+    GROUP BY fabbrica_di_produzione 
+    HAVING COUNT(*) = 3
 );
 ```
 ``` sql
@@ -690,17 +678,18 @@ WHERE F.idFabbrica IN (
 );
 ```
 
-5. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
+4. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
 ```sql
-SELECT v.targa
-FROM veicolo as v
-WHERE NOT EXISTS(
-  SELECT *
-  FROM proprietariPassati as p1
-  WHERE v.proprietario <> p1.codiceFiscale and
-  v.targa = p1.targa)
+SELECT v.* 
+FROM veicolo v
+WHERE EXISTS (
+    SELECT 1 
+    FROM proprietari_passati pp 
+    WHERE pp.targa = v.targa 
+    AND pp.id_proprietario = v.proprietario
+);
 ```
-6. La fabbrica con il massimo numero di veicoli elettrici.
+5. La fabbrica con il massimo numero di veicoli elettrici.
 ```sql
 CREATE VIEW maxElet(targa,codiceCombustibile,nVeicoli) AS (  
   SELECT v1.targa,v1.codiceCombustibile,count(*)
@@ -715,6 +704,115 @@ ME.nVeicoli >= ALL(
   SELECT ME1.nVeicoli
   FROM maxElet
   )
+```
+  oppure
+```sql
+SELECT f.nome, COUNT(*) AS num_elettrici
+FROM veicolo v
+JOIN modello m ON v.modello = m.id_modello
+JOIN fabbrica f ON m.fabbrica_di_produzione = f.id_fabbrica
+WHERE v.codice_combustibile = 'ELET'
+GROUP BY f.nome
+ORDER BY num_elettrici DESC
+LIMIT 1;
+
+```
+
+6. Data una targa, cercare il veicolo o, il proprietario corrente (Cf se privato altrimenti IVA) e tutti i proprietari passatti (Cf se privati altrimenti IVA) e le date di aquisto e vendita. *Servirebbe per rapportare i dati prima di cancellare un veicolo*
+```sql
+SELECT --Recupero del proprietario corrente, deve anche trovare se e' un privato o una societa'
+    v.targa,
+    p.id_proprietario,
+    CASE
+        WHEN pr.id_proprietario IS NOT NULL 
+            THEN CONCAT('Privato CF ', pr.cf)
+        WHEN s.id_proprietario IS NOT NULL 
+            THEN CONCAT('Società P.IVA ', s.partita_iva)
+    END AS proprietario,
+    v.data AS data_acquisto,
+    NULL AS data_vendita,
+    'Ultimo proprietario' AS stato
+FROM veicolo v
+JOIN proprietario p ON v.proprietario = p.id_proprietario
+LEFT JOIN privato pr ON p.id_proprietario = pr.id_proprietario
+LEFT JOIN societa s ON p.id_proprietario = s.id_proprietario
+WHERE v.targa = 'AA000BB'
+
+UNION ALL
+
+SELECT --Recupero dei proprietario correnti, deve anche trovare se sono dei privati o delle societa'
+    pp.targa,
+    pp.id_proprietario, 
+    CASE
+        WHEN pr.id_proprietario IS NOT NULL 
+            THEN CONCAT('Rrivato CF ', pr.cf)
+        WHEN s.id_proprietario IS NOT NULL 
+            THEN CONCAT('Società IVA ', s.partita_iva)
+    END AS proprietario,
+    pp.data_acquisto,
+    pp.data_vendita,
+    'Ex proprietario' AS stato
+FROM proprietari_passati pp
+JOIN proprietario p ON pp.id_proprietario = p.id_proprietario
+LEFT JOIN privato pr ON p.id_proprietario = pr.id_proprietario
+LEFT JOIN societa s ON p.id_proprietario = s.id_proprietario
+WHERE pp.targa = 'AA000BB'
+
+ORDER BY data_acquisto DESC;
+```
+
+### Query di inserimento/cancellazione/aggiornamento
+
+Inserimento e aggiornamento:
+- passagio di proprieta
+
+```sql
+WITH vecchio_proprietario AS (
+    SELECT targa, proprietario, data 
+    FROM veicolo 
+    WHERE targa = 'AB123CD'
+),
+registrazione_storico AS (
+    INSERT INTO proprietari_passati (targa, id_proprietario, data_acquisto, data_vendita)
+    SELECT targa, proprietario, data, CURRENT_DATE 
+    FROM vecchio_proprietario
+)
+UPDATE veicolo 
+SET 
+    proprietario = 78,
+    data = CURRENT_DATE
+WHERE targa = 'AB123CD';
+```
+
+Cancellazione:
+- eliminare tutti i proprietari (privati e società) senza veicoli attuali o storici
+```sql
+DELETE FROM societa
+WHERE id_proprietario IN (
+    SELECT p.id_proprietario
+    FROM proprietario p
+    LEFT JOIN veicolo v ON p.id_proprietario = v.proprietario
+    LEFT JOIN proprietari_passati pp ON p.id_proprietario = pp.id_proprietario
+    WHERE v.targa IS NULL AND pp.targa IS NULL
+);
+
+DELETE FROM privato
+WHERE id_proprietario IN (
+    SELECT p.id_proprietario
+    FROM proprietario p
+    LEFT JOIN veicolo v ON p.id_proprietario = v.proprietario
+    LEFT JOIN proprietari_passati pp ON p.id_proprietario = pp.id_proprietario
+    WHERE v.targa IS NULL AND pp.targa IS NULL
+);
+
+DELETE FROM proprietario
+WHERE id_proprietario NOT IN (
+    SELECT id_proprietario FROM veicolo
+    UNION
+    SELECT id_proprietario FROM proprietari_passati
+);
+
+COMMIT;
 ```
 ## Analisi con R
 ## Conclusioni
