@@ -434,7 +434,7 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 + Affinche' una fabbrica sia presente nel database deve comparire almeno in uno dei modelli presenti
 + Affinche' un modello sia presente nel database deve comparire almeno in uno dei veicoli presenti
-+ Affinche un tipo di combustione sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Affinche un tipo di combustibile sia presente nel database deve comparire almeno in uno dei veicoli presenti
 + Un veicolo deve per forza avere un proprietario corrente (uno solo)
 + Un proprietario puo non avere un veicolo al momento
 
@@ -675,8 +675,9 @@ WHERE F.idFabbrica IN (
 );
 ```
 
-4. Tutti i veicoli in cui il proprietario corrente è anche un proprietario passato
+4. Il numero dei veicoli in cui il proprietario corrente è anche un proprietario passato
 ```sql
+**modificare**
 SELECT v.* 
 FROM veicolo v
 WHERE EXISTS (
