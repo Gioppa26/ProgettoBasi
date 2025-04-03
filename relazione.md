@@ -40,22 +40,22 @@ A partire dallo schema entità/relazioni, si costruisca il corrispondente schema
 | Combustibile| Quale combustibile utilizza un veicolo| | Veicolo|
 ### Frasi
   **Frasi generiche** :
-> Si progetti uno schema entità/relazioni per la gestione di un registro automobilistico, facente parte del sistema informativo di un ufficio di motorizzazione, contenente le seguenti informazioni
+> Si progetti uno schema entità/relazioni per la gestione di un registro automobilistico, facente parte del sistema informativo di un ufficio di motorizzazione, contenente le seguenti informazioni.
 
 **Frasi relative al veicolo**:
-> di ciascun veicolo interessa registrare la targa, la cilindrata, i cavalli fiscali, la velocità, il numero di posti e la data di immatricolazione
+> Di ciascun veicolo interessa registrare la targa, la cilindrata, i cavalli fiscali, la velocità, il numero di posti e la data di immatricolazione.
 
 **Frasi relative al modello**:
-> ciascun veicolo appartiene ad uno specifico modello
+> Ciascun veicolo appartiene ad uno specifico modello.
 
 **Frasi relative alla fabbrica**:
-> di ciascun modello di veicolo è registrata la fabbrica di produzione e il numero delle versioni prodotte
+> Di ciascun modello di veicolo è registrata la fabbrica di produzione e il numero delle versioni prodotte.
 
 **Frasi relative al proprietario**:
-> ciascun veicolo possono avere uno o piú proprietari, che si succedono nel corso della “vita” del veicolo; di ciascun proprietario interessa registrare cognome, nome e indirizzo di residenza
+> Ciascun veicolo pu&ograve; avere uno o piú proprietari, che si succedono nel corso della “vita” del veicolo; di ciascun proprietario interessa registrare cognome, nome e indirizzo di residenza.
 
 **Frasi relative al combustibile**:
-> di ciascun veicolo interessa registrare il tipo di combustibile utilizzato
+> Di ciascun veicolo interessa registrare il tipo di combustibile utilizzato.
 
 ## Modello ER
 La strategia che abbiamo utilizzato per costruire il modello ER è la strategia Mista (Mixed Strategy). Abbiamo optato per questa tecnica perché ci sembrava comodo avere uno scheletro iniziale che ci permettesse di avere una visione di base dello schema. Inizialmente abbiamo usato la strategia bottom-up per assemblare insieme tutte le entità. In seguito, abbiamo usato la tecnica top-down, in questo modo, tramite perfezionamenti, abbiamo sviluppato lo schema finale.
@@ -66,7 +66,7 @@ La prima entità che abbiamo esaminato è **Veicolo**. Gli attributi che abbiamo
 
 In seguito per quanto riguarda Veicolo abbiamo deciso di fare una **generalizzazione** **Totale** e **Disgunta**. In questo modo un veicolo puo` essere distinto tra Automobili, Ciclomotori, Camion e Rimorchio. La generalizzazione e' disgunta perche' veicolo puo' ricoprire solo una delle quattro categorie.
 
-Questo è il modo come abbiamo fatto la generalizzazione insieme ai possibili attributi:
+La generalizzazione è stata gestita nel modo sotto riportato aggiungendo degli attributi per ogni entit&agrave; figlia.
 
 **Veicolo** (Entità genitore):
 * **Automobile** (Entità figlia)  
@@ -81,20 +81,20 @@ Questo è il modo come abbiamo fatto la generalizzazione insieme ai possibili at
 
 <img src="img/Veicolo_generalizzazione.PNG" width=400px/>
 
-L'entità successiva che abbiamo analizzato è **Modello**. Gli attributi che abbiamo aggiunto a questa entità sono idModello, nome modello e numero versioni. Questa entità viene identificata univocamente dall'attributo idModello.
+L'entità successiva che abbiamo analizzato è **Modello**. Gli attributi che abbiamo aggiunto a questa entità sono *idModello*, *nomeModello* e *numeroVersioni*. Questa entità viene identificata univocamente dall'attributo id_modello.
 
 <img src="img/Modello.PNG" width=300px/>
 
 La prossima entità che abbiamo visto è **Fabbrica**.
-A livello conettuale abbiamo gestito fabbrica come il marchio di un modello di veicolo, per esempio: Audi, BMW, Fiat, etc. Gli attributi che abbiamo aggiunto a questa entità sono idFabbrica, nome e numeroVeicoloProdotti. Questa entità viene identificata univocamente dall'attributo idFabbrica. Noi abbiamo scelto "numeroVeicoloProdotti" come l'attributo ridondante che in seguito verifecheremo se si puo' tenere o meno.
+A livello conettuale abbiamo gestito fabbrica come il marchio di un modello di veicolo, per esempio: Audi, BMW, Fiat, etc. Gli attributi che abbiamo aggiunto a questa entità sono *idFabbrica*, *nome* e *numeroVeicoloProdotti*. Questa entità viene identificata univocamente dall'attributo idFabbrica. Noi abbiamo scelto "numeroVeicoliProdotti" come l'attributo ridondante che in seguito verifecheremo se si pu&ograve; tenere o meno.
 
-<img src="img/Fabbrica.PNG" width=250px/>
+<img src="img/Fabbrica.PNG" width=250px/>S
 
 L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo codiceCombustibile. TipoCombustibile indica se un veicolo utilizza benzina, diesel, gpl, elettrico e ibrido.
 
 <img src="img/Combustibile.PNG" width=200px/>
 
-Infine l'ultima entità è **Proprietario**. Gli attributi che abbiamo aggiunto a questa entità sono idProprietario e indirizzo. Questa entità viene identificata univocamente dall'attributo idProprietario. Per comodità abbiamo gestito indirizzo come una unica stringa ma si poteva pensare di utilizzare un attributo composto che rappresentasse la via, il numero civico e la città.
+Infine l'ultima entità è **Proprietario**. Gli attributi che abbiamo aggiunto a questa entità sono *idProprietario* e *indirizzo*. Questa entità viene identificata univocamente dall'attributo idProprietario. Per comodità abbiamo gestito indirizzo come una unica stringa ma si poteva pensare di utilizzare un attributo composto che rappresentasse la via, il numero civico e la città.
 
 <img src="img/Proprietario.png" width=250px/>
 
@@ -113,39 +113,39 @@ Proprietario (Entità genitore):
 
 <img src="img/Proprietario_generalizzazione.PNG" width=400px/>
 
-Tra **Modello** e **Veicolo** è presente una relazione uno a molti "**Appartiene**" &rarr; Tra Veicolo (1:1) e Modello (1:N)
+Tra **Modello** e **Veicolo** &egrave; presente una relazione uno a molti "**Appartiene**" &rarr; Tra Veicolo (1:1) e Modello (1:N)
 
 * Un veicolo può appartenere solo ad un modello.  
-* Più veicoli possono essere dello stesso modello.  
+* Pi&ugrave; veicoli possono essere dello stesso modello.  
 * Per ogni modello deve esserci almeno un veicolo che appartiene a quel modello per essere presente nel database
 
 <img src="img/Relazione_ModelloVeicolo.PNG" width=500px/>
 
-Tra **Modello** e **Fabbrica** è presente una relazione uno a molti "**Prodotto**" &rarr; Tra Fabbrica (1:1) e Modello (1:N)
+Tra **Modello** e **Fabbrica** &egrave; presente una relazione uno a molti "**Prodotto**" &rarr; Tra Fabbrica (1:1) e Modello (1:N)
 
 * Una fabbrica produce solo un modello.  
-* Più fabbriche possono produrre lo stesso modello.  
+* Pi&ugrave; fabbriche possono produrre lo stesso modello.  
 * Per ogni modello deve esserci almeno una fabbrica che produce quel modello per essere presente nel database
 
 
 <img src="img/Relazione_ModelloFabbrica.png" width=200px/>
 
-Tra **Veicolo** e **Combustibile** è presente una relazione uno a molti "**Utilizza**" &rarr; Tra Veicolo (1:1) e Combustibile (1:N) 
+Tra **Veicolo** e **Combustibile** &egrave; presente una relazione uno a molti "**Utilizza**" &rarr; Tra Veicolo (1:1) e Combustibile (1:N) 
 
 * Un veicolo utilizza solo un tipo di combustibile.  
-* Più veicoli possono utilizzare lo stesso tipo di combustibile.  
+* Pi&ugrave; veicoli possono utilizzare lo stesso tipo di combustibile.  
 * Un tipo di combustibile deve essere utilizzato da almeno un veicolo per poter essere presente nel database
 
 <img src="img/Relazione_VeicoloCombustibile.png" width=500px/>
 
-Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
+Tra **Veicolo** e **Proprietario** sono presenti due relazioni:
   1) Uno a molti "**Proprietario Corrente**" &rarr; Tra Veicolo (1:1) e Proprietario (0:N) 
  -  Un veicolo appartiene solo un proprietario corrente.  
- - Un proprietario puo' non avere un veicolo al momento oppure avere piu' di uno
- - Data è l'attributo che identifica la data dell'acquisto del veicolo al proprietario corrente
+ - Un proprietario pu&ograve; non avere un veicolo al momento oppure avere pi&ugrave; di uno
+ - Data &egrave; l'attributo che identifica la data dell'acquisto del veicolo al proprietario corrente
  1) Molti a molti "**Proprietario Passato**" &rarr; Tra Veicolo (0:N) e Proprietario (0:N)
-  - Un veicolo puo' avere o no piu' proprietari passati
-  - Un proprietario puo' avere o no piu' veicoli nel passato
+  - Un veicolo pu&ograve; avere o no pi&ugrave; proprietari passati
+  - Un proprietario pu&ograve; avere o no pi&ugrave; veicoli nel passato
   - Data acquisto e data vendita sono attributi che identificano la data dell'acquisto e vendita del veicolo al proprietario corrente
   - Se un proprietario compra e vende la stessa macchina due volte allora si registrano solo le date dell’ultima occorrenza. 
 
@@ -177,14 +177,14 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 - ProprietariPassati.IdProprietario → Proprietario.IdProprietario
 
 
-### Vincoli di Entità
+### Vincoli di Entit&agrave;
 
 (Questi dati sono importanti e devono essere presenti)
 - Veicolo.dataImmatricolazione NOT NULL
 - Veicolo.dataAquisto NOT NULL
 - Veicolo.Cilindrata: NOT NULL  
 - Veicolo.Cavalli: NOT NULL  
-- Veicolo.Velocita': NOT NULL  
+- Veicolo.Velocit&agrave;: NOT NULL  
 - Veicolo.NumeroPosti: NOT NULL
 - Modello.numeroVersioni: NOT NULL
 - Proprietario.indirizzo: NOT NULL
@@ -207,13 +207,13 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 
 ### Vincoli di Generalizzazione
  **Totalità e disgiunzione**
-- Ogni proprietario deve essere solo Privato o Società
+- Ogni proprietario deve essere solo Privato o Societ&agrave;
 - Ogni veicolo deve comparire in esattamente una tabella figlia: (Automobile, Camion, Ciclomotore, Rimorchio)
 
 
 ### Vincoli di Integrità Referenziale
 
-- Non posso cancellare nessun oggetto(record) se viene puntato da una chiave esterna
+- Non posso cancellare nessun oggetto (record) se viene puntato da una chiave esterna
   - esempio: non posso cancellare un proprietario se lui possiede una veicolo che si trova nel database
   - altro esempio: non posso cancellare una fabbrica se esiste un modello che e' stato prodotto da quella fabbrica
 
@@ -222,7 +222,7 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
 
 - ProprietariPassati: CHECK (dataVendita > dataAcquisto)
 - ProprietariPassati: UNIQUE (Targa, IdProprietario)
-  - se un proprietario compra e vende piu' di una volta lo stesso veicolo si registra salva solo l'ultima occorrenza
+  - se un proprietario compra e vende pi&ugrave; di una volta lo stesso veicolo si registra solo l'ultima occorrenza
 
 
 ### Vincoli generali
@@ -230,8 +230,8 @@ Tra **Veicolo** e **Proprietariosono** presenti due relazioni:
   2) La data di acquisto deve essere successiva rispetto alla data di immatricolazione.  
   3) La data di vendita deve essere antecedente rispetto alla data di acquisto del veicolo successivo.
   4) La data di acquisto di un proprietario passato deve essere precedente alla data di acquisto del proprietario corrente.
-  5) Un proprietario non può vendere un veicolo che non possiede.
-  6) Un veicolo non può essere acquistato da un proprietario se è già stato acquistato da un altro proprietario nello stesso giorno.
+  5) Un proprietario non pu&ograve; vendere un veicolo che non possiede.
+  6) Un veicolo non può essere acquistato da un proprietario se &egrave; gi&agrave; stato acquistato da un altro proprietario nello stesso giorno.
    
 ## Regole di Gestione
 Di seguito sono elencate le regole di gestione usate nello schema ER.
@@ -262,7 +262,7 @@ Altre idee di regole di gestione che potrebbero essere utilizzate:
 Questa tabella ci fornisce una visione chiara della dimensione del sistema che stiamo progettando. Notiamo che:
 
 
-* Il rapporto tra veicoli e proprietari è di circa 0.75, indicando che in media una persona possiede meno di un veicolo.  
+* Il rapporto tra veicoli e proprietari &egrave; di circa 0.75, indicando che in media una persona possiede meno di un veicolo.  
 * Ogni veicolo ha avuto in media 2.5 proprietari nel passato, suggerendo un'alta frequenza di cambi di proprietà.
 
 
@@ -271,7 +271,7 @@ Questa tabella ci fornisce una visione chiara della dimensione del sistema che s
 
 #### Presenza di ridondanza
 
-Consideriamo l'attributo "numeroVeicoliProdotti" nell'entità Fabbrica. Questo è un dato derivabile ma potrebbe essere utile mantenerlo come ridondanza per migliorare le prestazioni.
+Consideriamo l'attributo "numeroVeicoliProdotti" nell'entit&agrave; Fabbrica. Questo &egrave; un dato derivabile ma potrebbe essere utile mantenerlo come ridondanza per migliorare le prestazioni.
 
 <img src="img/SchemaRidondanza2.drawio.png"/>
 
@@ -339,7 +339,7 @@ Totale: 2 scritture \= 4 accessi/operazione
 
 
 - OP2: Visualizzazione dati Fabbrica (2 volte al giorno): 
-  - Per calcolare il numero di veicoli prodotti da una fabbrica dobbiamo accedere alla relazione "prodotto" un n di volte pare al numero medio di veicoli prodotti da una certa fabbrica (dalla fabbrica): nrModelli/nrFabbriche (200/10) **e per ogni di questi modelli** bisogna accedere un nr di volte pari al numero medio di veicoli appertenenti ad un modello : nrVeicoli /nrModelli (90000/200)
+  - Per calcolare il numero di veicoli prodotti da una fabbrica dobbiamo accedere alla relazione "prodotto" un numero di volte pare al numero medio di veicoli prodotti da una certa fabbrica (dalla fabbrica): nrModelli/nrFabbriche (200/10) **e per ogni di questi modelli** bisogna accedere un nr di volte pari al numero medio di veicoli appertenenti ad un modello : nrVeicoli /nrModelli (90000/200)
 
 |Concetto     |Costrutto|Accessi|Tipo|
 |--------     |---------|-------|----|
@@ -362,7 +362,7 @@ Assenza di ridondanza &Longrightarrow; $60 + 18042 = 18102$
 ### **Conclusione dell'analisi**
 
 Mantenere la ridondanza comporta un costo giornaliero di 122 accessi, mentre eliminarla porta a 18102 accessi.  
-La differenza è significativa: mantenere la ridondanza riduce il carico di lavoro di circa il 99.3%. Pertanto, è altamente consigliabile mantenere l'attributo ridondante "numeroVeicoliProdotti" nell'entità Fabbrica.
+La differenza &egrave; significativa: mantenere la ridondanza riduce il carico di lavoro di circa il 99.3%. Pertanto, &egrave; altamente consigliabile mantenere l'attributo ridondante "numeroVeicoliProdotti" nell'entità Fabbrica.
 
 
 ### **Eliminazione delle generalizzazioni**
@@ -372,7 +372,7 @@ In questa fase del progetto sono state gestite le generalizzazioni presenti elim
 
 <img src="/img/veicolo_nuovo.png" width=500px />
 
-Abbiamo optato per una strategia di accorpamento nel genitore. Questa scelta è motivata dal fatto che la maggior parte delle operazioni coinvolgerà attributi comuni a tutti i tipi di veicolo. 
+Abbiamo optato per una strategia di accorpamento nel genitore. Questa scelta &egrave; motivata dal fatto che la maggior parte delle operazioni coinvolger&agrave; attributi comuni a tutti i tipi di veicolo. 
 
 **Proprietario**
 
@@ -387,11 +387,11 @@ Anche per proprietario abbiamo scelto la stessa strategia.
 
 ### **Partizionamento o accorpamento**
 
-Per quanto riguarda l'entità Proprietario, abbiamo optato per mantenere l'attributo 'indirizzo' come un campo di testo unico, invece di partizionarlo verticalmente in componenti separate (come via, numero civico, CAP, città). Questa decisione è stata presa considerando che l'indirizzo viene generalmente utilizzato come un'unica unità informativa nelle operazioni più frequenti, e la sua scomposizione non offrirebbe vantaggi significativi in termini di prestazioni o funzionalità per il nostro specifico caso d'uso.
+Per quanto riguarda l'entit&agrave; Proprietario, abbiamo optato per mantenere l'attributo 'indirizzo' come un campo di testo unico, invece di partizionarlo verticalmente in componenti separate (come via, numero civico, CAP, città). Questa decisione è stata presa considerando che l'indirizzo viene generalmente utilizzato come un'unica unità informativa nelle operazioni più frequenti, e la sua scomposizione non offrirebbe vantaggi significativi in termini di prestazioni o funzionalità per il nostro specifico caso d'uso.
 
 ### **Selezione degli identificatori**
 
-| Entita`     |  Chiavi          | 
+| Entit&agrave;     |  Chiavi          | 
 |-------------|-------------------|
 | Veicolo     | Targa             | 
 | Combustibile| codiceCombustibile | 
@@ -432,11 +432,11 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 ### Vincoli di partecipazione 
 
-+ Affinche' una fabbrica sia presente nel database deve comparire almeno in uno dei modelli presenti
-+ Affinche' un modello sia presente nel database deve comparire almeno in uno dei veicoli presenti
-+ Affinche un tipo di combustibile sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Affinch&egrave; una fabbrica sia presente nel database deve comparire almeno in uno dei modelli presenti
++ Affinch&egrave; un modello sia presente nel database deve comparire almeno in uno dei veicoli presenti
++ Affinch&egrave; un tipo di combustibile sia presente nel database deve comparire almeno in uno dei veicoli presenti
 + Un veicolo deve per forza avere un proprietario corrente (uno solo)
-+ Un proprietario puo non avere un veicolo al momento
++ Un proprietario pu&ograve; non avere un veicolo al momento
 
 ### Vincoli Inter-tabella (Ridondanza Controllata) 
 
@@ -444,7 +444,6 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 ## Progettazione Fisica
 ### Definizione database in SQL
-#### Definizione dati
 #### Creazione database
 ``` sql
 CREATE DATABASE registro_automobilistico,
@@ -640,34 +639,34 @@ WHERE m.fabbrica_di_produzione IN (
 ```
 ``` sql
 SELECT V.Targa
-FROM Veicolo V
-JOIN Modello M ON V.Modello = M.idModello
-JOIN Fabbrica F ON M.FabbricaDiProduzione = F.idFabbrica
-WHERE F.idFabbrica IN (
-    SELECT F2.idFabbrica
-    FROM Fabbrica F2
+FROM veicolo AS V
+JOIN modello AS M ON V.modello = M.id_modello
+JOIN fabbrica AS F ON M.fabbrica_di_produzione = F.id_fabbrica
+WHERE F.id_fabbrica IN (
+    SELECT F2.id_fabbrica
+    FROM fabbrica F2
     WHERE EXISTS (
         SELECT *
-        FROM Modello M2
-        WHERE M2.FabbricaDiProduzione = F2.idFabbrica
+        FROM modello M2
+        WHERE M2.fabbrica_di_produzione = F2.id_fabbrica
         AND EXISTS (
             SELECT *
-            FROM Modello M3
-            WHERE M3.FabbricaDiProduzione = F2.idFabbrica
-            AND M3.idModello <> M2.idModello
+            FROM modello M3
+            WHERE M3.fabbrica_di_produzione = F2.id_fabbrica
+            AND M3.id_modello <> M2.id_modello
             AND EXISTS (
                 SELECT *
-                FROM Modello M4
-                WHERE M4.FabbricaDiProduzione = F2.idFabbrica
-                AND M4.idModello <> M2.idModello
-                AND M4.idModello <> M3.idModello
+                FROM modello M4
+                WHERE M4.fabbrica_di_produzione = F2.id_fabbrica
+                AND M4.id_modello <> M2.id_modello
+                AND M4.id_modello <> M3.id_modello
                 AND NOT EXISTS (
                     SELECT *
-                    FROM Modello M5
-                    WHERE M5.FabbricaDiProduzione = F2.idFabbrica
-                    AND M5.idModello <> M2.idModello
-                    AND M5.idModello <> M3.idModello
-                    AND M5.idModello <> M4.idModello
+                    FROM modello M5
+                    WHERE M5.fabbrica_di_produzione = F2.id_fabbrica
+                    AND M5.id_modello <> M2.id_modello
+                    AND M5.id_modello <> M3.id_modello
+                    AND M5.id_modello <> M4.id_modello
                 )
             )
         )
