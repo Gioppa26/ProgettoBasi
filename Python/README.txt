@@ -1,2 +1,0 @@
-Questi programmi Python creano casualmente tutti i dati necessari per la base dati in file .csv
-Per Modelli e Fabbrica ci sono poche righe bisogna capire se aumentarle o no, comunque non serve fare un programma python per farle.
