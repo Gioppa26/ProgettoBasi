@@ -448,8 +448,13 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 ### Definizione database in SQL
 #### Creazione database
 ``` sql
-CREATE DATABASE registro_automobilistico,
-ENCODING 'UTF8',
+CREATE DATABASE "registro automobilistico"
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LOCALE_PROVIDER = 'libc'
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
 
 ```
 #### Creazione tabelle
