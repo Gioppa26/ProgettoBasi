@@ -159,71 +159,6 @@ Tra **Veicolo** e **Proprietario** sono presenti due relazioni:
 
 ## Lista dei Vincoli
 
-### Vincoli di Chiave
-
-##### Chiavi Primarie (PK): Devono essere not null e univoche
-- Veicolo.Targa
-- Modello.idModello
-- Fabbrica.idFabbrica
-- Combustibile.codiceCombustibile
-- Proprietario.IdProprietario
-
-##### Chiavi Esterne (FK): 
-- Veicolo.Modello → Modello.idModello
-- Veicolo.CodiceCombustibile → Combustibile.codiceCombustibile
-- Veicolo.Proprietario → Proprietario.IdProprietario
-- Modello.FabbricaDiProduzione → Fabbrica.idFabbrica
-- ProprietariPassati.Targa → Veicolo.Targa
-- ProprietariPassati.IdProprietario → Proprietario.IdProprietario
-
-
-### Vincoli di Entit&agrave;
-
-(Questi dati sono importanti e devono essere presenti)
-- Veicolo.dataImmatricolazione NOT NULL
-- Veicolo.dataAquisto NOT NULL
-- Veicolo.Cilindrata: NOT NULL  
-- Veicolo.Cavalli: NOT NULL  
-- Veicolo.Velocit&agrave;: NOT NULL  
-- Veicolo.NumeroPosti: NOT NULL
-- Modello.numeroVersioni: NOT NULL
-- Proprietario.indirizzo: NOT NULL
-- <p>Privato.CF: NOT NULL </p>
-- Privato.nome NOT NULL
-- Privato.cognome NOT NULL
-- Società.partitaIva NOT NULL
-- ProprietariPassati.dataAcquisto NOT NULL
-- ProprietariPassati.dataVendita NOT NULL
-
-
-### Vincoli di Dominio
-
-- Modello.numeroVersioni > 0
-- Veicolo.cilindrata > 0 (se Rimorchio allora 0)
-- Veicolo.cavalli > 0 (se Rimorchio allora 0)
-- Veicolo.numeroPosti > 0 (se Rimorchio allora 0)
-- Veicolo.velocita' > 0 (se Rimorchio allora 0)
-
-
-### Vincoli di Generalizzazione
- **Totalità e disgiunzione**
-- Ogni proprietario deve essere solo Privato o Societ&agrave;
-- Ogni veicolo deve comparire in esattamente una tabella figlia: (Automobile, Camion, Ciclomotore, Rimorchio)
-
-
-### Vincoli di Integrità Referenziale
-
-- Non posso cancellare nessun oggetto (record) se viene puntato da una chiave esterna
-  - esempio: non posso cancellare un proprietario se lui possiede una veicolo che si trova nel database
-  - altro esempio: non posso cancellare una fabbrica se esiste un modello che e' stato prodotto da quella fabbrica
-
-
-### Vincoli di Tupla
-
-- ProprietariPassati: CHECK (dataVendita > dataAcquisto)
-- ProprietariPassati: UNIQUE (Targa, IdProprietario)
-  - se un proprietario compra e vende pi&ugrave; di una volta lo stesso veicolo si registra solo l'ultima occorrenza
-
 
 ### Vincoli generali
   1) La data di acquisto deve essere antecedente rispetto alla data di vendita.  
@@ -429,6 +364,73 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 + rimorchio {**_targa_** (PK, FK → veicolo._targa_), tipologia, carico}
 
 **IMPORTANTE:** Le chiavi primarie (PK) e le chiavi esterne (FK) non possono essere NULL
+
+### Vincoli di Chiave
+
+##### Chiavi Primarie (PK): Devono essere not null e univoche
+- Veicolo.Targa
+- Modello.idModello
+- Fabbrica.idFabbrica
+- Combustibile.codiceCombustibile
+- Proprietario.IdProprietario
+
+##### Chiavi Esterne (FK): 
+- Veicolo.Modello → Modello.idModello
+- Veicolo.CodiceCombustibile → Combustibile.codiceCombustibile
+- Veicolo.Proprietario → Proprietario.IdProprietario
+- Modello.FabbricaDiProduzione → Fabbrica.idFabbrica
+- ProprietariPassati.Targa → Veicolo.Targa
+- ProprietariPassati.IdProprietario → Proprietario.IdProprietario
+
+
+### Vincoli di Entit&agrave;
+
+(Questi dati sono importanti e devono essere presenti)
+- Veicolo.dataImmatricolazione NOT NULL
+- Veicolo.dataAquisto NOT NULL
+- Veicolo.Cilindrata: NOT NULL  
+- Veicolo.Cavalli: NOT NULL  
+- Veicolo.Velocit&agrave;: NOT NULL  
+- Veicolo.NumeroPosti: NOT NULL
+- Modello.numeroVersioni: NOT NULL
+- Proprietario.indirizzo: NOT NULL
+- <p>Privato.CF: NOT NULL </p>
+- Privato.nome NOT NULL
+- Privato.cognome NOT NULL
+- Società.partitaIva NOT NULL
+- ProprietariPassati.dataAcquisto NOT NULL
+- ProprietariPassati.dataVendita NOT NULL
+
+
+### Vincoli di Dominio
+
+- Modello.numeroVersioni > 0
+- Veicolo.cilindrata > 0 (se Rimorchio allora 0)
+- Veicolo.cavalli > 0 (se Rimorchio allora 0)
+- Veicolo.numeroPosti > 0 (se Rimorchio allora 0)
+- Veicolo.velocita' > 0 (se Rimorchio allora 0)
+
+
+### Vincoli di Generalizzazione
+ **Totalità e disgiunzione**
+- Ogni proprietario deve essere solo Privato o Societ&agrave;
+- Ogni veicolo deve comparire in esattamente una tabella figlia: (Automobile, Camion, Ciclomotore, Rimorchio)
+
+
+### Vincoli di Integrità Referenziale
+
+- Non posso cancellare nessun oggetto (record) se viene puntato da una chiave esterna
+  - esempio: non posso cancellare un proprietario se lui possiede una veicolo che si trova nel database
+  - altro esempio: non posso cancellare una fabbrica se esiste un modello che e' stato prodotto da quella fabbrica
+
+
+### Vincoli di Tupla
+
+- ProprietariPassati: CHECK (dataVendita > dataAcquisto)
+- ProprietariPassati: UNIQUE (Targa, IdProprietario)
+  - se un proprietario compra e vende pi&ugrave; di una volta lo stesso veicolo si registra solo l'ultima occorrenza
+
+
 
 ### Vincoli di partecipazione 
 
