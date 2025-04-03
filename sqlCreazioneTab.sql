@@ -149,8 +149,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_check_societa
 BEFORE INSERT OR UPDATE ON societa
 FOR EACH ROW EXECUTE FUNCTION check_societa_mutua_esclusione();
-
-
-
-
-
