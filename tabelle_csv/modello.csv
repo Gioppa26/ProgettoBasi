@@ -38,7 +38,7 @@
 38,Cabriolet,2,3
 39,B-Series,4,6
 40,X6 M,2,5
-41,Mustang,4,7
+41,Mustang,4,8
 42,F150,3,4
 43,CLS-Class,2,3
 44,Trans Sport,2,3
@@ -55,18 +55,18 @@
 55,Villager,2,4
 56,Grand Prix,5,10
 57,Mustang,4,2
-58,900,4,7
-59,Montana,1,7
+58,900,4,8
+59,Montana,1,8
 60,Baja,3,6
 61,GLK-Class,3,2
 62,Sportage,4,10
 63,LX,2,9
 64,Virage,5,6
 65,Boxster,1,5
-66,Breeze,3,7
+66,Breeze,3,8
 67,Tracker,2,10
 68,Ram Van B150,1,6
-69,Reno,5,7
+69,Reno,5,8
 70,Regal,2,10
 71,Edge,1,3
 72,Expo LRV,4,3
@@ -78,7 +78,7 @@
 78,Corsica,5,6
 79,Passat,1,1
 80,1500,1,3
-81,Cabriolet,4,7
+81,Cabriolet,4,8
 82,Reventón,4,9
 83,Lancer Evolution,5,10
 84,MX-5,4,5
@@ -86,7 +86,7 @@
 86,Elan,2,5
 87,XC70,1,3
 88,Mystique,2,2
-89,400SEL,5,7
+89,400SEL,5,8
 90,Patriot,2,2
 91,Range Rover,4,6
 92,Savana 2500,4,3
@@ -102,8 +102,8 @@
 102,Montero Sport,2,5
 103,Caprice,1,3
 104,Transit Connect,2,3
-105,C-Class,1,7
-106,Caravan,5,7
+105,C-Class,1,8
+106,Caravan,5,8
 107,850,4,4
 108,Swift,4,6
 109,Mustang,5,2
@@ -126,9 +126,9 @@
 126,Tiburon,2,6
 127,Envoy XL,3,6
 128,LR2,5,3
-129,FX,3,7
+129,FX,3,8
 130,Armada,3,8
-131,Expedition,4,7
+131,Expedition,4,8
 132,Villager,5,1
 133,Nuova 500,3,6
 134,Q,3,1
