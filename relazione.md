@@ -740,7 +740,7 @@ FROM veicolo v
 JOIN proprietario p ON v.proprietario = p.id_proprietario
 LEFT JOIN privato pr ON p.id_proprietario = pr.id_proprietario
 LEFT JOIN societa s ON p.id_proprietario = s.id_proprietario
-WHERE v.targa = 'AA000BB'
+WHERE v.targa = 'GC908BT'
 
 UNION ALL
 
@@ -749,7 +749,7 @@ SELECT --Recupero dei proprietario correnti, deve anche trovare se sono dei priv
     pp.id_proprietario, 
     CASE
         WHEN pr.id_proprietario IS NOT NULL 
-            THEN CONCAT('Rrivato CF ', pr.cf)
+            THEN CONCAT('Privato CF ', pr.cf)
         WHEN s.id_proprietario IS NOT NULL 
             THEN CONCAT('Società IVA ', s.partita_iva)
     END AS proprietario,
@@ -760,7 +760,7 @@ FROM proprietari_passati pp
 JOIN proprietario p ON pp.id_proprietario = p.id_proprietario
 LEFT JOIN privato pr ON p.id_proprietario = pr.id_proprietario
 LEFT JOIN societa s ON p.id_proprietario = s.id_proprietario
-WHERE pp.targa = 'AA000BB'
+WHERE pp.targa = 'GC908BT'
 
 ORDER BY data_acquisto DESC;
 ```
