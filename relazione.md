@@ -857,6 +857,8 @@ ggplot(result, aes(x = "", y = numero_veicoli, fill = categoria)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 <img src="/grafici/query2.png">
+
+- 
 ## Conclusioni
 
 
