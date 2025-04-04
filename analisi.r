@@ -18,6 +18,7 @@ result <- dbGetQuery(pg_connection,
                       WHERE f.id_fabbrica = m.fabbrica_di_produzione
                       GROUP BY f.nome")
 
+result$numeromodelli <- as.integer(result$numeromodelli)
 
 # Creazione del grafico a barre con ggplot2
 ggplot(data = result, aes(x = fabbriche, y = numeromodelli, fill = numeromodelli)) +
