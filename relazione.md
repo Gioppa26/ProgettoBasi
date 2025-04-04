@@ -90,7 +90,7 @@ A livello conettuale abbiamo gestito fabbrica come il marchio di un modello di v
 
 <img src="img/Fabbrica.PNG" width=250px/>S
 
-L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo codiceCombustibile. TipoCombustibile indica se un veicolo utilizza benzina, diesel, gpl, elettrico e ibrido.
+L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo **codiceCombustibile** e descritta dall'attributo **TipoCombustibile**. Tra codiciCombustibile abbiamo messo un caso particolare **TR** che sarebbe il codiceCombustibile per i rimorchi che vengono trainati. In questo modo risolviamo il problema dei rimorchi che usano combustibile. 
 
 <img src="img/Combustibile.PNG" width=200px/>
 
