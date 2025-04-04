@@ -645,7 +645,7 @@ WHERE m.fabbrica_di_produzione IN (
 );
 ```
 ``` sql
-SELECT V.Targa
+SELECT V.targa
 FROM veicolo AS V
 JOIN modello AS M ON V.modello = M.id_modello
 JOIN fabbrica AS F ON M.fabbrica_di_produzione = F.id_fabbrica
@@ -683,33 +683,12 @@ WHERE F.id_fabbrica IN (
 
 4. Il numero dei veicoli in cui il proprietario corrente è anche un proprietario passato
 ```sql
-**modificare**
-SELECT v.* 
+SELECT COUNT(*) AS numero_veicoli
 FROM veicolo v
-WHERE EXISTS (
-    SELECT 1 
-    FROM proprietari_passati pp 
-    WHERE pp.targa = v.targa 
-    AND pp.id_proprietario = v.proprietario
-);
+JOIN proprietari_passati pp ON v.targa = pp.targa
+WHERE v.proprietario = pp.id_proprietario;
 ```
 5. La fabbrica con il massimo numero di veicoli elettrici.
-```sql
-CREATE VIEW maxElet(targa,codiceCombustibile,nVeicoli) AS (  
-  SELECT v1.targa,v1.codiceCombustibile,count(*)
-  FROM veicolo AS V1
-  GROUP BY V1.codiceCombustibile
-  )
-
-SELECT targa
-FROM maxElet AS ME
-WHERE ME.codiceCombustibile = "Elettrico" AND
-ME.nVeicoli >= ALL(
-  SELECT ME1.nVeicoli
-  FROM maxElet
-  )
-```
-  oppure
 ```sql
 SELECT f.nome, COUNT(*) AS num_elettrici
 FROM veicolo v
@@ -719,7 +698,22 @@ WHERE v.codice_combustibile = 'ELET'
 GROUP BY f.nome
 ORDER BY num_elettrici DESC
 LIMIT 1;
-
+```
+  oppure con le viste
+```sql
+CREATE VIEW veicoli_elettrici_per_fabbrica AS (
+  SELECT m.fabbrica_di_produzione, COUNT(v.targa) AS numero_veicoli_elettrici
+  FROM veicolo v
+  JOIN modello m ON v.modello = m.id_modello
+  WHERE v.codice_combustibile = 'ELET'
+  GROUP BY m.fabbrica_di_produzione
+);
+SELECT fabbrica.nome, numero_veicoli_elettrici
+FROM veicoli_elettrici_per_fabbrica, fabbrica
+WHERE fabbrica.id_fabbrica=fabbrica_di_produzione AND numero_veicoli_elettrici = (
+  SELECT MAX(numero_veicoli_elettrici)
+  FROM veicoli_elettrici_per_fabbrica
+);
 ```
 
 6. Data una targa, cercare il veicolo o, il proprietario corrente (Cf se privato altrimenti IVA) e tutti i proprietari passatti (Cf se privati altrimenti IVA) e le date di aquisto e vendita. *Servirebbe per rapportare i dati prima di cancellare un veicolo*
