@@ -614,6 +614,8 @@ FOR EACH ROW EXECUTE FUNCTION check_societa_mutua_esclusione();
 ### Popolazione base di dati
 ### Query
 
+------------------------------------(**sotto le query inserire uno screenshot del risultato**)--------------------------
+
 1. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
 ```sql
 SELECT v.* 
