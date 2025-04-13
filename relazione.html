@@ -1,0 +1,1127 @@
+<h1 id="università-degli-studi-di-udine">UNIVERSITÀ DEGLI STUDI DI
+UDINE</h1>
+<h2
+id="dipartimento-di-scienze-matematiche-informatiche-e-fisiche">Dipartimento
+di Scienze Matematiche, Informatiche e Fisiche</h2>
+<p><img src="img/Uniud.png"/></p>
+<h1 id="relazione-progetto-basi-di-dati">Relazione Progetto Basi di
+Dati</h1>
+<h3 id="a-cura-di">A cura di</h3>
+<ul>
+<li>Roland GJOPALAJ 157277<br />
+</li>
+<li>Giovanni PANTAROTTO 157707<br />
+</li>
+<li>Cristian TOMASS 147813</li>
+</ul>
+<h2 id="indice-degli-argomenti">Indice degli argomenti</h2>
+<ol type="1">
+<li><a href="#progettazione-concettuale">Progettazione
+Concettuale</a></li>
+<li><a href="#progettazione-logica">Progettazione Logica</a></li>
+<li><a href="#progettazione-fisica">Progettazione Fisica</a></li>
+<li><a href="#analisi-con-r">Analisi con R</a></li>
+<li><a href="#conclusioni">Conclusioni</a> # Progettazione
+Concettuale</li>
+</ol>
+<h2 id="progetto-registro-automobilistico">Progetto “Registro
+Automobilistico”</h2>
+<p>Si progetti uno schema entità/relazioni per la gestione di un
+registro automobilistico, facente parte del sistema informativo di un
+ufficio di motorizzazione, contenente le seguenti informazioni: - di
+ciascun veicolo interessa registrare la targa, la cilindrata, i cavalli
+fiscali, la velocità, il numero di posti e la data di immatricolazione;
+- i veicoli sono classificati in categorie (automobili, ciclomotori,
+camion, rimorchi, ecc.); - ciascun veicolo appartiene ad uno specifico
+modello; - tra i dati relativi ai veicoli, vi è la codifica del tipo di
+combustibile utilizzato; - di ciascun modello di veicolo è registrata la
+fabbrica di produzione e il numero delle versioni prodotte; - ciascun
+veicolo può avere uno o più proprietari, che si succedono nel corso
+della “vita” del veicolo; di ciascun proprietario interessa registrare
+cognome, nome e indirizzo di residenza.<br></p>
+<p>Lo schema entità/relazioni dovrà essere completato con attributi
+“ragionevoli” per ciascuna entità, identificando le possibili chiavi e
+le relazioni necessarie per la gestione del sistema in esame. A partire
+dallo schema entità/relazioni, si costruisca il corrispondente schema
+relazionale.<br></p>
+<h3 id="glossario-termini">GLOSSARIO Termini</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Termine</th>
+<th>Descrione</th>
+<th>Sinonimi</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Veicolo</td>
+<td>informazioni generali su un veicolo</td>
+<td></td>
+<td>Modello, Proprietario, Combustibile</td>
+</tr>
+<tr>
+<td>Modello</td>
+<td>Tipo di modello di veicolo</td>
+<td></td>
+<td>Veicolo, Fabbrica</td>
+</tr>
+<tr>
+<td>Fabbrica</td>
+<td>Azienda che procude un modello di veicolo</td>
+<td></td>
+<td>Modello</td>
+</tr>
+<tr>
+<td>Proprietario</td>
+<td>Chi ha posseduto e possiede un veicolo</td>
+<td></td>
+<td>Veicolo</td>
+</tr>
+<tr>
+<td>Combustibile</td>
+<td>Quale combustibile utilizza un veicolo</td>
+<td></td>
+<td>Veicolo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="frasi">Frasi</h3>
+<p><strong>Frasi generiche</strong> : &gt; Si progetti uno schema
+entità/relazioni per la gestione di un registro automobilistico, facente
+parte del sistema informativo di un ufficio di motorizzazione,
+contenente le seguenti informazioni.</p>
+<p><strong>Frasi relative al veicolo</strong>: &gt; Di ciascun veicolo
+interessa registrare la targa, la cilindrata, i cavalli fiscali, la
+velocità, il numero di posti e la data di immatricolazione.</p>
+<p><strong>Frasi relative al modello</strong>: &gt; Ciascun veicolo
+appartiene ad uno specifico modello.</p>
+<p><strong>Frasi relative alla fabbrica</strong>: &gt; Di ciascun
+modello di veicolo è registrata la fabbrica di produzione e il numero
+delle versioni prodotte.</p>
+<p><strong>Frasi relative al proprietario</strong>: &gt; Ciascun veicolo
+può avere uno o piú proprietari, che si succedono nel corso della “vita”
+del veicolo; di ciascun proprietario interessa registrare cognome, nome
+e indirizzo di residenza.</p>
+<p><strong>Frasi relative al combustibile</strong>: &gt; Di ciascun
+veicolo interessa registrare il tipo di combustibile utilizzato.</p>
+<h2 id="modello-er">Modello ER</h2>
+<p>La strategia che abbiamo utilizzato per costruire il modello ER è la
+strategia Mista (Mixed Strategy). Abbiamo optato per questa tecnica
+perché ci sembrava comodo avere uno scheletro iniziale che ci
+permettesse di avere una visione di base dello schema. Inizialmente
+abbiamo usato la strategia bottom-up per assemblare insieme tutte le
+entità. In seguito, abbiamo usato la tecnica top-down, in questo modo,
+tramite perfezionamenti, abbiamo sviluppato lo schema finale.</p>
+<p>La prima entità che abbiamo esaminato è <strong>Veicolo</strong>. Gli
+attributi che abbiamo aggiunto a questa entità sono targa, cilindrata,
+cavalli fiscali, velocità, numero di posti e data immatricolazione.
+Questa entità viene identificata univocamente dall’attributo targa.</p>
+<p><img src="img/Veicolo.png" width=300px/></p>
+<p>In seguito per quanto riguarda Veicolo abbiamo deciso di fare una
+<strong>generalizzazione</strong> <strong>Totale</strong> e
+<strong>Disgunta</strong>. In questo modo un veicolo puo` essere
+distinto tra Automobili, Ciclomotori, Camion e Rimorchio. La
+generalizzazione e’ disgunta perche’ veicolo puo’ ricoprire solo una
+delle quattro categorie.</p>
+<p>La generalizzazione è stata gestita nel modo sotto riportato
+aggiungendo degli attributi per ogni entità figlia.</p>
+<p><strong>Veicolo</strong> (Entità genitore): *
+<strong>Automobile</strong> (Entità figlia)<br />
+* tipologia<br />
+* <strong>Camion</strong> (Entità figlia)<br />
+* numero assi<br />
+* <strong>Ciclomotore</strong> (Entità figlia)<br />
+* bauletto<br />
+* <strong>Rimorchio</strong> (Entità figlia)<br />
+* tipologia<br />
+* carico</p>
+<p><img src="img/Veicolo_generalizzazione.PNG" width=400px/></p>
+<p>L’entità successiva che abbiamo analizzato è
+<strong>Modello</strong>. Gli attributi che abbiamo aggiunto a questa
+entità sono <em>idModello</em>, <em>nomeModello</em> e
+<em>numeroVersioni</em>. Questa entità viene identificata univocamente
+dall’attributo id_modello.</p>
+<p><img src="img/Modello.PNG" width=300px/></p>
+<p>La prossima entità che abbiamo visto è <strong>Fabbrica</strong>. A
+livello conettuale abbiamo gestito fabbrica come il marchio di un
+modello di veicolo, per esempio: Audi, BMW, Fiat, etc. Gli attributi che
+abbiamo aggiunto a questa entità sono <em>idFabbrica</em>, <em>nome</em>
+e <em>numeroVeicoloProdotti</em>. Questa entità viene identificata
+univocamente dall’attributo idFabbrica. Noi abbiamo scelto
+“numeroVeicoliProdotti” come l’attributo ridondante che in seguito
+verifecheremo se si può tenere o meno.</p>
+<p><img src="img/Fabbrica.PNG" width=250px/>S</p>
+<p>L’entità successiva è <strong>Combustibile</strong>. Gli attributi
+che abbiamo aggiunto a questa entità sono codiceCombustibile e
+tipoCombustibile. Questa entità viene identificata univocamente
+dall’attributo <strong>codiceCombustibile</strong> e descritta
+dall’attributo <strong>TipoCombustibile</strong>. Tra codiciCombustibile
+abbiamo messo un caso particolare <strong>TR</strong> che sarebbe il
+codiceCombustibile per i rimorchi che vengono trainati. In questo modo
+risolviamo il problema dei rimorchi che usano combustibile.</p>
+<p><img src="img/Combustibile.PNG" width=200px/></p>
+<p>Infine l’ultima entità è <strong>Proprietario</strong>. Gli attributi
+che abbiamo aggiunto a questa entità sono <em>idProprietario</em> e
+<em>indirizzo</em>. Questa entità viene identificata univocamente
+dall’attributo idProprietario. Per comodità abbiamo gestito indirizzo
+come una unica stringa ma si poteva pensare di utilizzare un attributo
+composto che rappresentasse la via, il numero civico e la città.</p>
+<p><img src="img/Proprietario.png" width=250px/></p>
+<p>Come aggiunta abbiamo deciso di aggiungere una generalizzazione su
+proprietario che ci permetta di identificare se è
+<strong>Privato</strong>, quindi una persona fisica o se appartiene ad
+una <strong>Società</strong>, quindi un veicolo aziendale. La
+generalizzazione e’ disgunta perche’ proprietario puo’ ricoprire solo
+una delle due categorie.</p>
+<p>In queste generalizzazione abbiamo pensato di ricavare gli attributi
+di Privato tramite Proprietario e aggiungere gli attributi di Societa
+partita iva e nome. Proprietario (Entità genitore): *
+<strong>Privato</strong> (Entità figlia)<br />
+* CF: not NULL<br />
+* nome not NULL * cognome not NULL * data di nascita<br />
+* <strong>Societa</strong> (Entità figlia)<br />
+* partita iva</p>
+<p><img src="img/Proprietario_generalizzazione.PNG" width=400px/></p>
+<p>Tra <strong>Modello</strong> e <strong>Veicolo</strong> è presente
+una relazione uno a molti “<strong>Appartiene</strong>” → Tra Veicolo
+(1:1) e Modello (1:N)</p>
+<ul>
+<li>Un veicolo può appartenere solo ad un modello.<br />
+</li>
+<li>Più veicoli possono essere dello stesso modello.<br />
+</li>
+<li>Per ogni modello deve esserci almeno un veicolo che appartiene a
+quel modello per essere presente nel database</li>
+</ul>
+<p><img src="img/Relazione_ModelloVeicolo.PNG" width=500px/></p>
+<p>Tra <strong>Modello</strong> e <strong>Fabbrica</strong> è presente
+una relazione uno a molti “<strong>Prodotto</strong>” → Tra Fabbrica
+(1:1) e Modello (1:N)</p>
+<ul>
+<li>Una fabbrica produce solo un modello.<br />
+</li>
+<li>Più fabbriche possono produrre lo stesso modello.<br />
+</li>
+<li>Per ogni modello deve esserci almeno una fabbrica che produce quel
+modello per essere presente nel database</li>
+</ul>
+<p><img src="img/Relazione_ModelloFabbrica.png" width=200px/></p>
+<p>Tra <strong>Veicolo</strong> e <strong>Combustibile</strong> è
+presente una relazione uno a molti “<strong>Utilizza</strong>” → Tra
+Veicolo (1:1) e Combustibile (1:N)</p>
+<ul>
+<li>Un veicolo utilizza solo un tipo di combustibile.<br />
+</li>
+<li>Più veicoli possono utilizzare lo stesso tipo di combustibile.<br />
+</li>
+<li>Un tipo di combustibile deve essere utilizzato da almeno un veicolo
+per poter essere presente nel database</li>
+</ul>
+<p><img src="img/Relazione_VeicoloCombustibile.png" width=500px/></p>
+<p>Tra <strong>Veicolo</strong> e <strong>Proprietario</strong> sono
+presenti due relazioni: 1) Uno a molti “<strong>Proprietario
+Corrente</strong>” → Tra Veicolo (1:1) e Proprietario (0:N) - Un veicolo
+appartiene solo un proprietario corrente.<br />
+- Un proprietario può non avere un veicolo al momento oppure avere più
+di uno - Data è l’attributo che identifica la data dell’acquisto del
+veicolo al proprietario corrente 1) Molti a molti “<strong>Proprietario
+Passato</strong>” → Tra Veicolo (0:N) e Proprietario (0:N) - Un veicolo
+può avere o no più proprietari passati - Un proprietario può avere o no
+più veicoli nel passato - Data acquisto e data vendita sono attributi
+che identificano la data dell’acquisto e vendita del veicolo al
+proprietario corrente - Se un proprietario compra e vende la stessa
+macchina due volte allora si registrano solo le date dell’ultima
+occorrenza.</p>
+<p>“Proprietario Passato” ci risolve la questione della “vita” di un
+veicolo</p>
+<p><img src="img/Relazione_VeicoloProprietario.png" width=500px/></p>
+<h2 id="schema-er-finale">Schema ER finale</h2>
+<p><img src="img/SchemaER.drawio.png"/></p>
+<h2 id="lista-dei-vincoli">Lista dei Vincoli</h2>
+<h3 id="vincoli-generali">Vincoli generali</h3>
+<ol type="1">
+<li>La data di acquisto deve essere antecedente rispetto alla data di
+vendita.<br />
+</li>
+<li>La data di acquisto deve essere successiva rispetto alla data di
+immatricolazione.<br />
+</li>
+<li>La data di vendita deve essere antecedente rispetto alla data di
+acquisto del veicolo successivo.</li>
+<li>La data di acquisto di un proprietario passato deve essere
+precedente alla data di acquisto del proprietario corrente.</li>
+<li>Un proprietario non può vendere un veicolo che non possiede.</li>
+<li>Un veicolo non può essere acquistato da un proprietario se è già
+stato acquistato da un altro proprietario nello stesso giorno.</li>
+</ol>
+<h2 id="regole-di-gestione">Regole di Gestione</h2>
+<p>Di seguito sono elencate le regole di gestione usate nello schema ER.
+1) num_veicoli_prodotti: numero di veicoli prodotti dalla fabbrica</p>
+<p>Altre idee di regole di gestione che potrebbero essere utilizzate: 1)
+L’età di un veicolo è la differenza tra la data odierna e la data di
+immatricolazione. 2) Il numero di anni di proprietà di un veicolo è la
+differenza tra la data di acquisto e la data di vendita.</p>
+<h1 id="progettazione-logica">Progettazione Logica</h1>
+<h2 id="operazioni-richeste">Operazioni richeste</h2>
+<ul>
+<li><strong>Op1</strong>: Aggiunta nuovo veicolo prodotto [15 al
+giorno]</li>
+<li><strong>Op2</strong>: Calcolare tutti i dati relativi alla fabbrica
+soprattutto il numero dei veicoli prodotti [2 al giorno] ### Tabella
+volumi | Concetto | Tipo | Volume | |— | — | — | | Veicolo | E | 90000 |
+| Proprietario | E | 125000 | | Combustibile | E | 5 | | Modello | E |
+200 | | Fabbrica | E | 10 | | ProprietarioCorrente | R | 90000 | |
+ProprietariPassati | R | 225000 | | Appartiene | R | 90000 | | Prodotto
+| R | 200 | | Utilizza | R | 90000 |</li>
+</ul>
+<p>Questa tabella ci fornisce una visione chiara della dimensione del
+sistema che stiamo progettando. Notiamo che:</p>
+<ul>
+<li>Il rapporto tra veicoli e proprietari è di circa 0.75, indicando che
+in media una persona possiede meno di un veicolo.<br />
+</li>
+<li>Ogni veicolo ha avuto in media 2.5 proprietari nel passato,
+suggerendo un’alta frequenza di cambi di proprietà.</li>
+</ul>
+<h3 id="analisi-delle-ridondanze">Analisi delle ridondanze</h3>
+<p><strong>Caso studio: Numero di veicoli prodotti per
+Fabbrica</strong></p>
+<h4 id="presenza-di-ridondanza">Presenza di ridondanza</h4>
+<p>Consideriamo l’attributo “numeroVeicoliProdotti” nell’entità
+Fabbrica. Questo è un dato derivabile ma potrebbe essere utile
+mantenerlo come ridondanza per migliorare le prestazioni.</p>
+<p><img src="img/SchemaRidondanza2.drawio.png"/></p>
+<p>Per eseguire il calcolo delle operazione in presenza di ridondanze si
+fa il calcolo di ogni micro processo:</p>
+<ul>
+<li>OP1: Aggiunta nuovo veicolo (15 volte al giorno):
+<ul>
+<li>Memorizzo il nuovo veicolo</li>
+<li>memorizzo la coppia veicolo-modello</li>
+<li>cerco il modello e per risalire alla fabbrica</li>
+<li>cerca la fabbrica di interesse</li>
+<li>incremento di uno i veicoli prodotti</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Concetto</th>
+<th>Costrutto</th>
+<th>Accessi</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Veicolo</td>
+<td>E</td>
+<td>1</td>
+<td>S</td>
+</tr>
+<tr>
+<td>Appartiene</td>
+<td>R</td>
+<td>1</td>
+<td>S</td>
+</tr>
+<tr>
+<td>Modello</td>
+<td>E</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>Prodotto</td>
+<td>R</td>
+<td>1</td>
+<td>L</td>
+</tr>
+<tr>
+<td>Fabbrica</td>
+<td>E</td>
+<td>1</td>
+<td>L</td>
+</tr>
+<tr>
+<td>Fabbrica</td>
+<td>E</td>
+<td>1</td>
+<td>S</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">(15 * 3) * 2 + (15 * 2) = 120</span></p>
+<p>Totale: 3 scritture + 2 letture = 8 accessi/operazione<br />
+Costo giornaliero: 8 * 15 = 120 accessi</p>
+<ul>
+<li>OP2: Visualizzazione dati Fabbrica (2 volte al giorno):
+<ul>
+<li>Leggere gli attributi della fabbrica</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Concetto</th>
+<th>Costrutto</th>
+<th>Accessi</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fabbrica</td>
+<td>E</td>
+<td>1</td>
+<td>L</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">2 * 1 = 2</span></p>
+<p>Costo giornaliero: 1 * 2 = 2 accessi</p>
+<p><strong>Costo totale giornaliero con ridondanza: 122
+accessi</strong></p>
+<h3 id="assenza-di-ridondanza">Assenza di ridondanza</h3>
+<p><img src="img/SchemaRidondanza.drawio.png"/></p>
+<ul>
+<li>OP1: Aggiunta nuovo veicolo (15 volte al giorno):
+<ul>
+<li>Memorizzo il nuovo veicolo</li>
+<li>Memorizzo la coppia veicolo modello</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Concetto</th>
+<th>Costrutto</th>
+<th>Accessi</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Veicolo</td>
+<td>E</td>
+<td>1</td>
+<td>S</td>
+</tr>
+<tr>
+<td>Appartiene</td>
+<td>R</td>
+<td>1</td>
+<td>S</td>
+</tr>
+<tr>
+<td>Modello</td>
+<td>E</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>Prodotto</td>
+<td>R</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>Fabbrica</td>
+<td>E</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">(15 * 2) * 2 = 60</span></p>
+<p>Totale: 2 scritture = 4 accessi/operazione<br />
+Costo giornaliero: 4 * 15 = 60 accessi</p>
+<ul>
+<li>OP2: Visualizzazione dati Fabbrica (2 volte al giorno):
+<ul>
+<li>Per calcolare il numero di veicoli prodotti da una fabbrica dobbiamo
+accedere alla relazione “prodotto” un numero di volte pare al numero
+medio di veicoli prodotti da una certa fabbrica (dalla fabbrica):
+nrModelli/nrFabbriche (200/10) <strong>e per ogni di questi
+modelli</strong> bisogna accedere un nr di volte pari al numero medio di
+veicoli appertenenti ad un modello : nrVeicoli /nrModelli
+(90000/200)</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Concetto</th>
+<th>Costrutto</th>
+<th>Accessi</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fabbrica</td>
+<td>E</td>
+<td>1</td>
+<td>L</td>
+</tr>
+<tr>
+<td>Prodotto</td>
+<td>E</td>
+<td>20</td>
+<td>L</td>
+</tr>
+<tr>
+<td>Appartiene</td>
+<td>E</td>
+<td>9000 (20*450)</td>
+<td>L</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">(1 + 20 + 9000) * 2 = 18042</span></p>
+<p>Costo per operazione: 1 + 20 + 9000 = 9021 letture<br />
+Costo giornaliero: 9021 * 2 = 18042 accessi</p>
+<p><strong>Costo totale giornaliero senza ridondanza: 60 + 18042 = 18102
+accessi</strong></p>
+<h3 id="costi-operazione">Costi operazione</h3>
+<p>Presenza di ridondanza ⟹ <span
+class="math inline">120 + 2 = 122</span></p>
+<p>Assenza di ridondanza ⟹ <span
+class="math inline">60 + 18042 = 18102</span></p>
+<h3 id="conclusione-dellanalisi"><strong>Conclusione
+dell’analisi</strong></h3>
+<p>Mantenere la ridondanza comporta un costo giornaliero di 122 accessi,
+mentre eliminarla porta a 18102 accessi.<br />
+La differenza è significativa: mantenere la ridondanza riduce il carico
+di lavoro di circa il 99.3%. Pertanto, è altamente consigliabile
+mantenere l’attributo ridondante “numeroVeicoliProdotti” nell’entità
+Fabbrica.</p>
+<h3 id="eliminazione-delle-generalizzazioni"><strong>Eliminazione delle
+generalizzazioni</strong></h3>
+<p>In questa fase del progetto sono state gestite le generalizzazioni
+presenti eliminando le gerarchie. In particolare sono state trasformate
+le seguenti parti:</p>
+<p><strong>Veicolo</strong></p>
+<p><img src="/img/veicolo_nuovo.png" width=500px /></p>
+<p>Abbiamo optato per una strategia di accorpamento nel genitore. Questa
+scelta è motivata dal fatto che la maggior parte delle operazioni
+coinvolgerà attributi comuni a tutti i tipi di veicolo.</p>
+<p><strong>Proprietario</strong></p>
+<p><img src="/img/proprietario_nuovo.png" width=600px /></p>
+<p>Anche per proprietario abbiamo scelto la stessa strategia.</p>
+<h3 id="schema-er-finale-senza-generalizzazioni">Schema ER Finale senza
+generalizzazioni</h3>
+<p><img src="/img/SchemaER_senza_generalizzazioni.png"></p>
+<h3 id="partizionamento-o-accorpamento"><strong>Partizionamento o
+accorpamento</strong></h3>
+<p>Per quanto riguarda l’entità Proprietario, abbiamo optato per
+mantenere l’attributo ‘indirizzo’ come un campo di testo unico, invece
+di partizionarlo verticalmente in componenti separate (come via, numero
+civico, CAP, città). Questa decisione è stata presa considerando che
+l’indirizzo viene generalmente utilizzato come un’unica unità
+informativa nelle operazioni più frequenti, e la sua scomposizione non
+offrirebbe vantaggi significativi in termini di prestazioni o
+funzionalità per il nostro specifico caso d’uso.</p>
+<h3 id="selezione-degli-identificatori"><strong>Selezione degli
+identificatori</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Entità</th>
+<th>Chiavi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Veicolo</td>
+<td>Targa</td>
+</tr>
+<tr>
+<td>Combustibile</td>
+<td>codiceCombustibile</td>
+</tr>
+<tr>
+<td>Proprietario</td>
+<td>idProprietario</td>
+</tr>
+<tr>
+<td>Modello</td>
+<td>idModello</td>
+</tr>
+<tr>
+<td>Fabbrica</td>
+<td>idFabbrica</td>
+</tr>
+</tbody>
+</table>
+<p>La scelta degli identificatori è stata fatta considerando l’unicità,
+l’immutabilità e la semplicità di gestione.</p>
+<h3 id="traduzione-modello-logico">Traduzione modello logico</h3>
+<ul>
+<li><p>fabbrica {<strong><em>id_fabbrica</em></strong> (PK), nome,
+numero_veicolo_prodotti}</p></li>
+<li><p>modello {<strong><em>id_modello</em></strong> (PK), nome_modello,
+numero_versioni, <strong><em>fabbrica_di_produzione</em></strong> (FK →
+fabbrica._id_fabbrica_)}</p></li>
+<li><p>combustibile {<strong><em>codice_combustibile</em></strong> (PK),
+tipo_combustibile}</p></li>
+<li><p>proprietario {<strong><em>id_proprietario</em></strong> (PK),
+indirizzo}</p></li>
+<li><p>privato {<strong><em>id_proprietario</em></strong> (PK, FK →
+proprietario._id_proprietario_), cf, nome, cognome,
+data_nascita}</p></li>
+<li><p>societa {<strong><em>id_proprietario</em></strong> (PK, FK →
+proprietario._id_proprietario_), partita_iva}</p></li>
+<li><p>veicolo {<strong><em>targa</em></strong> (PK), cavalli, velocita,
+numero_posti, data_immatricolazione, cilindrata, data,
+<strong><em>modello</em></strong> (FK → modello),
+<strong><em>codice_combustibile</em></strong> (FK →
+combustibile._codice_combustibile_),
+<strong><em>proprietario</em></strong> (FK →
+proprietario._id_proprietario_)}</p></li>
+<li><p>proprietari_passati {<strong><em>targa</em></strong> (PK, FK →
+veicolo._targa_), <strong><em>id_proprietario</em></strong> (PK, FK →
+proprietario._id_proprietario_), data_vendita, data_acquisto}</p></li>
+<li><p>automobile {<strong><em>targa</em></strong> (PK, FK →
+veicolo._targa_), tipologia}</p></li>
+<li><p>ciclomotore {<strong><em>targa</em></strong> (PK, FK →
+veicolo._targa_), bauletto}</p></li>
+<li><p>camion {<strong><em>targa</em></strong> (PK, FK →
+veicolo._targa_), numero_assi}</p></li>
+<li><p>rimorchio {<strong><em>targa</em></strong> (PK, FK →
+veicolo._targa_), tipologia, carico}</p></li>
+</ul>
+<p><strong>IMPORTANTE:</strong> Le chiavi primarie (PK) e le chiavi
+esterne (FK) non possono essere NULL</p>
+<h3 id="vincoli-di-chiave">Vincoli di Chiave</h3>
+<h5 id="chiavi-primarie-pk-devono-essere-not-null-e-univoche">Chiavi
+Primarie (PK): Devono essere not null e univoche</h5>
+<ul>
+<li>Veicolo.Targa</li>
+<li>Modello.idModello</li>
+<li>Fabbrica.idFabbrica</li>
+<li>Combustibile.codiceCombustibile</li>
+<li>Proprietario.IdProprietario</li>
+</ul>
+<h5 id="chiavi-esterne-fk">Chiavi Esterne (FK):</h5>
+<ul>
+<li>Veicolo.Modello → Modello.idModello</li>
+<li>Veicolo.CodiceCombustibile → Combustibile.codiceCombustibile</li>
+<li>Veicolo.Proprietario → Proprietario.IdProprietario</li>
+<li>Modello.FabbricaDiProduzione → Fabbrica.idFabbrica</li>
+<li>ProprietariPassati.Targa → Veicolo.Targa</li>
+<li>ProprietariPassati.IdProprietario → Proprietario.IdProprietario</li>
+</ul>
+<h3 id="vincoli-di-entità">Vincoli di Entità</h3>
+(Questi dati sono importanti e devono essere presenti) -
+Veicolo.dataImmatricolazione NOT NULL - Veicolo.dataAquisto NOT NULL -
+Veicolo.Cilindrata: NOT NULL<br />
+- Veicolo.Cavalli: NOT NULL<br />
+- Veicolo.Velocità: NOT NULL<br />
+- Veicolo.NumeroPosti: NOT NULL - Modello.numeroVersioni: NOT NULL -
+Proprietario.indirizzo: NOT NULL -
+<p>
+Privato.CF: NOT NULL
+</p>
+<ul>
+<li>Privato.nome NOT NULL</li>
+<li>Privato.cognome NOT NULL</li>
+<li>Società.partitaIva NOT NULL</li>
+<li>ProprietariPassati.dataAcquisto NOT NULL</li>
+<li>ProprietariPassati.dataVendita NOT NULL</li>
+</ul>
+<h3 id="vincoli-di-dominio">Vincoli di Dominio</h3>
+<ul>
+<li>Modello.numeroVersioni &gt; 0</li>
+<li>Veicolo.cilindrata &gt; 0 (se Rimorchio allora 0)</li>
+<li>Veicolo.cavalli &gt; 0 (se Rimorchio allora 0)</li>
+<li>Veicolo.numeroPosti &gt; 0 (se Rimorchio allora 0)</li>
+<li>Veicolo.velocita’ &gt; 0 (se Rimorchio allora 0)</li>
+</ul>
+<h3 id="vincoli-di-generalizzazione">Vincoli di Generalizzazione</h3>
+<p><strong>Totalità e disgiunzione</strong> - Ogni proprietario deve
+essere solo Privato o Società - Ogni veicolo deve comparire in
+esattamente una tabella figlia: (Automobile, Camion, Ciclomotore,
+Rimorchio)</p>
+<h3 id="vincoli-di-integrità-referenziale">Vincoli di Integrità
+Referenziale</h3>
+<ul>
+<li>Non posso cancellare nessun oggetto (record) se viene puntato da una
+chiave esterna
+<ul>
+<li>esempio: non posso cancellare un proprietario se lui possiede una
+veicolo che si trova nel database</li>
+<li>altro esempio: non posso cancellare una fabbrica se esiste un
+modello che e’ stato prodotto da quella fabbrica</li>
+</ul></li>
+</ul>
+<h3 id="vincoli-di-tupla">Vincoli di Tupla</h3>
+<ul>
+<li>ProprietariPassati: CHECK (dataVendita &gt; dataAcquisto)</li>
+<li>ProprietariPassati: UNIQUE (Targa, IdProprietario)
+<ul>
+<li>se un proprietario compra e vende più di una volta lo stesso veicolo
+si registra solo l’ultima occorrenza</li>
+</ul></li>
+</ul>
+<h3 id="vincoli-di-partecipazione">Vincoli di partecipazione</h3>
+<ul>
+<li>Affinchè una fabbrica sia presente nel database deve comparire
+almeno in uno dei modelli presenti</li>
+<li>Affinchè un modello sia presente nel database deve comparire almeno
+in uno dei veicoli presenti</li>
+<li>Affinchè un tipo di combustibile sia presente nel database deve
+comparire almeno in uno dei veicoli presenti</li>
+<li>Un veicolo deve per forza avere un proprietario corrente (uno
+solo)</li>
+<li>Un proprietario può non avere un veicolo al momento</li>
+</ul>
+<h3 id="vincoli-inter-tabella-ridondanza-controllata">Vincoli
+Inter-tabella (Ridondanza Controllata)</h3>
+<ul>
+<li>Trigger per aggiornare Fabbrica.numeroVeicoliProdotti quando viene
+inserito un nuovo veicolo</li>
+</ul>
+<h2 id="progettazione-fisica">Progettazione Fisica</h2>
+<h3 id="definizione-database-in-sql">Definizione database in SQL</h3>
+<p>In seguito abbiamo creato la base di dati. Sotto mostriamo tutto il
+codice SQL.</p>
+<h4 id="creazione-database">Creazione database</h4>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> <span class="ot">&quot;registro automobilistico&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WITH</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    OWNER <span class="op">=</span> postgres</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    ENCODING <span class="op">=</span> <span class="st">&#39;UTF8&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    LOCALE_PROVIDER <span class="op">=</span> <span class="st">&#39;libc&#39;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    CONNECTION <span class="kw">LIMIT</span> <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    IS_TEMPLATE <span class="op">=</span> <span class="kw">False</span>;</span></code></pre></div>
+<h4 id="creazione-tabelle">Creazione tabelle</h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> fabbrica (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    id_fabbrica <span class="dt">INT</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    nome <span class="dt">VARCHAR</span>(<span class="dv">50</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    numero_veicoli_prodotti <span class="dt">INT</span> <span class="kw">DEFAULT</span> <span class="dv">0</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> modello (</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    id_modello <span class="dt">INT</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    nome_modello <span class="dt">VARCHAR</span>(<span class="dv">50</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    numero_versioni <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">CHECK</span> (numero_versioni <span class="op">&gt;</span> <span class="dv">0</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    fabbrica_di_produzione <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (fabbrica_di_produzione) <span class="kw">REFERENCES</span> fabbrica(id_fabbrica)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> combustibile (</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    codice_combustibile <span class="dt">VARCHAR</span>(<span class="dv">15</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    tipo_combustibile <span class="dt">VARCHAR</span>(<span class="dv">20</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> proprietario (</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    id_proprietario <span class="dt">INT</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    indirizzo <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> privato (</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    id_proprietario <span class="dt">INT</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    cf <span class="dt">VARCHAR</span>(<span class="dv">16</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">UNIQUE</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    nome <span class="dt">VARCHAR</span>(<span class="dv">50</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    cognome <span class="dt">VARCHAR</span>(<span class="dv">50</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    data_nascita <span class="dt">DATE</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (id_proprietario) <span class="kw">REFERENCES</span> proprietario(id_proprietario)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> societa (</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    id_proprietario <span class="dt">INT</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    partita_iva <span class="dt">VARCHAR</span>(<span class="dv">16</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">UNIQUE</span>,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (id_proprietario) <span class="kw">REFERENCES</span> proprietario(id_proprietario)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> veicolo (</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    targa <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    cilindrata <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    cavalli <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    velocita <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    numero_posti <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    data_immatricolazione <span class="dt">DATE</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">data</span> <span class="dt">DATE</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    modello <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    codice_combustibile <span class="dt">VARCHAR</span>(<span class="dv">15</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    proprietario <span class="dt">INT</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CHECK</span> (</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        (cilindrata <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="kw">AND</span> </span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        (cavalli <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="kw">AND</span> </span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        (velocita <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="kw">AND</span> </span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        (numero_posti <span class="op">&gt;=</span> <span class="dv">0</span>)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (modello) <span class="kw">REFERENCES</span> modello(id_modello),</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (codice_combustibile) <span class="kw">REFERENCES</span> combustibile(codice_combustibile),</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (proprietario) <span class="kw">REFERENCES</span> proprietario(id_proprietario)</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> automobile (</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    targa <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    tipologia <span class="dt">VARCHAR</span>(<span class="dv">20</span>),</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (targa) <span class="kw">REFERENCES</span> veicolo(targa)</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> ciclomotore (</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    targa <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    bauletto <span class="dt">BOOLEAN</span>,</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (targa) <span class="kw">REFERENCES</span> veicolo(targa)</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> camion (</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    targa <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>    numero_assi <span class="dt">INT</span>,</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (targa) <span class="kw">REFERENCES</span> veicolo(targa)</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> rimorchio (</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    targa <span class="dt">VARCHAR</span>(<span class="dv">10</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    tipologia <span class="dt">VARCHAR</span>(<span class="dv">20</span>),</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    carico <span class="dt">INT</span>,</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (targa) <span class="kw">REFERENCES</span> veicolo(targa)</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> proprietari_passati (</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    targa <span class="dt">VARCHAR</span>(<span class="dv">10</span>),</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    id_proprietario <span class="dt">INT</span>,</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>    data_acquisto <span class="dt">DATE</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>    data_vendita <span class="dt">DATE</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (targa, id_proprietario),</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CHECK</span> (data_vendita <span class="op">&gt;</span> data_acquisto),</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (targa) <span class="kw">REFERENCES</span> veicolo(targa),</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (id_proprietario) <span class="kw">REFERENCES</span> proprietario(id_proprietario)</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<h4 id="definizione-trigger">Definizione trigger</h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Trigger --</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">--controllo nr_veicoli_prodotti--</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> aggiorna_conteggio_veicoli() </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>RETURNS <span class="kw">TRIGGER</span> <span class="kw">AS</span> $$</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">UPDATE</span> fabbrica</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SET</span> numero_veicoli_prodotti <span class="op">=</span> numero_veicoli_prodotti <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> id_fabbrica <span class="op">=</span> (</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">SELECT</span> fabbrica_di_produzione </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">FROM</span> modello </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">WHERE</span> id_modello <span class="op">=</span> <span class="kw">NEW</span>.modello</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">RETURN</span> <span class="kw">NEW</span>;</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>;</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>$$ LANGUAGE plpgsql;</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> trigger_conteggio_veicoli</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="kw">AFTER</span> <span class="kw">INSERT</span> <span class="kw">ON</span> veicolo</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="cf">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span> <span class="kw">EXECUTE</span> <span class="kw">FUNCTION</span> aggiorna_conteggio_veicoli();</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">-------------------------------------------------------------------------------</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">-- Trigger per verificare mutua esclusione PRIVATO</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> check_privato_mutua_esclusione()</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>RETURNS <span class="kw">TRIGGER</span> <span class="kw">AS</span> $$</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Verifica se esiste già in societa</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">IF</span> <span class="kw">EXISTS</span> (<span class="kw">SELECT</span> <span class="dv">1</span> <span class="kw">FROM</span> societa <span class="kw">WHERE</span> id_proprietario <span class="op">=</span> <span class="kw">NEW</span>.id_proprietario) <span class="cf">THEN</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        RAISE <span class="kw">EXCEPTION</span> <span class="st">&#39;Mutua esclusione violata: ID % è già registrato come società&#39;</span>, <span class="kw">NEW</span>.id_proprietario;</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span> <span class="cf">IF</span>;</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">RETURN</span> <span class="kw">NEW</span>;</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>;</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>$$ LANGUAGE plpgsql;</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> trigger_check_privato</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="kw">BEFORE</span> <span class="kw">INSERT</span> <span class="kw">OR</span> <span class="kw">UPDATE</span> <span class="kw">ON</span> privato</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="cf">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span> <span class="kw">EXECUTE</span> <span class="kw">FUNCTION</span> check_privato_mutua_esclusione();</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">-- Trigger per verificare mutua esclusione SOCIETA</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> check_societa_mutua_esclusione()</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>RETURNS <span class="kw">TRIGGER</span> <span class="kw">AS</span> $$</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Verifica se esiste già in privato</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">IF</span> <span class="kw">EXISTS</span> (<span class="kw">SELECT</span> <span class="dv">1</span> <span class="kw">FROM</span> privato <span class="kw">WHERE</span> id_proprietario <span class="op">=</span> <span class="kw">NEW</span>.id_proprietario) <span class="cf">THEN</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        RAISE <span class="kw">EXCEPTION</span> <span class="st">&#39;Mutua esclusione violata: ID % è già registrato come privato&#39;</span>, <span class="kw">NEW</span>.id_proprietario;</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span> <span class="cf">IF</span>;</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">RETURN</span> <span class="kw">NEW</span>;</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>;</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>$$ LANGUAGE plpgsql;</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> trigger_check_societa</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="kw">BEFORE</span> <span class="kw">INSERT</span> <span class="kw">OR</span> <span class="kw">UPDATE</span> <span class="kw">ON</span> societa</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="cf">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span> <span class="kw">EXECUTE</span> <span class="kw">FUNCTION</span> check_societa_mutua_esclusione();</span></code></pre></div>
+<h3 id="popolazione-base-di-dati">Popolazione base di dati</h3>
+<h3 id="query">Query</h3>
+<ol type="1">
+<li>Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo
+proprietario.</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> v.<span class="op">*</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> veicolo v</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> proprietari_passati pp <span class="kw">ON</span> v.targa <span class="op">=</span> pp.targa</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> pp.targa <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> v.cavalli <span class="kw">DESC</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">1</span>;</span></code></pre></div>
+<p><em>Output:</em> <img src="query results/query1.png"></p>
+<ol start="2" type="1">
+<li>Le società che è un proprietario passato di esattamente 2
+veicoli</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> s.partita_iva, <span class="fu">COUNT</span>(pp.targa) <span class="kw">AS</span> num_veicoli</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> societa s</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> proprietari_passati pp <span class="kw">ON</span> s.id_proprietario <span class="op">=</span> pp.id_proprietario</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> s.partita_iva</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">COUNT</span>(pp.targa) <span class="op">=</span> <span class="dv">2</span>;</span></code></pre></div>
+<p><em>Output:</em> <img src="query results/query2.png"></p>
+<ol start="3" type="1">
+<li>Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente
+3 modelli.</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> v.<span class="op">*</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> veicolo v</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> modello m <span class="kw">ON</span> v.modello <span class="op">=</span> m.id_modello</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> m.fabbrica_di_produzione <span class="kw">IN</span> (</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> fabbrica_di_produzione </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> modello </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">GROUP</span> <span class="kw">BY</span> fabbrica_di_produzione </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">HAVING</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> V.targa</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> veicolo <span class="kw">AS</span> V</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> modello <span class="kw">AS</span> M <span class="kw">ON</span> V.modello <span class="op">=</span> M.id_modello</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> fabbrica <span class="kw">AS</span> F <span class="kw">ON</span> M.fabbrica_di_produzione <span class="op">=</span> F.id_fabbrica</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> F.id_fabbrica <span class="kw">IN</span> (</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> F2.id_fabbrica</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> fabbrica F2</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> <span class="kw">EXISTS</span> (</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">FROM</span> modello M2</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">WHERE</span> M2.fabbrica_di_produzione <span class="op">=</span> F2.id_fabbrica</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">AND</span> <span class="kw">EXISTS</span> (</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">FROM</span> modello M3</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">WHERE</span> M3.fabbrica_di_produzione <span class="op">=</span> F2.id_fabbrica</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">AND</span> M3.id_modello <span class="op">&lt;&gt;</span> M2.id_modello</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            <span class="kw">AND</span> <span class="kw">EXISTS</span> (</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>                <span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>                <span class="kw">FROM</span> modello M4</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                <span class="kw">WHERE</span> M4.fabbrica_di_produzione <span class="op">=</span> F2.id_fabbrica</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                <span class="kw">AND</span> M4.id_modello <span class="op">&lt;&gt;</span> M2.id_modello</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                <span class="kw">AND</span> M4.id_modello <span class="op">&lt;&gt;</span> M3.id_modello</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                <span class="kw">AND</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> (</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">FROM</span> modello M5</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">WHERE</span> M5.fabbrica_di_produzione <span class="op">=</span> F2.id_fabbrica</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">AND</span> M5.id_modello <span class="op">&lt;&gt;</span> M2.id_modello</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">AND</span> M5.id_modello <span class="op">&lt;&gt;</span> M3.id_modello</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">AND</span> M5.id_modello <span class="op">&lt;&gt;</span> M4.id_modello</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<p><em>Output:</em> <img src="query results/query3.png"></p>
+<ol start="4" type="1">
+<li>Il numero dei veicoli in cui il proprietario corrente è anche un
+proprietario passato</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> numero_veicoli</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> veicolo v</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> proprietari_passati pp <span class="kw">ON</span> v.targa <span class="op">=</span> pp.targa</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> v.proprietario <span class="op">=</span> pp.id_proprietario;</span></code></pre></div>
+<p><em>Output:</em> <img src="query results/query4.png"></p>
+<ol start="5" type="1">
+<li>La fabbrica con il massimo numero di veicoli elettrici.</li>
+</ol>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> f.nome, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> num_elettrici</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> veicolo v</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> modello m <span class="kw">ON</span> v.modello <span class="op">=</span> m.id_modello</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> fabbrica f <span class="kw">ON</span> m.fabbrica_di_produzione <span class="op">=</span> f.id_fabbrica</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> v.codice_combustibile <span class="op">=</span> <span class="st">&#39;ELET&#39;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> f.nome</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> num_elettrici <span class="kw">DESC</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">1</span>;</span></code></pre></div>
+<p>oppure con le viste</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> veicoli_elettrici_per_fabbrica <span class="kw">AS</span> (</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> m.fabbrica_di_produzione, <span class="fu">COUNT</span>(v.targa) <span class="kw">AS</span> numero_veicoli_elettrici</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> veicolo v</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> modello m <span class="kw">ON</span> v.modello <span class="op">=</span> m.id_modello</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> v.codice_combustibile <span class="op">=</span> <span class="st">&#39;ELET&#39;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> m.fabbrica_di_produzione</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> fabbrica.nome, numero_veicoli_elettrici</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> veicoli_elettrici_per_fabbrica, fabbrica</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> fabbrica.id_fabbrica<span class="op">=</span>fabbrica_di_produzione <span class="kw">AND</span> numero_veicoli_elettrici <span class="op">=</span> (</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="fu">MAX</span>(numero_veicoli_elettrici)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> veicoli_elettrici_per_fabbrica</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<p><em>Output:</em> <img src="query results/query5.png"></p>
+<ol start="6" type="1">
+<li>Data una targa, cercare il veicolo o, il proprietario corrente (Cf
+se privato altrimenti IVA) e tutti i proprietari passatti (Cf se privati
+altrimenti IVA) e le date di aquisto e vendita. <em>Servirebbe per
+rapportare i dati prima di cancellare un veicolo</em></li>
+</ol>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="co">--Recupero del proprietario corrente, deve anche trovare se e&#39; un privato o una societa&#39;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    v.targa,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    p.id_proprietario,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">CASE</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> pr.id_proprietario <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">THEN</span> <span class="fu">CONCAT</span>(<span class="st">&#39;Privato CF &#39;</span>, pr.cf)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> s.id_proprietario <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">THEN</span> <span class="fu">CONCAT</span>(<span class="st">&#39;Società P.IVA &#39;</span>, s.partita_iva)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span> <span class="kw">AS</span> proprietario,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    v.<span class="kw">data</span> <span class="kw">AS</span> data_acquisto,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">NULL</span> <span class="kw">AS</span> data_vendita,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Ultimo proprietario&#39;</span> <span class="kw">AS</span> stato</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> veicolo v</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> proprietario p <span class="kw">ON</span> v.proprietario <span class="op">=</span> p.id_proprietario</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> privato pr <span class="kw">ON</span> p.id_proprietario <span class="op">=</span> pr.id_proprietario</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> societa s <span class="kw">ON</span> p.id_proprietario <span class="op">=</span> s.id_proprietario</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> v.targa <span class="op">=</span> <span class="st">&#39;GC908BT&#39;</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="co">--Recupero dei proprietario correnti, deve anche trovare se sono dei privati o delle societa&#39;</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    pp.targa,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    pp.id_proprietario, </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">CASE</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> pr.id_proprietario <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span> </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">THEN</span> <span class="fu">CONCAT</span>(<span class="st">&#39;Privato CF &#39;</span>, pr.cf)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> s.id_proprietario <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span> </span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">THEN</span> <span class="fu">CONCAT</span>(<span class="st">&#39;Società IVA &#39;</span>, s.partita_iva)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span> <span class="kw">AS</span> proprietario,</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    pp.data_acquisto,</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    pp.data_vendita,</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Ex proprietario&#39;</span> <span class="kw">AS</span> stato</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> proprietari_passati pp</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> proprietario p <span class="kw">ON</span> pp.id_proprietario <span class="op">=</span> p.id_proprietario</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> privato pr <span class="kw">ON</span> p.id_proprietario <span class="op">=</span> pr.id_proprietario</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> societa s <span class="kw">ON</span> p.id_proprietario <span class="op">=</span> s.id_proprietario</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> pp.targa <span class="op">=</span> <span class="st">&#39;GC908BT&#39;</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> data_acquisto <span class="kw">DESC</span>;</span></code></pre></div>
+<p><em>Output:</em> <img src="query results/query6.png"></p>
+<h3 id="query-di-inserimentocancellazioneaggiornamento">Query di
+inserimento/cancellazione/aggiornamento</h3>
+<p>Inserimento e aggiornamento: - passagio di proprieta</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> vecchio_proprietario <span class="kw">AS</span> (</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> targa, proprietario, <span class="kw">data</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> veicolo </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> targa <span class="op">=</span> <span class="st">&#39;AB123CD&#39;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>registrazione_storico <span class="kw">AS</span> (</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INSERT</span> <span class="kw">INTO</span> proprietari_passati (targa, id_proprietario, data_acquisto, data_vendita)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> targa, proprietario, <span class="kw">data</span>, <span class="fu">CURRENT_DATE</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> vecchio_proprietario</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> veicolo </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    proprietario <span class="op">=</span> <span class="dv">78</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">data</span> <span class="op">=</span> <span class="fu">CURRENT_DATE</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> targa <span class="op">=</span> <span class="st">&#39;AB123CD&#39;</span>;</span></code></pre></div>
+<p>Cancellazione: - eliminare tutti i proprietari (privati e società)
+senza veicoli attuali o storici</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> societa</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> id_proprietario <span class="kw">IN</span> (</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> p.id_proprietario</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> proprietario p</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">LEFT</span> <span class="kw">JOIN</span> veicolo v <span class="kw">ON</span> p.id_proprietario <span class="op">=</span> v.proprietario</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">LEFT</span> <span class="kw">JOIN</span> proprietari_passati pp <span class="kw">ON</span> p.id_proprietario <span class="op">=</span> pp.id_proprietario</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> v.targa <span class="kw">IS</span> <span class="kw">NULL</span> <span class="kw">AND</span> pp.targa <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> privato</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> id_proprietario <span class="kw">IN</span> (</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> p.id_proprietario</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> proprietario p</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">LEFT</span> <span class="kw">JOIN</span> veicolo v <span class="kw">ON</span> p.id_proprietario <span class="op">=</span> v.proprietario</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">LEFT</span> <span class="kw">JOIN</span> proprietari_passati pp <span class="kw">ON</span> p.id_proprietario <span class="op">=</span> pp.id_proprietario</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> v.targa <span class="kw">IS</span> <span class="kw">NULL</span> <span class="kw">AND</span> pp.targa <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> proprietario</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> id_proprietario <span class="kw">NOT</span> <span class="kw">IN</span> (</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> id_proprietario <span class="kw">FROM</span> veicolo</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">UNION</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> id_proprietario <span class="kw">FROM</span> proprietari_passati</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMIT</span>;</span></code></pre></div>
+<h2 id="analisi-con-r">Analisi con R</h2>
+<h3 id="numero-di-modelli-prodotti-da-ogni-fabbrica">Numero di modelli
+prodotti da ogni fabbrica</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(pg_connection,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;SELECT f.nome AS fabbriche,count(m.id_modello) as numeroModelli</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">                      FROM fabbrica as f, modello as m</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">                      WHERE f.id_fabbrica = m.fabbrica_di_produzione</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">                      GROUP BY f.nome&quot;</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>numeromodelli <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(result<span class="sc">$</span>numeromodelli)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Creazione del grafico a barre con ggplot2</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> result, <span class="fu">aes</span>(<span class="at">x =</span> fabbriche, <span class="at">y =</span> numeromodelli, <span class="at">fill =</span> numeromodelli)) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Fabbriche&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Numero di Modelli&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Numero di Modelli per Fabbrica&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">high =</span> <span class="st">&quot;darkblue&quot;</span>)</span></code></pre></div>
+<p><img src="/grafici/query1.png"></p>
+<h3 id="distribuzione-dei-veicoli-per-categoria">Distribuzione dei
+veicoli per categoria</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(pg_connection,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;SELECT</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="st">                      CASE</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">                          WHEN targa IN (SELECT targa FROM automobile) THEN &#39;automobile&#39;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">                          WHEN targa IN (SELECT targa FROM camion) THEN &#39;camion&#39;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="st">                          WHEN targa IN (SELECT targa FROM ciclomotore) THEN &#39;ciclomotore&#39;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">                          WHEN targa IN (SELECT targa FROM rimorchio) THEN &#39;rimorchio&#39;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="st">                          ELSE &#39;altro&#39;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="st">                        END AS categoria,</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="st">                        COUNT(*) AS numero_veicoli</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="st">                      FROM veicolo</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="st">                      GROUP BY categoria&quot;</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(result, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> numero_veicoli, <span class="at">fill =</span> categoria)) <span class="sc">+</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="st">&quot;Categoria&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Distribuzione dei Veicoli per Categoria&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="/grafici/query2.png"></p>
+<h3 id="distribuzione-dei-veicoli-per-cavalli">Distribuzione dei Veicoli
+per cavalli</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(pg_connection,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;select cavalli, count(targa) from veicolo group by cavalli&quot;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(result, <span class="fu">aes</span>(<span class="at">x =</span> cavalli, <span class="at">y =</span> count)) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;aquamarine4&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribuzione dei veicoli per cavalli&quot;</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Cavalli&quot;</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Numero di targhe&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="/grafici/terzoGrafico.png"></p>
+<h2 id="conclusioni">Conclusioni</h2>
+<p>In conclusione, il progetto ha permesso di sviluppare un sistema di
+gestione per un registro automobilistico, basato su una progettazione
+accurata e ottimizzata per garantire efficienza e integrità dei dati.
+Attraverso l’analisi dei modelli concettuali, logici e fisici, sono
+state implementate soluzioni robuste per gestire le complessità del
+dominio, dimostrando l’efficacia di un approccio metodico nella
+progettazione di basi di dati.</p>
