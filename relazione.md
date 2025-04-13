@@ -895,5 +895,5 @@ ggplot(result, aes(x = cavalli, y = count)) +
 
 ## Conclusioni
 
-
+In conclusione, il progetto ha permesso di sviluppare un sistema di gestione per un registro automobilistico, basato su una progettazione accurata e ottimizzata per garantire efficienza e integrità dei dati. Attraverso l'analisi dei modelli concettuali, logici e fisici, sono state implementate soluzioni robuste per gestire le complessità del dominio, dimostrando l'efficacia di un approccio metodico nella progettazione di basi di dati.
 
