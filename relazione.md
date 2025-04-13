@@ -896,3 +896,4 @@ ggplot(result, aes(x = cavalli, y = count)) +
 ## Conclusioni
 
 
+
