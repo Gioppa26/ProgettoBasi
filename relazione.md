@@ -1,3 +1,9 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
 # UNIVERSITÀ DEGLI STUDI DI UDINE
 ## Dipartimento di Scienze Matematiche, Informatiche e Fisiche
 <img src="img/Uniud.png"/>
@@ -88,7 +94,7 @@ L'entità successiva che abbiamo analizzato è **Modello**. Gli attributi che ab
 La prossima entità che abbiamo visto è **Fabbrica**.
 A livello conettuale abbiamo gestito fabbrica come il marchio di un modello di veicolo, per esempio: Audi, BMW, Fiat, etc. Gli attributi che abbiamo aggiunto a questa entità sono *idFabbrica*, *nome* e *numeroVeicoloProdotti*. Questa entità viene identificata univocamente dall'attributo idFabbrica. Noi abbiamo scelto "numeroVeicoliProdotti" come l'attributo ridondante che in seguito verifecheremo se si pu&ograve; tenere o meno.
 
-<img src="img/Fabbrica.PNG" width=250px/>S
+<img src="img/Fabbrica.PNG" width=250px/>
 
 L'entità successiva è **Combustibile**. Gli attributi che abbiamo aggiunto a questa entità sono codiceCombustibile e tipoCombustibile. Questa entità viene identificata univocamente dall'attributo **codiceCombustibile** e descritta dall'attributo **TipoCombustibile**. Tra codiciCombustibile abbiamo messo un caso particolare **TR** che sarebbe il codiceCombustibile per i rimorchi che vengono trainati. In questo modo risolviamo il problema dei rimorchi che usano combustibile. 
 
@@ -305,20 +311,20 @@ In questa fase del progetto sono state gestite le generalizzazioni presenti elim
 
 **Veicolo**
 
-<img src="/img/veicolo_nuovo.png" width=500px />
+<img src="img/Veicolo_nuovo.png" width=500px />
 
 Abbiamo optato per una strategia di accorpamento nel genitore. Questa scelta &egrave; motivata dal fatto che la maggior parte delle operazioni coinvolger&agrave; attributi comuni a tutti i tipi di veicolo. 
 
 **Proprietario**
 
 
-<img src="/img/proprietario_nuovo.png" width=600px />
+<img src="img/proprietario_nuovo.png" width=600px />
 
 Anche per proprietario abbiamo scelto la stessa strategia.
 
 ### Schema ER Finale senza generalizzazioni
 
-<img src="/img/SchemaER_senza_generalizzazioni.png">
+<img src="img/SchemaER_senza_generalizzazioni.png">
 
 ### **Partizionamento o accorpamento**
 
@@ -853,7 +859,7 @@ ggplot(data = result, aes(x = fabbriche, y = numeromodelli, fill = numeromodelli
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_gradient(low = "lightblue", high = "darkblue")
 ```
-<img src="/grafici/query1.png">
+<img src="grafici/query1.png">
 
 ###  Distribuzione dei veicoli per categoria
 ``` r
@@ -877,7 +883,7 @@ ggplot(result, aes(x = "", y = numero_veicoli, fill = categoria)) +
   theme_void() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
-<img src="/grafici/query2.png">
+<img src="grafici/query2.png">
 
 ### Distribuzione dei Veicoli per cavalli
 ```r
@@ -891,7 +897,7 @@ ggplot(result, aes(x = cavalli, y = count)) +
        y = "Numero di targhe") +
   theme_minimal()
 ```
-<img src="/grafici/terzoGrafico.png">
+<img src="grafici/terzoGrafico.png">
 
 ## Conclusioni
 
