@@ -618,8 +618,6 @@ FOR EACH ROW EXECUTE FUNCTION check_societa_mutua_esclusione();
 ### Popolazione base di dati
 ### Query
 
-------------------------------------(**sotto le query inserire uno screenshot del risultato**)--------------------------
-
 1. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
 ```sql
 SELECT v.* 
@@ -629,7 +627,8 @@ WHERE pp.targa IS NULL
 ORDER BY v.cavalli DESC
 LIMIT 1;
 ```
-**Output**
+*Output:*
+<img src="query results/query1.png">
 
 2. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
 ```sql
@@ -639,6 +638,8 @@ JOIN proprietari_passati pp ON s.id_proprietario = pp.id_proprietario
 GROUP BY s.partita_iva
 HAVING COUNT(pp.targa) = 2;
 ```
+*Output:*
+<img src="query results/query2.png">
 
 3. Tutti i veicoli prodotti da fabbriche che hanno prodotto esattamente 3 modelli.
 ```sql
@@ -689,6 +690,9 @@ WHERE F.id_fabbrica IN (
 );
 ```
 
+*Output:*
+<img src="query results/query3.png">
+
 4. Il numero dei veicoli in cui il proprietario corrente è anche un proprietario passato
 ```sql
 SELECT COUNT(*) AS numero_veicoli
@@ -696,6 +700,9 @@ FROM veicolo v
 JOIN proprietari_passati pp ON v.targa = pp.targa
 WHERE v.proprietario = pp.id_proprietario;
 ```
+*Output:*
+<img src="query results/query4.png">
+
 5. La fabbrica con il massimo numero di veicoli elettrici.
 ```sql
 SELECT f.nome, COUNT(*) AS num_elettrici
@@ -723,6 +730,9 @@ WHERE fabbrica.id_fabbrica=fabbrica_di_produzione AND numero_veicoli_elettrici =
   FROM veicoli_elettrici_per_fabbrica
 );
 ```
+
+*Output:*
+<img src="query results/query5.png">
 
 6. Data una targa, cercare il veicolo o, il proprietario corrente (Cf se privato altrimenti IVA) e tutti i proprietari passatti (Cf se privati altrimenti IVA) e le date di aquisto e vendita. *Servirebbe per rapportare i dati prima di cancellare un veicolo*
 ```sql
@@ -766,6 +776,9 @@ WHERE pp.targa = 'GC908BT'
 
 ORDER BY data_acquisto DESC;
 ```
+
+*Output:*
+<img src="query results/query6.png">
 
 ### Query di inserimento/cancellazione/aggiornamento
 
