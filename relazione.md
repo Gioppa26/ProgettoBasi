@@ -446,6 +446,10 @@ La scelta degli identificatori è stata fatta considerando l'unicità, l'immutab
 
 ## Progettazione Fisica
 ### Definizione database in SQL
+
+In seguito abbiamo creato la base di dati.
+Sotto mostriamo tutto il codice SQL.
+
 #### Creazione database
 ``` sql
 CREATE DATABASE "registro automobilistico"

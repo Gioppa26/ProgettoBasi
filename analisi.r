@@ -18,7 +18,6 @@ result <- dbGetQuery(pg_connection,
                       WHERE f.id_fabbrica = m.fabbrica_di_produzione
                       GROUP BY f.nome")
 
-result$numeromodelli <- as.integer(result$numeromodelli)
 
 # Creazione del grafico a barre con ggplot2
 ggplot(data = result, aes(x = fabbriche, y = numeromodelli, fill = numeromodelli)) +
@@ -54,6 +53,16 @@ ggplot(result, aes(x = "", y = numero_veicoli, fill = categoria)) +
 #########################################################################
 
 
+## Distribuzione dei Veicoli per cavalli ########################################
+result <- dbGetQuery(pg_connection,
+                     "select cavalli, count(targa) from veicolo group by cavalli")
+
+ggplot(result, aes(x = cavalli, y = count)) +
+  geom_bar(stat = "identity", fill = "aquamarine4") +
+  labs(title = "Distribuzione dei veicoli per cavalli",
+       x = "Cavalli",
+       y = "Numero di targhe") +
+  theme_minimal()
 
 # Disconnessione dal database
 dbDisconnect(pg_connection)
