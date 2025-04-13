@@ -625,6 +625,8 @@ WHERE pp.targa IS NULL
 ORDER BY v.cavalli DESC
 LIMIT 1;
 ```
+**Output**
+
 2. Le societ&agrave; che è un proprietario passato di esattamente 2 veicoli
 ```sql
 SELECT s.partita_iva, COUNT(pp.targa) AS num_veicoli
