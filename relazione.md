@@ -819,7 +819,7 @@ WHERE id_proprietario NOT IN (
 COMMIT;
 ```
 ## Analisi con R
-- Numero di modelli prodotti da ogni fabbrica
+### Numero di modelli prodotti da ogni fabbrica
 ``` r
 result <- dbGetQuery(pg_connection,
                      "SELECT f.nome AS fabbriche,count(m.id_modello) as numeroModelli
@@ -840,7 +840,7 @@ ggplot(data = result, aes(x = fabbriche, y = numeromodelli, fill = numeromodelli
 ```
 <img src="/grafici/query1.png">
 
-- Distribuzione dei veicoli per categoria
+###  Distribuzione dei veicoli per categoria
 ``` r
 result <- dbGetQuery(pg_connection,
                      "SELECT
@@ -864,7 +864,20 @@ ggplot(result, aes(x = "", y = numero_veicoli, fill = categoria)) +
 ```
 <img src="/grafici/query2.png">
 
-- 
+### Distribuzione dei Veicoli per cavalli
+```r
+result <- dbGetQuery(pg_connection,
+                     "select cavalli, count(targa) from veicolo group by cavalli")
+
+ggplot(result, aes(x = cavalli, y = count)) +
+  geom_bar(stat = "identity", fill = "aquamarine4") +
+  labs(title = "Distribuzione dei veicoli per cavalli",
+       x = "Cavalli",
+       y = "Numero di targhe") +
+  theme_minimal()
+```
+<img src="/grafici/terzoGrafico.png">
+
 ## Conclusioni
 
 
