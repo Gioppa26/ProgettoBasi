@@ -622,6 +622,8 @@ BEFORE INSERT OR UPDATE ON societa
 FOR EACH ROW EXECUTE FUNCTION check_societa_mutua_esclusione();
 ```
 ### Popolazione base di dati
+Per la popolazione delle tabelle della base di dati abbiamo usato il sito https://www.mockaroo.com/
+
 ### Query
 
 1. Il veicolo con il maggior numero di cavalli che ha avuto 1 e un solo proprietario.
